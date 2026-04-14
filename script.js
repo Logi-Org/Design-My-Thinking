@@ -146,7 +146,7 @@
     */
     modalPdf.setAttribute(
       'src',
-      pdfSrc + '#toolbar=0&navpanes=0&scrollbar=1&zoom=page-fit'
+      pdfSrc + '#toolbar=0&navpanes=0&scrollbar=1'
     );
     modalPdf.style.display = 'block';
 
