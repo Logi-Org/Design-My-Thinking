@@ -34,39 +34,36 @@
 <section class="section">
   <div class="container">
     <h1 class="section-title">Musings</h1>
-    <p class="section-intro">Check-out some of our opinions on what goes into (and what should be avoided) when it comes to great workshop design and delivery.</p>
+    <p class="section-intro">
+      Check-out some of our opinions on what goes into (and what should be avoided) when it comes to great workshop design and delivery.
+    </p>
 
     <div class="cards">
 
-      <!-- Card 2 (PDF modal) -->
       <article class="card service-card"
                role="button"
                tabindex="0"
-               data-modal-pdf="assets/musings/scenarios_stretch_thinking.pdf"
-               data-modal-title="Scenarios Stretch Thinking">
+               data-modal-pdf="assets/musings/scenarios_stretch_thinking.pdf">
         <h3>Scenarios Stretch Thinking</h3>
         <p>Leveraging scenarios to push participants to plan for hard-to-imagine situations.</p>
       </article>
 
-      <!-- Card 3 (PDF modal) -->
       <article class="card service-card"
                role="button"
                tabindex="0"
-               data-modal-pdf="assets/musings/seeding_questions.pdf"
-               data-modal-title="The Power Of Seeding Questions">
+               data-modal-pdf="assets/musings/seeding_questions.pdf">
         <h3>Seeded Questions</h3>
         <p>Seeding questions to boost engagement.</p>
       </article>
 
-            <!-- Card 4 (PDF modal) -->
       <article class="card service-card"
                role="button"
                tabindex="0"
-               data-modal-pdf="assets/musings/canvas_value.pdf"
-               data-modal-title="The Value Of A Canvas">
+               data-modal-pdf="assets/musings/canvas_value.pdf">
         <h3>The Value Of A Canvas</h3>
-        <p>How Do You Want Your Participants To Think About Their Challenge?</p>
+        <p>How do you want your participants to think about their challenge?</p>
       </article>
+
     </div>
   </div>
 </section>
@@ -94,108 +91,31 @@
       </ul>
     </div>
   </div>
-  <div class="container footer-bottom"><small>© 2026 Facilitation By Design. All rights reserved.</small></div>
+  <div class="container footer-bottom">
+    <small>© 2026 Facilitation By Design. All rights reserved.</small>
+  </div>
 </footer>
 
-<!-- PDF modal / lightbox (same class names as homepage modal) -->
-<div class="modal-overlay" id="caseStudyModal" aria-hidden="true">
-  <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Case study">
-    <button class="modal-close" type="button" aria-label="Close">×</button>
+<!-- Shared modal used by script.js -->
+<div id="serviceModal" class="modal-overlay" aria-hidden="true">
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Musing PDF preview">
+    <button class="modal-close" type="button" aria-label="Close modal">&times;</button>
 
-    <!-- Optional: a small title inside the modal -->
-    <h3 id="caseStudyModalTitle" style="margin: 0 0 12px 0;"></h3>
+    <!-- Image support retained for shared script compatibility -->
+    <img id="serviceModalImg" class="modal-image" alt="" style="display:none;" />
 
-    <!-- Scrollable PDF -->
-<iframe
-  id="caseStudyModalFrame"
-  title="Case study PDF"
-  src=""
-  style="flex:1; width:100%; border:0;"
-  loading="lazy">
-</iframe>
-
+    <!-- PDF viewer -->
+    <iframe
+      id="serviceModalPdf"
+      class="modal-pdf"
+      title="PDF preview"
+      src=""
+      loading="lazy"
+      style="display:none;">
+    </iframe>
   </div>
 </div>
 
 <script src="script.js"></script>
-
-<script>
-  (function () {
-    const modal = document.getElementById("caseStudyModal");
-    const frame = document.getElementById("caseStudyModalFrame");
-    const titleEl = document.getElementById("caseStudyModalTitle");
-    const closeBtn = modal ? modal.querySelector(".modal-close") : null;
-
-    if (!modal || !frame || !closeBtn) return;
-
-    let lastFocusedEl = null;
-
-    function openPdf(pdfUrl, title) {
-      lastFocusedEl = document.activeElement;
-
-      // IMPORTANT: your CSS likely shows modals via .is-open (like the homepage)
-      modal.classList.add("is-open");
-      modal.setAttribute("aria-hidden", "false");
-
-      titleEl.textContent = title || "";
-
-      // Load the PDF (toolbar hidden optional)
-      const url = pdfUrl.includes("#") ? pdfUrl : (pdfUrl + "#toolbar=0");
-      frame.src = url;
-
-      document.body.style.overflow = "hidden";
-      closeBtn.focus();
-    }
-
-    function closePdf() {
-      modal.classList.remove("is-open");
-      modal.setAttribute("aria-hidden", "true");
-
-      frame.src = "";
-      titleEl.textContent = "";
-
-      document.body.style.overflow = "";
-
-      if (lastFocusedEl && typeof lastFocusedEl.focus === "function") {
-        lastFocusedEl.focus();
-      }
-    }
-
-    // Click handlers on cards
-    document.querySelectorAll("[data-modal-pdf]").forEach((card) => {
-      const handler = () => {
-        const pdf = card.getAttribute("data-modal-pdf");
-        const title = card.getAttribute("data-modal-title") || "";
-        if (pdf) openPdf(pdf, title);
-      };
-
-      card.addEventListener("click", handler);
-      card.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          handler();
-        }
-      });
-    });
-
-    // Close button
-    closeBtn.addEventListener("click", closePdf);
-
-    // Click outside panel closes (more robust than e.target === modal)
-    modal.addEventListener("click", (e) => {
-      const panel = modal.querySelector(".modal-panel");
-      if (panel && !panel.contains(e.target)) closePdf();
-    });
-
-    // ESC closes
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.classList.contains("is-open")) {
-        closePdf();
-      }
-    });
-  })();
-</script>
-
-
 </body>
 </html>
