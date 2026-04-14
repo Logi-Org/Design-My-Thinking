@@ -114,6 +114,34 @@ a{color:inherit}
 .team-card h3{margin:6px 0 8px;color:var(--ink-2)}
 .team-card p{margin:0;color:var(--muted)}
 
+.team-name{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.linkedin-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  line-height:1;
+}
+
+.linkedin-icon{
+  width:18px;
+  height:18px;
+  fill:var(--neon-pink);
+  transition:transform .2s ease, opacity .2s ease, fill .2s ease;
+}
+
+.linkedin-link:hover .linkedin-icon{
+  transform:scale(1.1);
+  opacity:.85;
+}
+
 /* Footer */
 .cta{background:var(--light-pink);border-top:3px solid rgba(0,0,0,.06);border-bottom:3px solid rgba(0,0,0,.06)}
 .cta-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:30px 0}
