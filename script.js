@@ -139,8 +139,15 @@
 
     if (!modalPdf) return;
 
-    // Fit the PDF more cleanly within the iframe viewer
-    modalPdf.setAttribute('src', pdfSrc + '#view=FitH');
+    /* 
+      Use page-fit instead of FitH.
+      FitH was causing the PDF to zoom to full width,
+      which made only the top of the page visible.
+    */
+    modalPdf.setAttribute(
+      'src',
+      pdfSrc + '#toolbar=0&navpanes=0&scrollbar=1&zoom=page-fit'
+    );
     modalPdf.style.display = 'block';
 
     setOpenState(true);
