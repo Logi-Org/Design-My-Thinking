@@ -246,8 +246,6 @@ a{color:inherit}
 img, video { max-width: 100%; height: auto; }
 
 /* =========================================================
-/* =========================================================
-/* =========================================================
    Service image / PDF modal / lightbox
    ========================================================= */
 
@@ -288,19 +286,21 @@ img, video { max-width: 100%; height: auto; }
 }
 
 .modal-image,
-.modal-pdf {
+#serviceModalImg {
   display: block;
   width: 100%;
   height: 100%;
   border: 0;
-}
-
-.modal-image {
   object-fit: contain;
   background: #111;
 }
 
-.modal-pdf {
+.modal-pdf,
+#serviceModalPdf {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
   background: #fff;
 }
 
@@ -322,69 +322,6 @@ img, video { max-width: 100%; height: auto; }
 
 .modal-close:hover {
   background: rgba(0,0,0,0.55);
-}
-   ========================================================= */
-
-.service-card {
-  cursor: pointer;
-}
-
-.service-card:focus {
-  outline: 3px solid rgba(255, 0, 200, 0.35);
-  outline-offset: 4px;
-  border-radius: 14px;
-}
-
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.72);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 18px;
-  z-index: 9999;
-}
-
-.modal-overlay.is-open {
-  display: flex;
-}
-
-.modal-panel {
-  position: relative;
-  width: 90vw;          /* 90% of viewport width */
-  height: 80vh;         /* 80% of viewport height */
-  max-width: none;      /* remove small-width constraint */
-  max-height: none;
-  background: #111;     /* keep your styling if different */
-  border-radius: 16px;
-  overflow: hidden;     /* important for iframe sizing */
-  align-items: center;
-  justify-content: center;
-}
-
-
-.modal-image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: #111;
-}
-
-.modal-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.25);
-  background: rgba(0,0,0,0.35);
-  color: #fff;
-  font-size: 28px;
-  line-height: 1;
-  cursor: pointer;
 }
 
 .modal-close:hover {
