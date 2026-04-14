@@ -140,7 +140,7 @@
     // Show PDF
     if (!modalPdf) return;
     modalPdf.style.display = 'block';
-    modalPdf.src = pdfSrc;
+    modalPdf.setAttribute('src', pdfSrc + '#view=FitH');
 
     setOpenState(true);
 
@@ -158,8 +158,8 @@
     }
 
     if (modalPdf) {
-      modalPdf.src = '';
-      modalPdf.style.display = 'none';
+    modalPdf.removeAttribute('src');
+    modalPdf.style.display = 'none';
     }
 
     if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') {
