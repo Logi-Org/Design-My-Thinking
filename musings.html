@@ -26,20 +26,50 @@
 
   <section class="section section-tight"><div class="container">
     <div class="musing-grid">
-      <article class="musing-card" role="button" tabindex="0" data-modal-pdf="assets/musings/scenarios_stretch_thinking.pdf">
-        <span class="hand">01</span>
+      <article class="musing-card" role="button" tabindex="0" data-modal-template="musing-scenarios" data-modal-label="Scenarios stretch thinking">
+        <span class="hand">Musing 01</span>
+        <div class="musing-thumb" aria-hidden="true">
+          <svg viewBox="0 0 260 88" fill="none" stroke="#27231f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 44h54"/><circle cx="76" cy="44" r="5"/>
+            <path d="M81 44c32 0 29-29 61-29h40"/><path d="M81 44c32 0 29 0 61 0h65"/><path d="M81 44c32 0 29 29 61 29h50"/>
+            <path d="M178 10l8 5-8 5M203 39l8 5-8 5M188 68l8 5-8 5"/>
+            <path d="M32 28c9-7 18-7 27 0" stroke="#ff4fa3" stroke-width="5" opacity=".55"/>
+          </svg>
+        </div>
         <h3>Scenarios stretch thinking</h3>
         <p>Using imagined futures to help participants plan for situations that are difficult to picture from today's vantage point.</p>
+        <span class="musing-open">Open the field note →</span>
       </article>
-      <article class="musing-card" role="button" tabindex="0" data-modal-pdf="assets/musings/seeding_questions.pdf">
-        <span class="hand">02</span>
+
+      <article class="musing-card" role="button" tabindex="0" data-modal-template="musing-questions" data-modal-label="Seed the question, not the answer">
+        <span class="hand">Musing 02</span>
+        <div class="musing-thumb" aria-hidden="true">
+          <svg viewBox="0 0 260 88" fill="none" stroke="#27231f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 20h74v43H62l-18 14 4-14H24z"/>
+            <path d="M127 28h104M127 44h80M127 60h91"/>
+            <path d="M54 36c6-8 21-7 24 2 4 12-13 12-13 22"/>
+            <circle cx="65" cy="68" r="2.5" fill="#27231f"/>
+            <path d="M128 65c18 7 39 8 59 3" stroke="#ff4fa3" stroke-width="5" opacity=".55"/>
+          </svg>
+        </div>
         <h3>Seed the question, not the answer</h3>
         <p>How a carefully seeded question can help a group get moving without the facilitator pre-solving the problem.</p>
+        <span class="musing-open">Open the field note →</span>
       </article>
-      <article class="musing-card" role="button" tabindex="0" data-modal-pdf="assets/musings/canvas_value.pdf">
-        <span class="hand">03</span>
+
+      <article class="musing-card" role="button" tabindex="0" data-modal-template="musing-canvas" data-modal-label="The value of a canvas">
+        <span class="hand">Musing 03</span>
+        <div class="musing-thumb" aria-hidden="true">
+          <svg viewBox="0 0 260 88" fill="none" stroke="#27231f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="20" y="10" width="218" height="67" rx="2"/>
+            <path d="M20 35h218M98 35v42M173 35v42"/>
+            <path d="M36 23h72M112 23h46M181 23h40"/>
+            <path d="M106 61h58" stroke="#ff4fa3" stroke-width="6" opacity=".5"/>
+          </svg>
+        </div>
         <h3>The value of a canvas</h3>
         <p>A canvas quietly tells participants what to pay attention to — and therefore shapes how they think about the challenge.</p>
+        <span class="musing-open">Open the field note →</span>
       </article>
     </div>
   </div></section>
@@ -56,6 +86,105 @@
 
 <footer class="footer"><div class="container footer-grid"><div><a class="brand" href="index.html">Design My Thinking</a><p class="muted">Better thinking, clearer decisions and workshops designed around real human beings.</p></div><div><h5>Explore</h5><ul><li><a href="case_studies.html">Work</a></li><li><a href="how-we-work.html">How I Work</a></li><li><a href="musings.html">Musings</a></li><li><a href="about.html">About</a></li></ul></div><div><h5>Contact</h5><ul><li><a href="mailto:hello@designmythinking.xyz">hello@designmythinking.xyz</a></li><li>Sydney, Australia</li></ul></div></div><div class="container footer-bottom"><small>© 2026 Design My Thinking.</small></div></footer>
 
-<div id="serviceModal" class="modal-overlay" aria-hidden="true"><div class="modal-panel" role="dialog" aria-modal="true" aria-label="Musing preview"><button class="modal-close" type="button" aria-label="Close">×</button><img id="serviceModalImg" class="modal-image" alt="" style="display:none"><iframe id="serviceModalPdf" class="modal-pdf" title="Musing PDF preview" src="" loading="lazy" style="display:none"></iframe></div></div>
+<div id="serviceModal" class="modal-overlay" aria-hidden="true">
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Musing field note">
+    <button class="modal-close" type="button" aria-label="Close">×</button>
+    <div id="serviceModalContent" class="modal-content-host"></div>
+  </div>
+</div>
+
+<template id="musing-scenarios">
+  <article class="field-note">
+    <div class="field-note-hero">
+      <div>
+        <span class="field-note-kicker">Musing 01 · Workshop design</span>
+        <h2 class="field-note-title">Scenarios stretch <span class="marker">thinking.</span></h2>
+        <p class="field-note-lede">When a group is anchored to today's constraints, asking them to imagine a few plausible futures can expose assumptions that an ordinary planning conversation never reaches.</p>
+      </div>
+      <div class="field-note-sketch" aria-label="Sketch showing one present branching into three possible futures">
+        <svg viewBox="0 0 360 280" fill="none" stroke="#27231f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" role="img">
+          <circle cx="58" cy="140" r="18"/><path d="M76 140h52"/>
+          <path d="M128 140c50 0 42-78 94-78h70"/><path d="M128 140h164"/><path d="M128 140c50 0 42 78 94 78h70"/>
+          <path d="M282 52l15 10-15 10M282 130l15 10-15 10M282 208l15 10-15 10"/>
+          <path d="M37 104c18-12 39-12 57 0" stroke="#ff4fa3" stroke-width="11" opacity=".55"/>
+          <text x="28" y="190" font-family="Caveat, cursive" font-size="25" fill="#27231f" stroke="none">today</text>
+          <text x="218" y="36" font-family="Caveat, cursive" font-size="22" fill="#27231f" stroke="none">future A</text>
+          <text x="218" y="126" font-family="Caveat, cursive" font-size="22" fill="#27231f" stroke="none">future B</text>
+          <text x="218" y="253" font-family="Caveat, cursive" font-size="22" fill="#27231f" stroke="none">future C</text>
+        </svg>
+      </div>
+    </div>
+    <div class="field-note-body">
+      <section class="field-note-section"><h3>The thought</h3><p>Most planning starts from an implicit assumption that tomorrow will be a slightly altered version of today. Scenarios interrupt that habit. They give a group permission to ask what changes if the context changes — and which current assumptions suddenly stop being useful.</p></section>
+      <section class="field-note-section"><h3>Why it helps</h3><ul><li>Makes hidden assumptions easier to see.</li><li>Creates distance from today's politics and constraints.</li><li>Tests whether a decision is robust across more than one plausible future.</li></ul></section>
+      <section class="field-note-section"><h3>Try it in the room</h3><p>Offer two or three deliberately different but plausible futures. Ask: what becomes more important, what breaks, what would we regret not preparing for, and which decisions still make sense in every scenario?</p></section>
+      <section class="field-note-section"><h3>Watch for</h3><p>A scenario is not a prediction exercise and it is not theatre. If the imagined future does not change the questions the group is asking, it probably is not stretching the thinking enough.</p></section>
+      <div class="field-note-callout">The value isn't getting the future right. It's noticing what today's thinking is taking for granted.</div>
+    </div>
+    <div class="field-note-footer"><span class="hand">A field note from Design My Thinking.</span><strong>Scenarios → assumptions → better choices</strong></div>
+  </article>
+</template>
+
+<template id="musing-questions">
+  <article class="field-note">
+    <div class="field-note-hero">
+      <div>
+        <span class="field-note-kicker">Musing 02 · Participation</span>
+        <h2 class="field-note-title">Seed the question, <span class="marker">not the answer.</span></h2>
+        <p class="field-note-lede">A blank page can slow a room down. A carefully chosen question can give people a useful place to start without telling them where they should finish.</p>
+      </div>
+      <div class="field-note-sketch" aria-label="Sketch of a question opening multiple paths">
+        <svg viewBox="0 0 360 280" fill="none" stroke="#27231f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" role="img">
+          <path d="M38 62h126v88H95l-32 29 8-29H38z"/>
+          <path d="M80 92c7-18 43-19 49 2 7 25-28 22-28 47"/>
+          <circle cx="101" cy="157" r="4" fill="#27231f"/>
+          <path d="M181 106c48 0 51-50 111-50M181 106c48 0 51 0 111 0M181 106c48 0 51 50 111 50"/>
+          <path d="M283 47l14 9-14 9M283 97l14 9-14 9M283 147l14 9-14 9"/>
+          <path d="M43 208c63 18 143 15 212 1" stroke="#ff4fa3" stroke-width="10" opacity=".5"/>
+          <text x="74" y="246" font-family="Caveat, cursive" font-size="24" fill="#27231f" stroke="none">open the field — don't close it</text>
+        </svg>
+      </div>
+    </div>
+    <div class="field-note-body">
+      <section class="field-note-section"><h3>The thought</h3><p>Facilitators sometimes seed content because they are worried the group will stall. The safer move is to seed the inquiry instead: give participants a strong question that opens territory while leaving the answer genuinely theirs.</p></section>
+      <section class="field-note-section"><h3>Why it helps</h3><ul><li>Reduces the intimidation of a completely blank start.</li><li>Helps quieter participants enter the conversation.</li><li>Expands the territory without smuggling in a preferred conclusion.</li></ul></section>
+      <section class="field-note-section"><h3>Try it in the room</h3><p>Prepare three to five provocative but neutral questions. Put them on the wall or canvas before the discussion starts. Invite people to ignore them, rewrite them or add better questions if the room sees something you did not.</p></section>
+      <section class="field-note-section"><h3>Watch for</h3><p>A seeded question should not contain the facilitator's answer in disguise. If there is only one respectable way to respond, it is probably a leading question rather than a useful seed.</p></section>
+      <div class="field-note-callout">A good seeded question creates movement. A bad one quietly tells the room what to think.</div>
+    </div>
+    <div class="field-note-footer"><span class="hand">A field note from Design My Thinking.</span><strong>Prompt the thinking, not the conclusion.</strong></div>
+  </article>
+</template>
+
+<template id="musing-canvas">
+  <article class="field-note">
+    <div class="field-note-hero">
+      <div>
+        <span class="field-note-kicker">Musing 03 · Visual thinking</span>
+        <h2 class="field-note-title">The value of a <span class="marker">canvas.</span></h2>
+        <p class="field-note-lede">A canvas is not just somewhere to put Post-its. Its structure quietly tells a group what to notice, what to compare and how to move through a problem.</p>
+      </div>
+      <div class="field-note-sketch" aria-label="Sketch of a workshop canvas shaping a flow of thought">
+        <svg viewBox="0 0 360 280" fill="none" stroke="#27231f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" role="img">
+          <rect x="35" y="38" width="290" height="190" rx="3"/>
+          <path d="M35 92h290M139 92v136M235 92v136"/>
+          <path d="M54 64h86M162 64h62M252 64h54"/>
+          <path d="M65 125h49M65 153h58M65 181h37M159 124h55M159 153h42M255 125h48M255 153h35"/>
+          <path d="M149 204c22 8 48 8 73 0" stroke="#ff4fa3" stroke-width="11" opacity=".5"/>
+          <text x="83" y="260" font-family="Caveat, cursive" font-size="24" fill="#27231f" stroke="none">the layout is part of the question</text>
+        </svg>
+      </div>
+    </div>
+    <div class="field-note-body">
+      <section class="field-note-section"><h3>The thought</h3><p>Every canvas contains a point of view. The headings, sequence, size of boxes and amount of space given to each prompt all influence what participants spend time thinking about. That makes the canvas part of the facilitation design.</p></section>
+      <section class="field-note-section"><h3>Why it helps</h3><ul><li>Creates a shared visual field for the group.</li><li>Reduces cognitive load by making the sequence visible.</li><li>Helps participants compare and connect ideas rather than simply accumulate them.</li></ul></section>
+      <section class="field-note-section"><h3>Try it in the room</h3><p>Start with the thinking you need, not a favourite template. Ask what participants must notice first, what deserves equal weight, what should be compared, and what needs to converge into a decision.</p></section>
+      <section class="field-note-section"><h3>Watch for</h3><p>An inherited canvas can make a group solve the wrong problem very efficiently. More boxes also do not mean more rigor. If a section does not change the next piece of thinking, question whether it belongs.</p></section>
+      <div class="field-note-callout">The canvas isn't the activity. It's the architecture that makes the thinking easier to see.</div>
+    </div>
+    <div class="field-note-footer"><span class="hand">A field note from Design My Thinking.</span><strong>Structure the space. Shape the thinking.</strong></div>
+  </article>
+</template>
+
 <script src="script.js"></script>
 </body></html>

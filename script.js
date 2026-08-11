@@ -20,24 +20,19 @@
     next.addEventListener('click', () => scrollByAmount(1));
     viewport.addEventListener('scroll', updateButtons);
     window.addEventListener('resize', updateButtons);
-
     viewport.setAttribute('tabindex', '0');
     viewport.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') scrollByAmount(-1);
       if (e.key === 'ArrowRight') scrollByAmount(1);
     });
-
     setTimeout(updateButtons, 0);
   });
 })();
 
-/* =========================================================
-   Mobile nav / hamburger toggle
-   ========================================================= */
+/* Mobile navigation */
 (function () {
   const toggle = document.querySelector('.nav-toggle');
   const nav = document.querySelector('#site-nav');
-
   if (!toggle || !nav) return;
 
   function closeMenu() {
@@ -53,171 +48,137 @@
   }
 
   toggle.addEventListener('click', () => {
-    const isOpen = nav.classList.contains('is-open');
-    if (isOpen) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
+    nav.classList.contains('is-open') ? closeMenu() : openMenu();
   });
 
   document.addEventListener('click', (e) => {
-    const clickedInside = nav.contains(e.target) || toggle.contains(e.target);
-    if (!clickedInside) closeMenu();
+    if (!nav.contains(e.target) && !toggle.contains(e.target)) closeMenu();
   });
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMenu();
   });
 
-  nav.querySelectorAll('a').forEach((a) => {
-    a.addEventListener('click', () => closeMenu());
-  });
+  nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
 })();
 
-/* =========================================================
-   Service modal / lightbox (supports images + PDFs)
-   - Home page: elements with [data-modal-img]
-   - Musings / case studies: elements with [data-modal-pdf]
-   ========================================================= */
+/*
+  Reusable content modal.
+  Preferred pattern: trigger uses data-modal-template="template-id" and the page
+  contains a matching <template id="template-id">. The same shell can therefore
+  host musings, case studies, future narrated notes, images, or legacy PDFs.
+*/
 (function () {
   const modal = document.getElementById('serviceModal');
   if (!modal) return;
 
-  const modalImg = document.getElementById('serviceModalImg');
-  const modalPdf = document.getElementById('serviceModalPdf');
-  const closeBtn = modal.querySelector('.modal-close');
   const panel = modal.querySelector('.modal-panel');
-
+  const closeBtn = modal.querySelector('.modal-close');
+  const host = modal.querySelector('#serviceModalContent');
+  const modalImg = modal.querySelector('#serviceModalImg');
+  const modalPdf = modal.querySelector('#serviceModalPdf');
   let lastFocusedEl = null;
 
   function setOpenState(isOpen) {
-    if (isOpen) {
-      modal.classList.add('is-open');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    } else {
-      modal.classList.remove('is-open');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
+    modal.classList.toggle('is-open', isOpen);
+    modal.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (panel && isOpen) panel.scrollTop = 0;
   }
 
-  function resetMedia() {
+  function resetContent() {
+    if (host) host.replaceChildren();
     if (modalImg) {
       modalImg.removeAttribute('src');
       modalImg.alt = '';
       modalImg.style.display = 'none';
     }
-
     if (modalPdf) {
       modalPdf.removeAttribute('src');
       modalPdf.style.display = 'none';
     }
   }
 
-  function openImage(imgSrc, imgAlt) {
+  function openTemplate(templateId, label) {
+    const template = document.getElementById(templateId);
+    if (!template || !host) return;
     lastFocusedEl = document.activeElement;
-
-    resetMedia();
-
-    if (!modalImg) return;
-
-    modalImg.src = imgSrc;
-    modalImg.alt = imgAlt || 'Service details';
-    modalImg.style.display = 'block';
-
+    resetContent();
+    host.appendChild(template.content.cloneNode(true));
+    if (panel && label) panel.setAttribute('aria-label', label);
     setOpenState(true);
+    if (closeBtn) closeBtn.focus();
+  }
 
+  function openImage(imgSrc, imgAlt) {
+    if (!modalImg) return;
+    lastFocusedEl = document.activeElement;
+    resetContent();
+    modalImg.src = imgSrc;
+    modalImg.alt = imgAlt || 'Details';
+    modalImg.style.display = 'block';
+    setOpenState(true);
     if (closeBtn) closeBtn.focus();
   }
 
   function openPdf(pdfSrc) {
-    lastFocusedEl = document.activeElement;
-
-    resetMedia();
-
     if (!modalPdf) return;
-
-    /* 
-      Use page-fit instead of FitH.
-      FitH was causing the PDF to zoom to full width,
-      which made only the top of the page visible.
-    */
-    modalPdf.setAttribute(
-      'src',
-      pdfSrc + '#toolbar=0&navpanes=0&scrollbar=1'
-    );
+    lastFocusedEl = document.activeElement;
+    resetContent();
+    modalPdf.src = pdfSrc + '#toolbar=0&navpanes=0&scrollbar=1';
     modalPdf.style.display = 'block';
-
     setOpenState(true);
-
     if (closeBtn) closeBtn.focus();
   }
 
   function closeModal() {
     setOpenState(false);
-    resetMedia();
-
-    if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') {
-      lastFocusedEl.focus();
-    }
+    resetContent();
+    if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') lastFocusedEl.focus();
   }
 
-  document.querySelectorAll('[data-modal-img]').forEach((el) => {
-    const handler = (e) => {
-      if (el.tagName.toLowerCase() === 'a') e.preventDefault();
-
-      const src = el.getAttribute('data-modal-img');
-      const alt = el.getAttribute('data-modal-alt') || '';
-      if (!src) return;
-
-      openImage(src, alt);
-    };
-
+  function activateTrigger(el, handler) {
     el.addEventListener('click', handler);
-
     el.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         handler(e);
       }
+    });
+  }
+
+  document.querySelectorAll('[data-modal-template]').forEach((el) => {
+    activateTrigger(el, (e) => {
+      if (el.tagName.toLowerCase() === 'a') e.preventDefault();
+      const templateId = el.getAttribute('data-modal-template');
+      const label = el.getAttribute('data-modal-label') || el.textContent.trim();
+      if (templateId) openTemplate(templateId, label);
+    });
+  });
+
+  document.querySelectorAll('[data-modal-img]').forEach((el) => {
+    activateTrigger(el, (e) => {
+      if (el.tagName.toLowerCase() === 'a') e.preventDefault();
+      const src = el.getAttribute('data-modal-img');
+      if (src) openImage(src, el.getAttribute('data-modal-alt') || '');
     });
   });
 
   document.querySelectorAll('[data-modal-pdf]').forEach((el) => {
-    const handler = (e) => {
+    activateTrigger(el, (e) => {
       if (el.tagName.toLowerCase() === 'a') e.preventDefault();
-
       const src = el.getAttribute('data-modal-pdf');
-      if (!src) return;
-
-      openPdf(src);
-    };
-
-    el.addEventListener('click', handler);
-
-    el.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        handler(e);
-      }
+      if (src) openPdf(src);
     });
   });
 
-  if (closeBtn) {
-    closeBtn.addEventListener('click', closeModal);
-  }
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
   modal.addEventListener('click', (e) => {
-    if (panel && !panel.contains(e.target)) {
-      closeModal();
-    }
+    if (panel && !panel.contains(e.target)) closeModal();
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('is-open')) {
-      closeModal();
-    }
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
   });
 })();
