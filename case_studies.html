@@ -25,7 +25,7 @@
   </div></section>
 
   <section class="section section-tight"><div class="container case-list">
-    <article class="case-item" role="button" tabindex="0" data-modal-pdf="assets/case_studies/rebuilding_trust.pdf">
+    <article class="case-item" role="button" tabindex="0" data-modal-template="case-rebuilding-trust" data-modal-label="Case study: Rebuilding Trust">
       <div class="case-index">Case 01</div>
       <div class="case-main">
         <h2>Rebuilding Trust</h2>
@@ -56,13 +56,75 @@
       <div class="note-card"><span class="number">B</span><h3>Facilitation</h3><p>For conversations where the quality of interaction, challenge, synthesis and decision-making matters as much as the content itself.</p></div>
       <div class="note-card"><span class="number">C</span><h3>HCD capability</h3><p>Practical human-centred design learning built around real business problems, so the methods are immediately connected to work.</p></div>
     </div>
-  </div></section>
+  </section>
 
   <section class="big-cta"><div class="container"><span class="hand">Your problem probably won't look exactly like one of these.</span><h2>That's <span class="marker">normal.</span></h2><a class="primary-link" href="contact.html">Tell me what you're wrestling with →</a></div></section>
 </main>
 
 <footer class="footer"><div class="container footer-grid"><div><a class="brand" href="index.html">Design My Thinking</a><p class="muted">Better thinking, clearer decisions and workshops designed around real human beings.</p></div><div><h5>Explore</h5><ul><li><a href="case_studies.html">Work</a></li><li><a href="how-we-work.html">How I Work</a></li><li><a href="musings.html">Musings</a></li><li><a href="about.html">About</a></li></ul></div><div><h5>Contact</h5><ul><li><a href="mailto:hello@designmythinking.xyz">hello@designmythinking.xyz</a></li><li>Sydney, Australia</li></ul></div></div><div class="container footer-bottom"><small>© 2026 Design My Thinking.</small></div></footer>
 
-<div id="serviceModal" class="modal-overlay" aria-hidden="true"><div class="modal-panel" role="dialog" aria-modal="true" aria-label="Case study preview"><button class="modal-close" type="button" aria-label="Close">×</button><img id="serviceModalImg" class="modal-image" alt="" style="display:none"><iframe id="serviceModalPdf" class="modal-pdf" title="Case study PDF preview" src="" loading="lazy" style="display:none"></iframe></div></div>
+<div id="serviceModal" class="modal-overlay" aria-hidden="true">
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Case study note">
+    <button class="modal-close" type="button" aria-label="Close">×</button>
+    <div id="serviceModalContent" class="modal-content-host"></div>
+  </div>
+</div>
+
+<template id="case-rebuilding-trust">
+  <article class="field-note">
+    <div class="field-note-hero">
+      <div>
+        <span class="field-note-kicker">Case 01 · Trust + alignment</span>
+        <h2 class="field-note-title">Rebuilding <span class="marker">Trust.</span></h2>
+        <p class="field-note-lede">Two groups needed more than a comfortable conversation. The intervention had to help them make different perspectives visible, surface tension without turning the room into a blame exercise, and create a more useful basis for working together.</p>
+      </div>
+      <div class="field-note-sketch" aria-label="Hand-drawn sketch of two groups creating a bridge toward shared working">
+        <svg viewBox="0 0 380 300" fill="none" stroke="#27231f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" role="img">
+          <circle cx="60" cy="78" r="18"/><circle cx="105" cy="115" r="18"/><circle cx="64" cy="156" r="18"/>
+          <circle cx="318" cy="82" r="18"/><circle cx="273" cy="120" r="18"/><circle cx="320" cy="162" r="18"/>
+          <path d="M82 195h72M226 195h72"/>
+          <path d="M153 195c19-38 55-38 74 0"/>
+          <path d="M153 195v28M227 195v28M143 223h94"/>
+          <path d="M118 103c28 5 47 18 61 35M260 105c-28 5-47 18-61 35" stroke-dasharray="8 10"/>
+          <circle cx="190" cy="150" r="23" stroke="#ff4fa3" stroke-width="10" opacity=".6"/>
+          <path d="M181 150l7 8 14-18"/>
+          <text x="31" y="247" font-family="Caveat, cursive" font-size="23" fill="#27231f" stroke="none">our view</text>
+          <text x="274" y="247" font-family="Caveat, cursive" font-size="23" fill="#27231f" stroke="none">their view</text>
+          <text x="126" y="282" font-family="Caveat, cursive" font-size="25" fill="#27231f" stroke="none">build shared reality first</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="field-note-body">
+      <section class="field-note-section">
+        <h3>The situation</h3>
+        <p>The working relationship between two groups had become difficult enough that simply bringing people together was unlikely to solve it. The room needed to acknowledge the experience on both sides and make space for what had not been said productively.</p>
+      </section>
+      <section class="field-note-section">
+        <h3>What was getting in the way</h3>
+        <ul><li>Different interpretations of what had happened and why.</li><li>Tension that could easily become personal or defensive.</li><li>A risk of rushing to actions before a shared picture existed.</li></ul>
+      </section>
+      <section class="field-note-section">
+        <h3>What we designed for</h3>
+        <p>Create enough structure and psychological safety to hear different perspectives, make patterns visible, surface the difficult material without assigning blame, and move the conversation toward the conditions needed for a better working relationship.</p>
+      </section>
+      <section class="field-note-section">
+        <h3>The design sequence</h3>
+        <ul><li>Hear and acknowledge perspectives.</li><li>Make common patterns and differences visible.</li><li>Surface the tensions that mattered.</li><li>Define what better working together would require.</li><li>Translate the conversation into practical next steps and ownership.</li></ul>
+      </section>
+      <section class="field-note-section">
+        <h3>What mattered most</h3>
+        <p>The aim was not to manufacture harmony for the day. The useful work was in creating a shared enough reality that the groups could have a more honest conversation about behaviour, expectations and what needed to change next.</p>
+      </section>
+      <section class="field-note-section">
+        <h3>The learning</h3>
+        <p>Trust work benefits from design that slows the room down before it speeds it up. People are more able to commit to a reset when they can first see that their perspective has genuinely entered the shared picture.</p>
+      </section>
+      <div class="field-note-callout">Trust isn't rebuilt by avoiding the awkward bit. The awkward bit is often where the useful work starts.</div>
+    </div>
+    <div class="field-note-footer"><span class="hand">A case note from Design My Thinking.</span><strong>Perspective → shared reality → reset</strong></div>
+  </article>
+</template>
+
 <script src="script.js"></script>
 </body></html>
