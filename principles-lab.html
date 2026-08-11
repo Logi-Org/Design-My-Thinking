@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leadership Principles Tension Lab — Design My Thinking</title>
+  <meta name="description" content="A workshop interaction for prioritising leadership principles, making trade-offs visible and discussing the tensions between them." />
+  <style>
+    :root{--ink:#27231f;--paper:#f7f1e7;--card:#fffaf1;--pink:#ff4fa3;--yellow:#ffe28a;--green:#cfe8c7;--blue:#cfe2ef;--red:#f7c6c6;--line:#27231f;--muted:#6f675f;--shadow:7px 8px 0 rgba(39,35,31,.12)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45}
+    button,a{font:inherit}
+    button{color:inherit}
+    .shell{max-width:1500px;margin:auto;padding:20px clamp(16px,3vw,44px) 48px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}
+    .brand{font-weight:900;letter-spacing:-.04em;text-decoration:none;color:var(--ink);font-size:clamp(18px,2vw,24px)}
+    .back{color:var(--ink);font-weight:800;text-decoration:none;border-bottom:3px solid var(--pink)}
+    .hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:28px;align-items:end;margin-bottom:26px}
+    .eyebrow{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.14em}
+    h1{font-size:clamp(40px,6vw,78px);line-height:.94;letter-spacing:-.065em;margin:8px 0 16px;max-width:950px}
+    .marker{position:relative;z-index:0;white-space:nowrap}
+    .marker:after{content:"";position:absolute;left:-2%;right:-2%;bottom:.03em;height:.28em;background:var(--pink);opacity:.48;transform:rotate(-1.2deg);z-index:-1}
+    .hero p{font-size:clamp(17px,1.55vw,22px);max-width:850px;margin:0}
+    .brief{border:2px solid var(--line);background:var(--card);padding:18px;box-shadow:var(--shadow);transform:rotate(.4deg)}
+    .brief strong{display:block;font-size:15px;margin-bottom:7px}
+    .brief p{font-size:15px;color:var(--muted)}
+    .toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:20px 0}
+    .budget{display:flex;align-items:baseline;gap:8px;border:2px solid var(--line);background:#fff;padding:10px 14px;box-shadow:3px 4px 0 rgba(39,35,31,.1)}
+    .budget strong{font-size:26px}.budget span{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+    .status{font-size:13px;font-weight:800;color:var(--muted);margin-right:auto}
+    .btn{border:2px solid var(--line);background:#fff;padding:10px 13px;font-weight:900;cursor:pointer;box-shadow:3px 4px 0 rgba(39,35,31,.12);transition:.12s transform,.12s box-shadow}
+    .btn:hover:not(:disabled){transform:translate(-1px,-1px);box-shadow:5px 6px 0 rgba(39,35,31,.12)}
+    .btn.primary{background:var(--ink);color:#fff}.btn.pink{background:var(--pink)}.btn:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
+    .lab{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(330px,.7fr);gap:26px;align-items:start}
+    .pyramid-wrap{min-width:0}
+    .section-label{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:8px}
+    .section-label h2{font-size:20px;margin:0}.section-label span{font-size:12px;font-weight:800;color:var(--muted)}
+    .pyramid{display:flex;flex-direction:column;align-items:center;gap:14px;padding:18px 0 6px;min-height:620px}
+    .dropzone{width:100%;border:3px dashed var(--line);background:rgba(255,255,255,.48);padding:18px;min-height:220px;transition:.14s background,.14s transform;position:relative}
+    .dropzone.dragover{background:#fff4bd;transform:scale(1.005)}
+    .dropzone.top{width:62%;clip-path:polygon(50% 0,100% 100%,0 100%);padding:96px 14% 18px;min-height:255px;background:rgba(255,226,138,.48)}
+    .dropzone.support{width:92%;clip-path:polygon(18% 0,82% 0,100% 100%,0 100%);padding:45px 9% 20px;min-height:300px;background:rgba(207,226,239,.48)}
+    .zone-title{position:absolute;top:14px;left:50%;transform:translateX(-50%);text-align:center;font-weight:900;font-size:15px;white-space:nowrap;pointer-events:none}
+    .top .zone-title{top:68px}.support .zone-title{top:18px}
+    .zone-title small{display:block;font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.09em}
+    .zone-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;position:relative;z-index:2}
+    .bank{border:2px solid var(--line);background:#efe6d8;padding:14px;box-shadow:var(--shadow);position:sticky;top:16px;max-height:78vh;overflow:auto}
+    .bank-head{display:flex;align-items:start;justify-content:space-between;gap:10px;margin-bottom:10px}
+    .bank h2{font-size:20px;margin:0}.bank p{font-size:12px;color:var(--muted);margin:4px 0 0}
+    .bank-list{display:grid;gap:9px}
+    .principle{background:var(--card);border:2px solid var(--line);padding:10px;box-shadow:3px 4px 0 rgba(39,35,31,.09);cursor:grab;touch-action:manipulation;position:relative}
+    .principle:active{cursor:grabbing}.principle.dragging{opacity:.45}
+    .principle h3{font-size:14px;line-height:1.2;margin:0 26px 8px 0}.principle .cost{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+    .principle-actions{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}.mini{border:1.5px solid var(--line);background:#fff;padding:5px 7px;font-size:11px;font-weight:900;cursor:pointer}.mini.top-choice{background:var(--yellow)}.mini.support-choice{background:var(--blue)}
+    .info{position:absolute;right:8px;top:8px;width:22px;height:22px;padding:0;border:1.5px solid var(--line);border-radius:50%;background:#fff;font-size:12px;font-weight:900;cursor:pointer}
+    .placed{cursor:default}.placed .principle-actions{display:none}.placed .remove{display:block}.remove{display:none;position:absolute;right:7px;top:7px;width:25px;height:25px;border:1.5px solid var(--line);background:#fff;font-weight:900;cursor:pointer}
+    .empty-note{font-size:13px;color:var(--muted);text-align:center;padding:20px 6px;font-weight:800;grid-column:1/-1}
+    .results{margin-top:26px;border:2px solid var(--line);background:#fff;padding:20px;box-shadow:var(--shadow);display:none}.results.visible{display:block}.results h2{margin:0 0 6px;font-size:26px}.results-intro{color:var(--muted);margin:0 0 18px}.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.result-card{border:2px solid var(--line);padding:14px}.result-card.good{background:var(--green)}.result-card.watch{background:#fff1c9}.result-card.neutral{background:#eee8df}.result-card h3{margin:0 0 8px;font-size:15px}.result-card ul{padding-left:18px;margin:0}.result-card li{margin:7px 0;font-size:13px}.discussion{margin-top:15px;border-left:8px solid var(--pink);padding:12px 14px;background:#fff6fb;font-weight:800}
+    .note{margin-top:24px;font-size:12px;color:var(--muted);max-width:1000px}
+    .modal{position:fixed;inset:0;background:rgba(39,35,31,.6);display:none;align-items:center;justify-content:center;padding:20px;z-index:20}.modal.open{display:flex}.modal-card{max-width:560px;width:100%;background:var(--paper);border:3px solid var(--line);padding:22px;box-shadow:10px 12px 0 rgba(0,0,0,.2);position:relative}.modal-card h2{margin:0 34px 8px 0;font-size:26px}.modal-card p{margin:0;color:var(--muted)}.modal-close{position:absolute;right:12px;top:10px;border:0;background:transparent;font-size:26px;font-weight:900;cursor:pointer}
+    .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 14px;font-weight:800;font-size:13px;opacity:0;pointer-events:none;transition:.18s;z-index:30}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    @media(max-width:960px){.hero,.lab{grid-template-columns:1fr}.bank{position:static;max-height:none;order:-1}.bank-list{grid-template-columns:repeat(2,minmax(0,1fr))}.pyramid{min-height:0}.results-grid{grid-template-columns:1fr}.dropzone.top{width:76%}.dropzone.support{width:100%}}
+    @media(max-width:620px){.shell{padding-inline:12px}.hero{gap:16px}.bank-list,.zone-items{grid-template-columns:1fr}.dropzone.top,.dropzone.support{clip-path:none;width:100%;padding:58px 12px 14px;min-height:210px}.top .zone-title,.support .zone-title{top:12px}.toolbar{align-items:stretch}.budget{width:100%}.status{width:100%}.btn{flex:1}.topbar{align-items:flex-start}.back{font-size:13px}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topbar">
+      <a class="brand" href="index.html">Design My Thinking</a>
+      <a class="back" href="musings.html">← Back to Musings</a>
+    </div>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Try it in the room · Interactive workshop prototype</div>
+        <h1>Leadership Principles <span class="marker">Tension Lab</span></h1>
+        <p>You have <strong>$600</strong>. Every principle costs <strong>$100</strong>. Choose exactly six: two as the priorities you want the room to protect most fiercely, and four as supporting priorities. Then check the balance and discuss what your choices might amplify — or accidentally neglect.</p>
+      </div>
+      <aside class="brief">
+        <strong>This is a conversation device, not a scoring model.</strong>
+        <p>The pairings and watch-outs below are deliberately provocative prompts. Their job is to create useful disagreement, not tell a leadership team what the “correct” principles are.</p>
+      </aside>
+    </section>
+
+    <div class="toolbar">
+      <div class="budget"><strong id="budgetRemaining">$600</strong><span>remaining</span></div>
+      <div class="status" id="saveStatus">Autosave ready · this browser</div>
+      <button class="btn" id="saveFileBtn" type="button">Save workshop file</button>
+      <button class="btn" id="resetBtn" type="button">Reset</button>
+      <button class="btn primary" id="checkBtn" type="button" disabled>Check the balance</button>
+    </div>
+
+    <section class="lab" aria-label="Leadership principles prioritisation activity">
+      <div class="pyramid-wrap">
+        <div class="section-label"><h2>Your priority pyramid</h2><span>Drag cards, or use the Top / Support buttons</span></div>
+        <div class="pyramid">
+          <div class="dropzone top" data-zone="top" aria-label="Top priorities drop zone">
+            <div class="zone-title">Top priorities <small>2 spaces</small></div>
+            <div class="zone-items" id="topItems"></div>
+          </div>
+          <div class="dropzone support" data-zone="support" aria-label="Supporting priorities drop zone">
+            <div class="zone-title">Supporting priorities <small>4 spaces</small></div>
+            <div class="zone-items" id="supportItems"></div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="bank">
+        <div class="bank-head"><div><h2>Principle bank</h2><p>16 principles · $100 each</p></div></div>
+        <div class="bank-list" id="bankList"></div>
+      </aside>
+    </section>
+
+    <section class="results" id="results" aria-live="polite">
+      <h2>Your balance check</h2>
+      <p class="results-intro">Use this as the start of the conversation. The interesting part is whether the room agrees with the diagnosis — and why.</p>
+      <div class="results-grid">
+        <div class="result-card good"><h3>Reinforcing pairs</h3><ul id="reinforcingList"></ul></div>
+        <div class="result-card watch"><h3>Counterbalances to discuss</h3><ul id="counterbalanceList"></ul></div>
+        <div class="result-card neutral"><h3>Selective-use watch-outs</h3><ul id="watchoutList"></ul></div>
+      </div>
+      <div class="discussion" id="discussionPrompt"></div>
+    </section>
+
+    <p class="note"><strong>Autosave:</strong> every move is saved into this browser using local storage, so an accidental refresh should restore the activity. “Save workshop file” downloads a JSON snapshot that can be kept with the workshop outputs. Browsers cannot silently create or continuously overwrite files on a participant's device without permission, so this two-layer pattern is safer than pretending an HTML page can guarantee a background file save.</p>
+  </main>
+
+  <div class="modal" id="infoModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      <h2 id="infoTitle"></h2>
+      <p id="infoBody"></p>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    const principles = [
+      {id:'customer', name:'Customer Obsession', desc:'Start with customer needs and work backwards; protect trust even when short-term trade-offs are uncomfortable.'},
+      {id:'ownership', name:'Ownership', desc:'Act beyond the boundaries of your immediate role and take responsibility for the longer-term outcome.'},
+      {id:'invent', name:'Invent and Simplify', desc:'Look for new approaches and remove unnecessary complexity rather than accepting the current process as fixed.'},
+      {id:'right', name:'Are Right, A Lot', desc:'Use judgement, evidence and diverse perspectives to improve the quality of decisions.'},
+      {id:'learn', name:'Learn and Be Curious', desc:'Keep developing, ask questions and explore possibilities before assuming you already know the answer.'},
+      {id:'hire', name:'Hire and Develop the Best', desc:'Raise capability over time by bringing in strong people, coaching them and creating opportunities to grow.'},
+      {id:'standards', name:'Insist on the Highest Standards', desc:'Keep lifting the quality bar and address defects or weak mechanisms rather than normalising them.'},
+      {id:'thinkbig', name:'Think Big', desc:'Create a compelling direction that stretches beyond incremental improvement and makes new possibilities visible.'},
+      {id:'bias', name:'Bias for Action', desc:'Move with appropriate speed when many decisions are reversible and waiting carries its own cost.'},
+      {id:'frugality', name:'Frugality', desc:'Use constraints to focus invention and get more value from the resources already available.'},
+      {id:'trust', name:'Earn Trust', desc:'Listen, speak candidly, treat others respectfully and build credibility through consistent behaviour.'},
+      {id:'deep', name:'Dive Deep', desc:'Stay connected to the detail, test assumptions and investigate when data and anecdotes do not line up.'},
+      {id:'backbone', name:'Have Backbone; Disagree and Commit', desc:'Challenge respectfully when you disagree, then support the decision once the group has committed.'},
+      {id:'deliver', name:'Deliver Results', desc:'Focus on the critical inputs and follow through with quality and timeliness despite setbacks.'},
+      {id:'employer', name:"Strive to be Earth's Best Employer", desc:'Create a safer, more inclusive and more supportive environment in which people can develop and do their best work.'},
+      {id:'scale', name:'Success and Scale Bring Broad Responsibility', desc:'Consider the wider effects of decisions and leave customers, employees, communities and the environment better than you found them.'}
+    ];
+
+    const balancePairs = [
+      ['bias','deep','Bias for Action ↔ Dive Deep'],
+      ['thinkbig','deliver','Think Big ↔ Deliver Results'],
+      ['standards','frugality','Highest Standards ↔ Frugality'],
+      ['backbone','trust','Have Backbone ↔ Earn Trust'],
+      ['customer','employer',"Customer Obsession ↔ Earth's Best Employer"],
+      ['right','learn','Are Right, A Lot ↔ Learn and Be Curious']
+    ];
+
+    const selectiveWatchouts = {
+      ownership:'Ownership can become territoriality if people stop inviting challenge or shared accountability.',
+      invent:'Simplification can remove important nuance if the room rewards novelty more than understanding.',
+      hire:'Developing talent can become detached from the immediate work if capability and delivery are never discussed together.',
+      scale:'Broad responsibility can become so expansive that it stops helping people make a specific decision.'
+    };
+
+    const state = { top: [], support: [] };
+    const STORAGE_KEY = 'dmt-leadership-principles-lab-v1';
+    let draggedId = null;
+
+    const bankList = document.getElementById('bankList');
+    const topItems = document.getElementById('topItems');
+    const supportItems = document.getElementById('supportItems');
+    const budgetRemaining = document.getElementById('budgetRemaining');
+    const checkBtn = document.getElementById('checkBtn');
+    const results = document.getElementById('results');
+    const saveStatus = document.getElementById('saveStatus');
+    const toast = document.getElementById('toast');
+
+    function findPrinciple(id){ return principles.find(p => p.id === id); }
+    function selectedIds(){ return [...state.top, ...state.support]; }
+    function budget(){ return 600 - selectedIds().length * 100; }
+
+    function cardMarkup(p, placed=false){
+      return `<article class="principle${placed ? ' placed' : ''}" draggable="${placed ? 'false' : 'true'}" data-id="${p.id}">
+        <button class="info" type="button" data-info="${p.id}" aria-label="About ${p.name}">i</button>
+        <button class="remove" type="button" data-remove="${p.id}" aria-label="Return ${p.name} to principle bank">×</button>
+        <h3>${p.name}</h3><div class="cost">$100</div>
+        ${placed ? '' : `<div class="principle-actions"><button class="mini top-choice" type="button" data-move="top" data-id="${p.id}">Top</button><button class="mini support-choice" type="button" data-move="support" data-id="${p.id}">Support</button></div>`}
+      </article>`;
+    }
+
+    function render(){
+      const selected = new Set(selectedIds());
+      bankList.innerHTML = principles.filter(p => !selected.has(p.id)).map(p => cardMarkup(p)).join('') || '<div class="empty-note">All six investments are placed.</div>';
+      topItems.innerHTML = state.top.map(id => cardMarkup(findPrinciple(id), true)).join('') || '<div class="empty-note">Drop up to 2 principles here</div>';
+      supportItems.innerHTML = state.support.map(id => cardMarkup(findPrinciple(id), true)).join('') || '<div class="empty-note">Drop up to 4 principles here</div>';
+      budgetRemaining.textContent = `$${budget()}`;
+      checkBtn.disabled = !(state.top.length === 2 && state.support.length === 4);
+      bindCardEvents();
+      saveState();
+    }
+
+    function moveTo(id, zone){
+      if(!principles.some(p => p.id === id)) return;
+      state.top = state.top.filter(x => x !== id);
+      state.support = state.support.filter(x => x !== id);
+      const limit = zone === 'top' ? 2 : 4;
+      if(state[zone].length >= limit){
+        showToast(zone === 'top' ? 'Top priorities only has 2 spaces.' : 'Supporting priorities only has 4 spaces.');
+        render();
+        return;
+      }
+      if(selectedIds().length >= 6){ showToast('Your $600 budget is already fully allocated.'); render(); return; }
+      state[zone].push(id);
+      results.classList.remove('visible');
+      render();
+    }
+
+    function returnToBank(id){
+      state.top = state.top.filter(x => x !== id);
+      state.support = state.support.filter(x => x !== id);
+      results.classList.remove('visible');
+      render();
+    }
+
+    function bindCardEvents(){
+      document.querySelectorAll('.principle[draggable="true"]').forEach(card => {
+        card.addEventListener('dragstart', e => { draggedId = card.dataset.id; card.classList.add('dragging'); e.dataTransfer.setData('text/plain', draggedId); e.dataTransfer.effectAllowed='move'; });
+        card.addEventListener('dragend', () => card.classList.remove('dragging'));
+      });
+      document.querySelectorAll('[data-move]').forEach(btn => btn.addEventListener('click', () => moveTo(btn.dataset.id, btn.dataset.move)));
+      document.querySelectorAll('[data-remove]').forEach(btn => btn.addEventListener('click', () => returnToBank(btn.dataset.remove)));
+      document.querySelectorAll('[data-info]').forEach(btn => btn.addEventListener('click', () => openInfo(btn.dataset.info)));
+    }
+
+    document.querySelectorAll('.dropzone').forEach(zone => {
+      zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); e.dataTransfer.dropEffect='move'; });
+      zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+      zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('dragover'); const id = e.dataTransfer.getData('text/plain') || draggedId; if(id) moveTo(id, zone.dataset.zone); });
+    });
+
+    function checkBalance(){
+      const selected = new Set(selectedIds());
+      const reinforcing = [];
+      const missing = [];
+      balancePairs.forEach(([a,b,label]) => {
+        if(selected.has(a) && selected.has(b)) reinforcing.push(label);
+        else if(selected.has(a) || selected.has(b)) {
+          const present = findPrinciple(selected.has(a) ? a : b).name;
+          const absent = findPrinciple(selected.has(a) ? b : a).name;
+          missing.push(`${present} is selected without ${absent}. What behaviour might need to be consciously protected?`);
+        }
+      });
+      const watchouts = selectedIds().filter(id => selectiveWatchouts[id]).map(id => selectiveWatchouts[id]);
+      fillList('reinforcingList', reinforcing, 'No paired counterbalances landed together. That may be fine — but it is worth asking what will keep the priorities from being overused.');
+      fillList('counterbalanceList', missing, 'Every selected paired principle has its counterpart represented. Ask whether that balance is intentional or accidental.');
+      fillList('watchoutList', watchouts, 'No additional selective-use watch-outs were triggered by this set.');
+      const topNames = state.top.map(id => findPrinciple(id).name).join(' + ');
+      document.getElementById('discussionPrompt').textContent = `Discussion prompt: If ${topNames} genuinely sit at the top, what would people in this organisation see us doing differently next week — and which supporting principle would stop either priority becoming unhelpful when overused?`;
+      results.classList.add('visible');
+      results.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    function fillList(id, items, fallback){
+      document.getElementById(id).innerHTML = (items.length ? items : [fallback]).map(x => `<li>${x}</li>`).join('');
+    }
+
+    function saveState(){
+      try{
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({version:1, savedAt:new Date().toISOString(), top:state.top, support:state.support}));
+        saveStatus.textContent = `Autosaved · ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
+      }catch(err){ saveStatus.textContent = 'Autosave unavailable in this browser'; }
+    }
+
+    function loadState(){
+      try{
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+        if(saved && Array.isArray(saved.top) && Array.isArray(saved.support)){
+          state.top = saved.top.filter(id => principles.some(p => p.id === id)).slice(0,2);
+          state.support = saved.support.filter(id => principles.some(p => p.id === id) && !state.top.includes(id)).slice(0,4);
+        }
+      }catch(err){}
+    }
+
+    function exportFile(){
+      const payload = {
+        activity:'Leadership Principles Tension Lab',
+        source:'Design My Thinking',
+        savedAt:new Date().toISOString(),
+        budgetTotal:600,
+        costPerPrinciple:100,
+        topPriorities:state.top.map(id => findPrinciple(id).name),
+        supportingPriorities:state.support.map(id => findPrinciple(id).name)
+      };
+      const blob = new Blob([JSON.stringify(payload,null,2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `leadership-principles-lab-${new Date().toISOString().slice(0,10)}.json`;
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 500);
+      showToast('Workshop file saved.');
+    }
+
+    function reset(){
+      if(!confirm('Reset the activity and clear the autosaved selections?')) return;
+      state.top=[]; state.support=[]; localStorage.removeItem(STORAGE_KEY); results.classList.remove('visible'); render(); showToast('Activity reset.');
+    }
+
+    function openInfo(id){
+      const p=findPrinciple(id); if(!p) return;
+      document.getElementById('infoTitle').textContent=p.name;
+      document.getElementById('infoBody').textContent=p.desc;
+      document.getElementById('infoModal').classList.add('open');
+      document.getElementById('infoModal').setAttribute('aria-hidden','false');
+    }
+    function closeInfo(){ document.getElementById('infoModal').classList.remove('open'); document.getElementById('infoModal').setAttribute('aria-hidden','true'); }
+    function showToast(message){ toast.textContent=message; toast.classList.add('show'); clearTimeout(showToast.t); showToast.t=setTimeout(()=>toast.classList.remove('show'),1800); }
+
+    document.getElementById('checkBtn').addEventListener('click',checkBalance);
+    document.getElementById('saveFileBtn').addEventListener('click',exportFile);
+    document.getElementById('resetBtn').addEventListener('click',reset);
+    document.getElementById('modalClose').addEventListener('click',closeInfo);
+    document.getElementById('infoModal').addEventListener('click',e=>{ if(e.target.id==='infoModal') closeInfo(); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeInfo(); });
+    window.addEventListener('beforeunload',saveState);
+
+    loadState();
+    render();
+  </script>
+</body>
+</html>
