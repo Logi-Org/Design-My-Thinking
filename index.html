@@ -29,6 +29,16 @@
   </div>
 </header>
 
+<!-- A single shared rough-ink filter gives every illustration an imperfect, drawn-by-hand edge. -->
+<svg class="svg-defs" aria-hidden="true" width="0" height="0">
+  <defs>
+    <filter id="roughInk" x="-12%" y="-12%" width="124%" height="124%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018 0.055" numOctaves="2" seed="17" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </defs>
+</svg>
+
 <main>
   <section class="home-hero">
     <div class="container home-hero-grid">
@@ -38,19 +48,48 @@
         <a class="rough-button" href="contact.html">Let's work together <span aria-hidden="true">→</span></a>
       </div>
 
-      <div class="hero-collage" aria-label="A tactile thinking board moving from a messy problem toward a clearer decision">
+      <div class="hero-art" aria-label="Hand-drawn mountain journey from a messy problem towards better decisions">
         <div class="hero-paper">
-          <span class="paper-label paper-label--start">messy problem</span>
-          <span class="paper-label paper-label--finish">clear enough to act</span>
-          <div class="route-scribble" aria-hidden="true">↝&nbsp;&nbsp;↝&nbsp;&nbsp;↝&nbsp;&nbsp;↗</div>
-          <div class="route-question" aria-hidden="true">? &nbsp; ?? &nbsp; !</div>
-          <span class="tiny-note tiny-note--a">different views</span>
-          <span class="tiny-note tiny-note--b">trade-offs</span>
-          <span class="tiny-note tiny-note--c">a choice</span>
+          <span class="hero-tape" aria-hidden="true"></span>
+          <svg class="mountain-sketch" viewBox="0 0 720 460" role="img" aria-label="A hand-drawn mountain path from messy problem to clear decision">
+            <g filter="url(#roughInk)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <!-- distant hills -->
+              <path class="fine" d="M30 285 C79 259 111 255 151 270 C183 239 210 226 244 238 C272 219 299 210 330 224" />
+              <path class="fine" d="M421 235 C455 214 477 211 502 225 C535 194 568 190 600 211 C628 197 653 202 689 229" />
+              <!-- mountain silhouette, intentionally uneven -->
+              <path class="mountain-line" d="M118 312 L202 245 L248 264 L332 165 L368 184 L430 76 L478 144 L508 134 L589 245 L626 233 L686 319" />
+              <path class="ghost-line" d="M121 316 L202 250 L247 269 L336 170 L369 189 L433 80 L478 149 L510 140 L589 250 L628 239 L683 323" />
+              <!-- mountain hatching -->
+              <path class="hatch" d="M185 260 l-18 30 M198 251 l-22 42 M224 257 l-14 30 M313 184 l-27 56 M328 173 l-31 61 M346 182 l-27 55 M414 99 l-42 91 M427 87 l-39 104 M442 95 l-31 92 M471 137 l22 43 M486 150 l26 44 M569 231 l24 42 M586 244 l21 38" />
+              <!-- winding path -->
+              <path class="route" d="M78 344 C158 326 197 356 255 321 C307 291 282 261 337 238 C389 217 432 243 450 206 C469 168 418 155 449 119" />
+              <path class="route ghost" d="M82 350 C155 331 201 361 259 326 C311 296 289 267 340 244 C392 221 438 248 456 209 C475 170 424 159 453 122" />
+              <!-- little route markers -->
+              <path class="fine" d="M171 328 l0 -31 M161 301 h43 l-12 10 l12 10 h-43" />
+              <path class="fine" d="M337 249 l0 -32 M326 222 h45 l-12 10 l12 10 h-45" />
+              <!-- summit flag -->
+              <path class="ink" d="M450 120 L450 48 M451 52 C472 44 489 54 505 48 L501 75 C480 82 468 70 451 77" />
+              <!-- clouds/sun -->
+              <path class="fine" d="M86 161 C97 145 113 151 118 163 C129 149 151 153 156 170 C174 166 185 177 183 190 H75 C69 174 75 164 86 161Z" />
+              <circle class="fine" cx="585" cy="88" r="34" />
+              <path class="fine" d="M585 37 v-18 M585 157 v-18 M534 88 h-19 M655 88 h-19 M548 51 l-14 -14 M636 139 l-14 -14 M624 50 l13 -14" />
+              <!-- tiny people at start -->
+              <circle class="fine" cx="76" cy="365" r="6"/><path class="fine" d="M76 371 l-2 24 m2 -16 l-12 8 m12 -8 l11 8 m-13 8 l-8 15 m8 -15 l9 15"/>
+              <circle class="fine" cx="101" cy="361" r="6"/><path class="fine" d="M101 367 l1 24 m0 -15 l-10 7 m10 -7 l12 6 m-12 9 l-7 16 m7 -16 l10 15"/>
+              <circle class="fine" cx="126" cy="368" r="6"/><path class="fine" d="M126 374 l0 23 m0 -15 l-11 7 m11 -7 l10 7 m-10 8 l-8 15 m8 -15 l9 14"/>
+              <!-- scribble at start and starburst at summit -->
+              <path class="accent" d="M43 328 C53 310 68 344 80 322 C91 304 102 340 114 320 C124 307 137 329 147 316" />
+              <path class="accent" d="M509 102 l15 -11 M517 119 l23 -2 M505 83 l6 -20 M491 83 l-8 -17" />
+            </g>
+            <g class="mountain-labels" fill="currentColor">
+              <text x="45" y="430">MESSY PROBLEM</text>
+              <text x="485" y="52">BETTER DECISIONS</text>
+            </g>
+          </svg>
+          <div class="hero-sticky hero-sticky--pink"><small>01</small>clarify<br>the real<br>question</div>
+          <div class="hero-sticky hero-sticky--yellow"><small>02</small>make it<br>visible</div>
+          <div class="hero-sticky hero-sticky--blue"><small>03</small>choose<br>what<br>matters</div>
         </div>
-        <div class="hero-sticky hero-sticky--yellow"><small>01</small>clarify<br>the real<br>question</div>
-        <div class="hero-sticky hero-sticky--pink"><small>02</small>make it<br>visible</div>
-        <div class="hero-sticky hero-sticky--blue"><small>03</small>choose<br>what<br>matters</div>
         <span class="margin-scribble">better conversations<br>→ better decisions</span>
       </div>
     </div>
@@ -68,37 +107,49 @@
         <div class="dmt-slider__viewport">
           <div class="dmt-slider__track">
             <article class="dmt-slide glimpse-card glimpse-card--yellow">
-              <div class="glimpse-scribble">many priorities<br><strong>↝ one choice</strong></div>
+              <div class="poster-doodle" aria-hidden="true">
+                <svg viewBox="0 0 190 116"><g filter="url(#roughInk)" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M56 98V22 M57 28h61l-16 13 16 13H57 M56 61H18l13 12-13 12h38"/><circle cx="140" cy="73" r="10"/><path d="M140 83v22 M140 91l-14 9 M140 91l16 8 M140 104l-9 10 M140 104l10 10"/><path class="doodle-accent" d="M150 27q8-15 18-1q4 8-7 15q-8 6-6 15 M155 68h1"/></g></svg>
+              </div>
               <h3>Turning eight competing priorities into one decision</h3>
               <p>Made the trade-offs visible so leaders could actually choose.</p>
             </article>
 
             <article class="dmt-slide glimpse-card glimpse-card--pink">
-              <div class="glimpse-scribble"><span class="crossed">plan A</span><br><strong>↝ plan B</strong></div>
+              <div class="poster-doodle" aria-hidden="true">
+                <svg viewBox="0 0 190 116"><g filter="url(#roughInk)" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 18h63v63H23z M32 28l43 42 M75 28L32 70"/><path d="M91 55 C108 38 124 39 139 52"/><path d="M130 43l12 10-12 10"/><path d="M142 38h34v38h-34z"/><text x="148" y="61" class="svg-word">B</text><circle cx="43" cy="99" r="8"/><circle cx="78" cy="99" r="8"/><circle cx="116" cy="99" r="8"/><path d="M35 89l10-7 M70 89l8-8 M108 89l8-8"/></g></svg>
+              </div>
               <h3>When the workshop plan stopped working</h3>
               <p>Changed the room, changed the exercise, kept the outcome moving.</p>
             </article>
 
             <article class="dmt-slide glimpse-card glimpse-card--cream">
-              <div class="glimpse-scribble">future 1<br><strong>↔</strong><br>future 2</div>
+              <div class="poster-doodle" aria-hidden="true">
+                <svg viewBox="0 0 190 116"><g filter="url(#roughInk)" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M95 18v78 M60 30h70 M61 30l-25 42h49z M129 30l-25 42h49z"/><path d="M72 84h47 M82 96h27"/><path class="doodle-accent" d="M82 42c5-10 20-10 25 0c9-6 19 2 14 12c8 4 5 17-5 17c-1 10-15 13-21 5c-8 8-22 1-19-10c-10-3-10-17 0-20c-2-7 2-11 6-12"/><path d="M95 39v37 M82 52h25 M84 66h23"/></g></svg>
+              </div>
               <h3>Reimagining legal services with AI</h3>
               <p>Used future-state scenarios instead of generic brainstorming.</p>
             </article>
 
             <article class="dmt-slide glimpse-card glimpse-card--blue">
-              <div class="glimpse-scribble">70 people<br><strong>↝ small conversations</strong></div>
+              <div class="poster-doodle" aria-hidden="true">
+                <svg viewBox="0 0 190 116"><g filter="url(#roughInk)" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="31" cy="30" r="7"/><circle cx="57" cy="24" r="7"/><circle cx="84" cy="31" r="7"/><circle cx="111" cy="24" r="7"/><circle cx="139" cy="32" r="7"/><circle cx="160" cy="24" r="7"/><circle cx="42" cy="67" r="7"/><circle cx="73" cy="72" r="7"/><circle cx="105" cy="65" r="7"/><circle cx="136" cy="74" r="7"/><path d="M31 37v18 M57 31v18 M84 38v17 M111 31v18 M139 39v17 M160 31v18 M42 74v18 M73 79v18 M105 72v18 M136 81v17"/><path class="doodle-accent" d="M54 57 C76 45 107 45 125 57 C143 69 131 89 112 94 C84 101 54 89 54 70Z"/></g></svg>
+              </div>
               <h3>Making a 70-person conversation feel small</h3>
               <p>Designed short interactions that kept people thinking with new voices.</p>
             </article>
 
             <article class="dmt-slide glimpse-card glimpse-card--yellow">
-              <div class="glimpse-scribble">Post-its<br><strong>≠ decisions</strong></div>
+              <div class="poster-doodle" aria-hidden="true">
+                <svg viewBox="0 0 190 116"><g filter="url(#roughInk)" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20h42v37H17z M44 48h42v37H44z M73 16h42v37H73z"/><path d="M118 56 C133 49 145 52 155 64"/><path d="M146 57l11 8-10 9"/><path class="doodle-accent" d="M164 52l5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z"/></g></svg>
+              </div>
               <h3>From sticky notes to sharper decisions</h3>
               <p>The artefact is never the point — clarity is.</p>
             </article>
 
             <article class="dmt-slide glimpse-card glimpse-card--pink">
-              <div class="glimpse-scribble">paper + HTML<br><strong>↝ surprise</strong></div>
+              <div class="poster-doodle" aria-hidden="true">
+                <svg viewBox="0 0 190 116"><g filter="url(#roughInk)" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="34" y="15" width="120" height="72" rx="4"/><path d="M20 96h149 M66 96l8-9h40l8 9"/><path d="M48 31h39v35H48z M99 31h41v12 M99 51h34 M99 61h25"/><path class="doodle-accent" d="M157 19l4 9 10 2-8 6 2 10-8-5-8 5 2-10-8-6 10-2z"/></g></svg>
+              </div>
               <h3>Building lightweight HTML tools for workshops</h3>
               <p>When paper is too expected, digital can wake people up.</p>
             </article>
@@ -120,11 +171,26 @@
         <button class="dmt-slider__button dmt-slider__button--prev" type="button" aria-label="Previous problems">←</button>
         <div class="dmt-slider__viewport">
           <div class="dmt-slider__track">
-            <article class="dmt-slide problem-note problem-note--yellow"><p>We've had this conversation five times already.</p><span class="note-scribble">~~~~</span></article>
-            <article class="dmt-slide problem-note problem-note--pink"><p>Everyone agrees there's a problem, but not what it is.</p><span class="note-scribble">???</span></article>
-            <article class="dmt-slide problem-note problem-note--blue"><p>We need a real decision, not just a good discussion.</p><span class="note-scribble">→ choose</span></article>
-            <article class="dmt-slide problem-note problem-note--yellow"><p>Too many stakeholders. Too little clarity.</p><span class="note-scribble">messy ≠ hopeless</span></article>
-            <article class="dmt-slide problem-note problem-note--pink"><p>We know AI matters. We don't yet know what to do with it.</p><span class="note-scribble">now what?</span></article>
+            <article class="dmt-slide problem-note problem-note--yellow">
+              <div class="problem-doodle" aria-hidden="true"><svg viewBox="0 0 130 100"><g filter="url(#roughInk)" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="27" cy="60" r="10"/><path d="M27 70v25 M38 43 C45 29 58 31 62 41 C69 28 87 35 85 48 C98 48 100 66 87 70 H51 C40 69 38 56 46 50"/><path class="doodle-accent" d="M55 54c8-15 26 8 12 12c-10 3-14-9-3-12c11-3 16 13 5 18"/></g></svg></div>
+              <p>We've had this conversation five times already.</p>
+            </article>
+            <article class="dmt-slide problem-note problem-note--pink">
+              <div class="problem-doodle" aria-hidden="true"><svg viewBox="0 0 130 100"><g filter="url(#roughInk)" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path class="doodle-accent" d="M39 21 C16 29 46 43 24 52 C9 59 34 75 48 59 C59 47 35 37 54 28 C70 20 84 38 70 49 C59 57 72 78 88 66 C102 56 91 39 78 43 C64 47 68 17 91 21"/><circle cx="25" cy="84" r="8"/><circle cx="102" cy="84" r="8"/><path d="M17 78l-10-8 M110 78l11-8 M31 82h16 M96 82H80"/></g></svg></div>
+              <p>Everyone agrees there's a problem, but not what it is.</p>
+            </article>
+            <article class="dmt-slide problem-note problem-note--blue">
+              <div class="problem-doodle" aria-hidden="true"><svg viewBox="0 0 130 100"><g filter="url(#roughInk)" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M64 95V16 M64 25h49l-13 13 13 13H64 M64 57H17l13 13-13 13h47"/><path class="doodle-accent" d="M77 88l9 8 18-22"/></g></svg></div>
+              <p>We need a real decision, not just a good discussion.</p>
+            </article>
+            <article class="dmt-slide problem-note problem-note--yellow">
+              <div class="problem-doodle" aria-hidden="true"><svg viewBox="0 0 130 100"><g filter="url(#roughInk)" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"><circle cx="23" cy="66" r="7"/><circle cx="44" cy="56" r="7"/><circle cx="65" cy="68" r="7"/><circle cx="87" cy="55" r="7"/><circle cx="108" cy="67" r="7"/><path d="M23 73v21 M44 63v23 M65 75v20 M87 62v24 M108 74v21"/><path class="doodle-accent" d="M57 18c9-11 25-4 22 8c9 2 9 15 0 18c-4 10-20 7-20-4c-11 1-13-14-3-18z"/><text x="63" y="37" class="svg-q">?</text></g></svg></div>
+              <p>Too many stakeholders. Too little clarity.</p>
+            </article>
+            <article class="dmt-slide problem-note problem-note--pink">
+              <div class="problem-doodle" aria-hidden="true"><svg viewBox="0 0 130 100"><g filter="url(#roughInk)" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="34" y="31" width="61" height="47" rx="8"/><circle cx="51" cy="52" r="4"/><circle cx="78" cy="52" r="4"/><path d="M51 66h27 M65 31V17 M58 17h14 M34 46H22 M95 46h12 M50 78v13 M80 78v13"/><path class="doodle-accent" d="M100 16q7-12 16-2q5 7-5 14q-7 5-5 12 M106 51h1"/></g></svg></div>
+              <p>We know AI matters. We don't yet know what to do with it.</p>
+            </article>
           </div>
         </div>
         <button class="dmt-slider__button dmt-slider__button--next" type="button" aria-label="Next problems">→</button>
@@ -137,17 +203,17 @@
     <div class="container beliefs-paper">
       <h2 id="beliefs-title">Things I believe</h2>
       <div class="beliefs-grid">
-        <p>The agenda is a hypothesis, not a contract.</p>
-        <p>Participation and progress aren't the same thing.</p>
-        <p>A workshop needs better decisions, not more Post-its.</p>
-        <p>If needed, throw away the exercise and follow the insight.</p>
+        <div class="belief"><span class="belief-icon" aria-hidden="true">☑</span><p>The agenda is a hypothesis, not a contract.</p></div>
+        <div class="belief"><span class="belief-icon footprints" aria-hidden="true">◒ ◓</span><p>Participation and progress aren't the same thing.</p></div>
+        <div class="belief"><span class="belief-icon" aria-hidden="true">▱ ▱</span><p>A workshop needs better decisions, not more Post-its.</p></div>
+        <div class="belief"><span class="belief-icon" aria-hidden="true">↝ ♲</span><p>If needed, throw away the exercise and follow the insight.</p></div>
       </div>
     </div>
   </section>
 
   <section class="home-cta">
     <div class="container home-cta-inner">
-      <span class="cta-scribble" aria-hidden="true">↝</span>
+      <span class="cta-scribble" aria-hidden="true">✦ ↝</span>
       <h2>Got something messy?</h2>
       <a href="contact.html">Let's put it on the table →</a>
     </div>
