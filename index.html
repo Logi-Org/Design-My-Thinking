@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Design My Thinking — Better thinking for complex problems</title>
+  <title>Design My Thinking — Clear outcomes. Confident decisions.</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Design My Thinking designs human-centred workshops that help groups make sense of complexity, make decisions and move forward." />
+  <meta name="description" content="Facilitation, workshop design and strategic thinking for teams tackling messy problems." />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link rel="icon" href="favicon.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="home-enhancements.css" />
 </head>
-<body>
-<header class="site-header">
+<body class="home-page">
+<header class="site-header home-header">
   <div class="container nav-inner">
     <a class="brand" href="index.html" aria-label="Design My Thinking home">Design My Thinking</a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
@@ -22,10 +22,9 @@
     </button>
     <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
       <a href="#glimpses">Work</a>
-      <a href="how-we-work.html">How I Work</a>
+      <a href="how-we-work.html">Approach</a>
       <a href="musings.html">Musings</a>
-      <a href="about.html">About</a>
-      <a class="nav-cta" href="contact.html">Let's talk</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </div>
 </header>
@@ -34,124 +33,101 @@
   <section class="home-hero">
     <div class="container home-hero-grid">
       <div class="home-hero-copy">
-        <h1 class="home-hero-title">Clear outcomes.<br><span class="marker">Confident decisions.</span></h1>
+        <h1 class="home-hero-title">Clear outcomes.<br><span>Confident decisions.</span></h1>
         <p class="lead">Facilitation, workshop design and strategic thinking for teams tackling messy problems.</p>
-        <a class="primary-link" href="contact.html">Let's work together <span aria-hidden="true">→</span></a>
+        <a class="rough-button" href="contact.html">Let's work together <span aria-hidden="true">→</span></a>
       </div>
 
-      <div class="hero-board" aria-label="A hand-drawn journey from a messy question to a clear choice">
-        <div class="hero-sticky hero-sticky--yellow">clarify<br>the real<br>question</div>
-        <div class="hero-sticky hero-sticky--pink">make it<br>visible</div>
-        <div class="hero-sticky hero-sticky--blue">choose<br>what<br>matters</div>
-        <span class="hero-lightbulb" aria-hidden="true">☼</span>
-        <svg viewBox="0 0 540 400" role="img" aria-label="A mountain path with a flag, showing a group working towards a decision">
-          <g fill="none" stroke="#27231f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M78 252 L169 155 L223 202 L303 94 L412 252" />
-            <path d="M303 94 L303 52 L345 70 L303 83" />
-            <path d="M102 269 C163 287 192 250 230 246 C270 241 259 181 303 161" stroke-dasharray="10 12" />
-            <circle cx="108" cy="270" r="9" fill="#f6f1e7" />
-            <circle cx="222" cy="247" r="9" fill="#f6f1e7" />
-            <circle cx="285" cy="185" r="9" fill="#f6f1e7" />
-            <path d="M97 145 q18 -22 36 0 q18 -20 34 2" />
-            <path d="M362 137 q15 -18 31 0 q16 -17 29 2" />
-            <rect x="76" y="301" width="108" height="73" />
-            <rect x="216" y="301" width="108" height="73" />
-            <rect x="356" y="301" width="108" height="73" />
-            <circle cx="130" cy="326" r="14" />
-            <path d="M113 359 C119 343 141 343 147 359" />
-            <circle cx="270" cy="326" r="14" />
-            <path d="M253 359 C259 343 281 343 287 359" />
-            <path d="M289 321 q22 -17 37 -2" />
-            <circle cx="410" cy="326" r="14" />
-            <path d="M393 359 C399 343 421 343 427 359" />
-            <path d="M404 330 q6 7 12 0" />
-          </g>
-        </svg>
+      <div class="hero-collage" aria-label="A tactile thinking board moving from a messy problem toward a clearer decision">
+        <div class="hero-paper">
+          <span class="paper-label paper-label--start">messy problem</span>
+          <span class="paper-label paper-label--finish">clear enough to act</span>
+          <div class="route-scribble" aria-hidden="true">↝&nbsp;&nbsp;↝&nbsp;&nbsp;↝&nbsp;&nbsp;↗</div>
+          <div class="route-question" aria-hidden="true">? &nbsp; ?? &nbsp; !</div>
+          <span class="tiny-note tiny-note--a">different views</span>
+          <span class="tiny-note tiny-note--b">trade-offs</span>
+          <span class="tiny-note tiny-note--c">a choice</span>
+        </div>
+        <div class="hero-sticky hero-sticky--yellow"><small>01</small>clarify<br>the real<br>question</div>
+        <div class="hero-sticky hero-sticky--pink"><small>02</small>make it<br>visible</div>
+        <div class="hero-sticky hero-sticky--blue"><small>03</small>choose<br>what<br>matters</div>
+        <span class="margin-scribble">better conversations<br>→ better decisions</span>
       </div>
     </div>
   </section>
 
-  <section class="home-section" id="glimpses">
+  <section class="home-section glimpse-section" id="glimpses">
     <div class="container">
-      <h2 class="home-section-heading">A glimpse inside the work</h2>
-      <p class="home-section-intro">Small pieces of evidence from the work itself — less case study, more <u>proof of thinking in practice.</u></p>
+      <div class="section-heading-wrap">
+        <h2 class="home-section-heading">A glimpse inside the work</h2>
+        <p class="home-section-intro">Small pieces of evidence from the work itself — less case study, more proof of thinking in practice.</p>
+      </div>
 
       <div class="dmt-slider" data-dmt-slider aria-label="Glimpses inside the work">
-        <button class="dmt-slider__button dmt-slider__button--prev" type="button" aria-label="Previous glimpses">‹</button>
+        <button class="dmt-slider__button dmt-slider__button--prev" type="button" aria-label="Previous glimpses">←</button>
         <div class="dmt-slider__viewport">
           <div class="dmt-slider__track">
-            <article class="dmt-slide glimpse-card">
-              <div class="glimpse-icon" aria-hidden="true">
-                <svg viewBox="0 0 220 100"><g fill="none" stroke="#27231f" stroke-width="3" stroke-linecap="round"><rect x="8" y="16" width="34" height="30"/><rect x="89" y="7" width="34" height="30"/><rect x="169" y="18" width="34" height="30"/><rect x="49" y="65" width="34" height="30"/><rect x="137" y="64" width="34" height="30"/><path d="M45 30 L84 23 M126 23 L164 31 M102 40 L73 61 M116 41 L149 60"/><path d="M77 57 l-5 6 8 1 M145 56 l5 6-8 1"/></g></svg>
-              </div>
+            <article class="dmt-slide glimpse-card glimpse-card--yellow">
+              <div class="glimpse-scribble">many priorities<br><strong>↝ one choice</strong></div>
               <h3>Turning eight competing priorities into one decision</h3>
               <p>Made the trade-offs visible so leaders could actually choose.</p>
             </article>
 
-            <article class="dmt-slide glimpse-card">
-              <div class="glimpse-icon" aria-hidden="true">
-                <svg viewBox="0 0 220 100"><g fill="none" stroke="#27231f" stroke-width="3" stroke-linecap="round"><rect x="61" y="10" width="96" height="70"/><path d="M76 28 C118 10 91 55 132 41 C153 34 133 61 144 68"/><path d="M75 12 L55 93 M145 80 L166 94"/><path d="M87 20 l10 10 M97 20 l-10 10"/></g></svg>
-              </div>
+            <article class="dmt-slide glimpse-card glimpse-card--pink">
+              <div class="glimpse-scribble"><span class="crossed">plan A</span><br><strong>↝ plan B</strong></div>
               <h3>When the workshop plan stopped working</h3>
               <p>Changed the room, changed the exercise, kept the outcome moving.</p>
             </article>
 
-            <article class="dmt-slide glimpse-card">
-              <div class="glimpse-icon" aria-hidden="true">
-                <svg viewBox="0 0 220 100"><g fill="none" stroke="#27231f" stroke-width="3" stroke-linecap="round"><circle cx="110" cy="44" r="32"/><path d="M84 76 q26 14 52 0 M88 83 h44 M97 90 h26"/><path d="M48 22 l8 0 M52 18 l0 8 M165 17 l10 -7 M170 24 l12 2 M54 63 l-10 8"/></g></svg>
-              </div>
+            <article class="dmt-slide glimpse-card glimpse-card--cream">
+              <div class="glimpse-scribble">future 1<br><strong>↔</strong><br>future 2</div>
               <h3>Reimagining legal services with AI</h3>
               <p>Used future-state scenarios instead of generic brainstorming.</p>
             </article>
 
-            <article class="dmt-slide glimpse-card">
-              <div class="glimpse-icon" aria-hidden="true">
-                <svg viewBox="0 0 220 100"><g fill="none" stroke="#27231f" stroke-width="3" stroke-linecap="round"><circle cx="52" cy="35" r="12"/><circle cx="104" cy="31" r="12"/><circle cx="158" cy="36" r="12"/><path d="M35 78 C38 52 66 52 69 78 M87 78 C90 48 118 48 121 78 M141 78 C144 52 172 52 175 78"/><path d="M67 16 q22 -17 41 0 M119 14 q20 -13 35 1"/></g></svg>
-              </div>
+            <article class="dmt-slide glimpse-card glimpse-card--blue">
+              <div class="glimpse-scribble">70 people<br><strong>↝ small conversations</strong></div>
               <h3>Making a 70-person conversation feel small</h3>
               <p>Designed short interactions that kept people thinking with new voices.</p>
             </article>
 
-            <article class="dmt-slide glimpse-card">
-              <div class="glimpse-icon" aria-hidden="true">
-                <svg viewBox="0 0 220 100"><g fill="none" stroke="#27231f" stroke-width="3" stroke-linecap="round"><rect x="32" y="17" width="62" height="50" transform="rotate(-5 63 42)"/><rect x="91" y="30" width="62" height="50" transform="rotate(4 122 55)"/><rect x="137" y="10" width="52" height="42" transform="rotate(-3 163 31)"/><path d="M48 31 h28 M48 42 h20 M106 47 h30 M106 59 h22 M149 24 h25 M149 35 h18"/></g></svg>
-              </div>
+            <article class="dmt-slide glimpse-card glimpse-card--yellow">
+              <div class="glimpse-scribble">Post-its<br><strong>≠ decisions</strong></div>
               <h3>From sticky notes to sharper decisions</h3>
               <p>The artefact is never the point — clarity is.</p>
             </article>
 
-            <article class="dmt-slide glimpse-card">
-              <div class="glimpse-icon" aria-hidden="true">
-                <svg viewBox="0 0 220 100"><g fill="none" stroke="#27231f" stroke-width="3" stroke-linecap="round"><rect x="47" y="8" width="126" height="72" rx="4"/><path d="M34 88 h152 M78 88 l8 -8 h48 l8 8"/><rect x="61" y="22" width="42" height="38"/><rect x="112" y="22" width="46" height="14"/><path d="M112 45 h42 M112 54 h29"/></g></svg>
-              </div>
+            <article class="dmt-slide glimpse-card glimpse-card--pink">
+              <div class="glimpse-scribble">paper + HTML<br><strong>↝ surprise</strong></div>
               <h3>Building lightweight HTML tools for workshops</h3>
               <p>When paper is too expected, digital can wake people up.</p>
             </article>
           </div>
         </div>
-        <button class="dmt-slider__button dmt-slider__button--next" type="button" aria-label="Next glimpses">›</button>
+        <button class="dmt-slider__button dmt-slider__button--next" type="button" aria-label="Next glimpses">→</button>
         <div class="dmt-slider__status" aria-live="polite"><span class="dmt-slider__dots" aria-hidden="true"></span><span class="dmt-slider__counter">1 / 2</span></div>
       </div>
     </div>
   </section>
 
-  <section class="home-section" id="problems">
+  <section class="home-section problems-section" id="problems">
     <div class="container">
-      <h2 class="home-section-heading pink-highlight">Problems worth thinking about together</h2>
-      <p class="home-section-intro">If one of these sounds familiar, the workshop probably isn't the problem. It's a clue about the thinking the group needs to do.</p>
+      <div class="section-heading-wrap">
+        <h2 class="home-section-heading home-section-heading--pink">Problems worth thinking about together</h2>
+      </div>
 
       <div class="dmt-slider" data-dmt-slider aria-label="Problems worth thinking about together">
-        <button class="dmt-slider__button dmt-slider__button--prev" type="button" aria-label="Previous problems">‹</button>
+        <button class="dmt-slider__button dmt-slider__button--prev" type="button" aria-label="Previous problems">←</button>
         <div class="dmt-slider__viewport">
           <div class="dmt-slider__track">
-            <article class="dmt-slide problem-note problem-note--yellow"><p>We've had this conversation five times already.</p></article>
-            <article class="dmt-slide problem-note problem-note--blue"><p>Everyone agrees there's a problem, but not what it is.</p></article>
-            <article class="dmt-slide problem-note problem-note--pink"><p>We need a real decision, not just a good discussion.</p></article>
-            <article class="dmt-slide problem-note problem-note--yellow"><p>Too many stakeholders. Too little clarity.</p></article>
-            <article class="dmt-slide problem-note problem-note--blue"><p>We know AI matters. We don't yet know what to do with it.</p></article>
+            <article class="dmt-slide problem-note problem-note--yellow"><p>We've had this conversation five times already.</p><span class="note-scribble">~~~~</span></article>
+            <article class="dmt-slide problem-note problem-note--pink"><p>Everyone agrees there's a problem, but not what it is.</p><span class="note-scribble">???</span></article>
+            <article class="dmt-slide problem-note problem-note--blue"><p>We need a real decision, not just a good discussion.</p><span class="note-scribble">→ choose</span></article>
+            <article class="dmt-slide problem-note problem-note--yellow"><p>Too many stakeholders. Too little clarity.</p><span class="note-scribble">messy ≠ hopeless</span></article>
+            <article class="dmt-slide problem-note problem-note--pink"><p>We know AI matters. We don't yet know what to do with it.</p><span class="note-scribble">now what?</span></article>
           </div>
         </div>
-        <button class="dmt-slider__button dmt-slider__button--next" type="button" aria-label="Next problems">›</button>
+        <button class="dmt-slider__button dmt-slider__button--next" type="button" aria-label="Next problems">→</button>
         <div class="dmt-slider__status" aria-live="polite"><span class="dmt-slider__dots" aria-hidden="true"></span><span class="dmt-slider__counter">1 / 2</span></div>
       </div>
     </div>
@@ -159,105 +135,33 @@
 
   <section class="beliefs-strip" aria-labelledby="beliefs-title">
     <div class="container beliefs-paper">
+      <h2 id="beliefs-title">Things I believe</h2>
       <div class="beliefs-grid">
-        <h2 class="beliefs-title" id="beliefs-title">Things<br>I believe →</h2>
-        <div class="belief-item"><span aria-hidden="true">☑</span><p>The agenda is a hypothesis, not a contract.</p></div>
-        <div class="belief-item"><span aria-hidden="true">◯◯</span><p>Participation and progress aren't the same thing.</p></div>
-        <div class="belief-item"><span aria-hidden="true">▱</span><p>A workshop needs better decisions, not more Post-its.</p></div>
-        <div class="belief-item"><span aria-hidden="true">⌫</span><p>If needed, throw away the exercise and follow the insight.</p></div>
+        <p>The agenda is a hypothesis, not a contract.</p>
+        <p>Participation and progress aren't the same thing.</p>
+        <p>A workshop needs better decisions, not more Post-its.</p>
+        <p>If needed, throw away the exercise and follow the insight.</p>
       </div>
     </div>
   </section>
 
-  <section class="process-wrap">
-    <div class="container">
-      <p class="eyebrow">How I work</p>
-      <h2 class="section-heading">Understand → Design → Do</h2>
-      <p class="section-lead">Simple on purpose. The craft sits in how each stage responds to the people, problem and context.</p>
-      <div class="process-grid">
-        <div class="process-step">
-          <div class="process-dot">01</div>
-          <h3>Understand</h3>
-          <p>Challenge the brief, hear different perspectives, expose assumptions and get specific about the outcome.</p>
-        </div>
-        <div class="process-step">
-          <div class="process-dot">02</div>
-          <h3>Design</h3>
-          <p>Build the sequence, questions, artefacts and environment that help the group do the thinking themselves.</p>
-        </div>
-        <div class="process-step">
-          <div class="process-dot">03</div>
-          <h3>Do</h3>
-          <p>Facilitate the room, adapt when reality disagrees with the plan, capture the thinking and land clear next steps.</p>
-        </div>
-      </div>
-      <span class="hand process-annotation">↖ No, the first step isn't “write an agenda”.</span>
-      <div style="margin-top:36px"><a class="scribble-link" href="how-we-work.html">See the full approach →</a></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <p class="eyebrow">Notes from the margins</p>
-      <h2 class="section-heading">Things I've been thinking about.</h2>
-      <div class="musing-grid">
-        <a class="musing-card" href="musings.html">
-          <span class="hand">01</span>
-          <h3>Scenarios stretch thinking</h3>
-          <p>Why imagined futures help groups escape the gravitational pull of today's assumptions.</p>
-        </a>
-        <a class="musing-card" href="musings.html">
-          <span class="hand">02</span>
-          <h3>Seed the question, not the answer</h3>
-          <p>Using seeded questions to create movement without over-directing the conversation.</p>
-        </a>
-        <a class="musing-card" href="musings.html">
-          <span class="hand">03</span>
-          <h3>The value of a canvas</h3>
-          <p>A canvas isn't decoration. It quietly tells participants how to think about the challenge.</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-tight">
-    <div class="container about-strip">
-      <div class="about-photo-wrap">
-        <img class="about-photo" src="assets/team/PFP.jpeg" alt="Daniel Logan-Gill" />
-      </div>
-      <div class="about-copy">
-        <p class="eyebrow">Hello. I'm Daniel.</p>
-        <h2>I spend an unreasonable amount of time thinking about how groups of people <span class="marker">think.</span></h2>
-        <p>I design and facilitate interventions for complex, high-stakes problems — particularly when there are multiple perspectives, fuzzy answers and a need to move from discussion to decision.</p>
-        <a class="scribble-link" href="about.html">A bit more about me →</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="proof-strip" aria-label="Organisations our team have worked with">
-    <div class="container proof-list">
-      <span class="proof-label">Some places our team have worked with →</span>
-      <span>Telstra</span><span>CBA</span><span>Barclays</span><span>Standard Chartered</span><span>Rio Tinto</span><span>Fortescue</span><span>Shell</span>
-    </div>
-  </section>
-
-  <section class="big-cta">
-    <div class="container">
-      <span class="hand">No pitch deck required.</span>
-      <h2>Got something <span class="marker">messy?</span></h2>
-      <a class="primary-link" href="contact.html">Let's put it on the table <span aria-hidden="true">→</span></a>
+  <section class="home-cta">
+    <div class="container home-cta-inner">
+      <span class="cta-scribble" aria-hidden="true">↝</span>
+      <h2>Got something messy?</h2>
+      <a href="contact.html">Let's put it on the table →</a>
     </div>
   </section>
 </main>
 
-<footer class="footer">
-  <div class="container footer-grid">
-    <div><a class="brand" href="index.html">Design My Thinking</a><p class="muted">Better thinking, clearer decisions and workshops designed around real human beings.</p></div>
-    <div><h5>Explore</h5><ul><li><a href="#glimpses">Work</a></li><li><a href="how-we-work.html">How I Work</a></li><li><a href="musings.html">Musings</a></li><li><a href="about.html">About</a></li></ul></div>
-    <div><h5>Contact</h5><ul><li><a href="mailto:hello@designmythinking.xyz">hello@designmythinking.xyz</a></li><li>Sydney, Australia</li></ul></div>
+<footer class="home-footer">
+  <div class="container home-footer-inner">
+    <a class="brand" href="index.html">Design My Thinking</a>
+    <a href="mailto:hello@designmythinking.xyz">hello@designmythinking.xyz</a>
+    <span>Human-centred thinking, rough edges included. :)</span>
   </div>
-  <div class="container footer-bottom"><small>© 2026 Design My Thinking. Human-centred thinking, rough edges included.</small></div>
 </footer>
+
 <script src="script.js"></script>
 <script src="home.js"></script>
 </body>
