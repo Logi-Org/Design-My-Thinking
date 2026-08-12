@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="home-enhancements.css" />
 </head>
 <body>
 <header class="site-header">
@@ -20,7 +21,7 @@
       <span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span>
     </button>
     <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-      <a href="case_studies.html">Work</a>
+      <a href="#glimpses">Work</a>
       <a href="how-we-work.html">How I Work</a>
       <a href="musings.html">Musings</a>
       <a href="about.html">About</a>
@@ -30,102 +31,140 @@
 </header>
 
 <main>
-  <section class="hero-notebook">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">Workshops · Facilitation · Human-centred design</p>
-        <h1>Complex problems don't usually need <span class="marker">another meeting.</span></h1>
-        <p class="lead">They need better thinking. I design workshops that help groups make sense of the mess, surface what matters, make decisions and move forward together.</p>
-        <div class="hero-actions">
-          <a class="primary-link" href="case_studies.html">Explore the work <span aria-hidden="true">→</span></a>
-          <span class="hand hero-note">Good workshop design starts long before anyone walks into the room.</span>
-        </div>
+  <section class="home-hero">
+    <div class="container home-hero-grid">
+      <div class="home-hero-copy">
+        <h1 class="home-hero-title">Clear outcomes.<br><span class="marker">Confident decisions.</span></h1>
+        <p class="lead">Facilitation, workshop design and strategic thinking for teams tackling messy problems.</p>
+        <a class="primary-link" href="contact.html">Let's work together <span aria-hidden="true">→</span></a>
       </div>
 
-      <div class="sketch-sheet" aria-label="Hand-drawn diagram showing messy thinking becoming a decision">
-        <span class="sketch-label label-a">the messy middle</span>
-        <svg class="sketch-svg" viewBox="0 0 540 430" role="img" aria-label="Ideas and people moving from mess to a clear decision">
+      <div class="hero-board" aria-label="A hand-drawn journey from a messy question to a clear choice">
+        <div class="hero-sticky hero-sticky--yellow">clarify<br>the real<br>question</div>
+        <div class="hero-sticky hero-sticky--pink">make it<br>visible</div>
+        <div class="hero-sticky hero-sticky--blue">choose<br>what<br>matters</div>
+        <span class="hero-lightbulb" aria-hidden="true">☼</span>
+        <svg viewBox="0 0 540 400" role="img" aria-label="A mountain path with a flag, showing a group working towards a decision">
           <g fill="none" stroke="#27231f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M52 112 C100 35, 154 162, 215 86 S310 160, 355 98" />
-            <path d="M70 158 C128 205, 166 104, 220 163 S310 194, 350 142" />
-            <path d="M61 226 C126 172, 145 284, 217 215 S307 262, 361 204" />
-            <circle cx="79" cy="89" r="18" /><circle cx="151" cy="132" r="15" /><circle cx="118" cy="231" r="17" />
-            <circle cx="230" cy="108" r="17" /><circle cx="285" cy="189" r="16" /><circle cx="348" cy="126" r="16" />
-            <path d="M365 183 C410 184, 433 184, 470 184" />
-            <path d="M454 168 L476 184 L454 200" />
-            <rect x="397" y="235" width="110" height="72" rx="3" transform="rotate(-2 452 271)" />
-            <path d="M419 271 L441 290 L485 250" />
-            <path d="M198 325 C236 350, 279 347, 321 322" stroke-dasharray="9 10" />
+            <path d="M78 252 L169 155 L223 202 L303 94 L412 252" />
+            <path d="M303 94 L303 52 L345 70 L303 83" />
+            <path d="M102 269 C163 287 192 250 230 246 C270 241 259 181 303 161" stroke-dasharray="10 12" />
+            <circle cx="108" cy="270" r="9" fill="#f6f1e7" />
+            <circle cx="222" cy="247" r="9" fill="#f6f1e7" />
+            <circle cx="285" cy="185" r="9" fill="#f6f1e7" />
+            <path d="M97 145 q18 -22 36 0 q18 -20 34 2" />
+            <path d="M362 137 q15 -18 31 0 q16 -17 29 2" />
+            <rect x="76" y="301" width="108" height="73" />
+            <rect x="216" y="301" width="108" height="73" />
+            <rect x="356" y="301" width="108" height="73" />
+            <circle cx="130" cy="326" r="14" />
+            <path d="M113 359 C119 343 141 343 147 359" />
+            <circle cx="270" cy="326" r="14" />
+            <path d="M253 359 C259 343 281 343 287 359" />
+            <path d="M289 321 q22 -17 37 -2" />
+            <circle cx="410" cy="326" r="14" />
+            <path d="M393 359 C399 343 421 343 427 359" />
+            <path d="M404 330 q6 7 12 0" />
           </g>
-          <g font-family="Caveat, cursive" font-size="27" fill="#27231f">
-            <text x="37" y="330">people + ideas + tension</text>
-            <text x="398" y="340">clear enough to act</text>
-          </g>
-          <path d="M187 306 C180 278 185 260 202 243" fill="none" stroke="#ff4fa3" stroke-width="8" stroke-linecap="round" opacity=".65" />
         </svg>
-        <span class="sketch-label label-b">not necessarily neat — just clearer →</span>
       </div>
     </div>
   </section>
 
-  <section class="section" id="problems">
+  <section class="home-section" id="glimpses">
     <div class="container">
-      <div class="problem-intro">
-        <p class="eyebrow">You might be here because…</p>
-        <h2>Something important is <span class="marker">stuck.</span></h2>
-        <p>Most workshop requests arrive disguised as an agenda request. Usually the real need is deeper: clarity, alignment, a decision, or a safe way through disagreement.</p>
-      </div>
-      <div class="notes-grid">
-        <a class="note-card" href="case_studies.html">
-          <span class="number">01</span>
-          <h3>We're talking about the same problem again.</h3>
-          <p>The conversation is looping. The issue is visible, but the group isn't getting underneath it.</p>
-          <span class="note-arrow" aria-hidden="true">→</span>
-        </a>
-        <a class="note-card" href="case_studies.html">
-          <span class="number">02</span>
-          <h3>Smart people have very different views.</h3>
-          <p>There is energy and expertise in the room, but not yet a shared picture of what matters.</p>
-          <span class="note-arrow" aria-hidden="true">→</span>
-        </a>
-        <a class="note-card" href="case_studies.html">
-          <span class="number">03</span>
-          <h3>We need to make a decision — not another deck.</h3>
-          <p>There are too many options, competing priorities, or uncomfortable trade-offs that need to be made explicit.</p>
-          <span class="note-arrow" aria-hidden="true">→</span>
-        </a>
+      <h2 class="home-section-heading">A glimpse inside the work</h2>
+      <p class="home-section-intro">Small pieces of evidence from the work itself — less case study, more <u>proof of thinking in practice.</u></p>
+
+      <div class="dmt-slider" data-dmt-slider aria-label="Glimpses inside the work">
+        <button class="dmt-slider__button dmt-slider__button--prev" type="button" aria-label="Previous glimpses">‹</button>
+        <div class="dmt-slider__viewport">
+          <div class="dmt-slider__track">
+            <article class="dmt-slide glimpse-card">
+              <div class="glimpse-icon" aria-hidden="true">
+                <svg viewBox="0 0 220 100"><g fill="none" stroke="#27231f" stroke-width="3" stroke-linecap="round"><rect x="8" y="16" width="34" height="30"/><rect x="89" y="7" width="34" height="30"/><rect x="169" y="18" width="34" height="30"/><rect x="49" y="65" width="34" height="30"/><rect x="137" y="64" width="34" height="30"/><path d="M45 30 L84 23 M126 23 L164 31 M102 40 L73 61 M116 41 L149 60"/><path d="M77 57 l-5 6 8 1 M145 56 l5 6-8 1"/></g></svg>
+              </div>
+              <h3>Turning eight competing priorities into one decision</h3>
+              <p>Made the trade-offs visible so leaders could actually choose.</p>
+            </article>
+
+            <article class="dmt-slide glimpse-card">
+              <div class="glimpse-icon" aria-hidden="true">
+                <svg viewBox="0 0 220 100"><g fill="none" stroke="#27231f" stroke-width="3" stroke-linecap="round"><rect x="61" y="10" width="96" height="70"/><path d="M76 28 C118 10 91 55 132 41 C153 34 133 61 144 68"/><path d="M75 12 L55 93 M145 80 L166 94"/><path d="M87 20 l10 10 M97 20 l-10 10"/></g></svg>
+              </div>
+              <h3>When the workshop plan stopped working</h3>
+              <p>Changed the room, changed the exercise, kept the outcome moving.</p>
+            </article>
+
+            <article class="dmt-slide glimpse-card">
+              <div class="glimpse-icon" aria-hidden="true">
+                <svg viewBox="0 0 220 100"><g fill="none" stroke="#27231f" stroke-width="3" stroke-linecap="round"><circle cx="110" cy="44" r="32"/><path d="M84 76 q26 14 52 0 M88 83 h44 M97 90 h26"/><path d="M48 22 l8 0 M52 18 l0 8 M165 17 l10 -7 M170 24 l12 2 M54 63 l-10 8"/></g></svg>
+              </div>
+              <h3>Reimagining legal services with AI</h3>
+              <p>Used future-state scenarios instead of generic brainstorming.</p>
+            </article>
+
+            <article class="dmt-slide glimpse-card">
+              <div class="glimpse-icon" aria-hidden="true">
+                <svg viewBox="0 0 220 100"><g fill="none" stroke="#27231f" stroke-width="3" stroke-linecap="round"><circle cx="52" cy="35" r="12"/><circle cx="104" cy="31" r="12"/><circle cx="158" cy="36" r="12"/><path d="M35 78 C38 52 66 52 69 78 M87 78 C90 48 118 48 121 78 M141 78 C144 52 172 52 175 78"/><path d="M67 16 q22 -17 41 0 M119 14 q20 -13 35 1"/></g></svg>
+              </div>
+              <h3>Making a 70-person conversation feel small</h3>
+              <p>Designed short interactions that kept people thinking with new voices.</p>
+            </article>
+
+            <article class="dmt-slide glimpse-card">
+              <div class="glimpse-icon" aria-hidden="true">
+                <svg viewBox="0 0 220 100"><g fill="none" stroke="#27231f" stroke-width="3" stroke-linecap="round"><rect x="32" y="17" width="62" height="50" transform="rotate(-5 63 42)"/><rect x="91" y="30" width="62" height="50" transform="rotate(4 122 55)"/><rect x="137" y="10" width="52" height="42" transform="rotate(-3 163 31)"/><path d="M48 31 h28 M48 42 h20 M106 47 h30 M106 59 h22 M149 24 h25 M149 35 h18"/></g></svg>
+              </div>
+              <h3>From sticky notes to sharper decisions</h3>
+              <p>The artefact is never the point — clarity is.</p>
+            </article>
+
+            <article class="dmt-slide glimpse-card">
+              <div class="glimpse-icon" aria-hidden="true">
+                <svg viewBox="0 0 220 100"><g fill="none" stroke="#27231f" stroke-width="3" stroke-linecap="round"><rect x="47" y="8" width="126" height="72" rx="4"/><path d="M34 88 h152 M78 88 l8 -8 h48 l8 8"/><rect x="61" y="22" width="42" height="38"/><rect x="112" y="22" width="46" height="14"/><path d="M112 45 h42 M112 54 h29"/></g></svg>
+              </div>
+              <h3>Building lightweight HTML tools for workshops</h3>
+              <p>When paper is too expected, digital can wake people up.</p>
+            </article>
+          </div>
+        </div>
+        <button class="dmt-slider__button dmt-slider__button--next" type="button" aria-label="Next glimpses">›</button>
+        <div class="dmt-slider__status" aria-live="polite"><span class="dmt-slider__dots" aria-hidden="true"></span><span class="dmt-slider__counter">1 / 2</span></div>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="home-section" id="problems">
     <div class="container">
-      <p class="eyebrow">Selected work</p>
-      <h2 class="section-heading">The work is rarely tidy.<br>That's kind of the point.</h2>
-      <p class="section-lead">A few examples of designing the conditions for better conversations, sharper choices and clearer next steps.</p>
-      <div class="work-grid">
-        <a class="artifact" href="case_studies.html">
-          <div>
-            <span class="artifact-kicker">Case 01 · Trust + alignment</span>
-            <h3>Rebuilding Trust</h3>
-            <p>Creating enough shared reality for two groups to have the conversations they had been avoiding — and begin resetting how they worked together.</p>
+      <h2 class="home-section-heading pink-highlight">Problems worth thinking about together</h2>
+      <p class="home-section-intro">If one of these sounds familiar, the workshop probably isn't the problem. It's a clue about the thinking the group needs to do.</p>
+
+      <div class="dmt-slider" data-dmt-slider aria-label="Problems worth thinking about together">
+        <button class="dmt-slider__button dmt-slider__button--prev" type="button" aria-label="Previous problems">‹</button>
+        <div class="dmt-slider__viewport">
+          <div class="dmt-slider__track">
+            <article class="dmt-slide problem-note problem-note--yellow"><p>We've had this conversation five times already.</p></article>
+            <article class="dmt-slide problem-note problem-note--blue"><p>Everyone agrees there's a problem, but not what it is.</p></article>
+            <article class="dmt-slide problem-note problem-note--pink"><p>We need a real decision, not just a good discussion.</p></article>
+            <article class="dmt-slide problem-note problem-note--yellow"><p>Too many stakeholders. Too little clarity.</p></article>
+            <article class="dmt-slide problem-note problem-note--blue"><p>We know AI matters. We don't yet know what to do with it.</p></article>
           </div>
-          <div class="artifact-bottom">
-            <span class="hand">Surface the tension. Don't design around it.</span>
-            <strong>See the work →</strong>
-          </div>
-        </a>
-        <a class="artifact" href="how-we-work.html">
-          <div>
-            <span class="artifact-kicker">The approach</span>
-            <h3>From fuzzy problem to useful room.</h3>
-            <p>Before any agenda gets built, the challenge gets interrogated: what actually needs to change, who needs to be involved, and what decisions the room must be capable of making.</p>
-          </div>
-          <div class="artifact-bottom">
-            <span class="hand">The agenda is an output of the thinking.</span>
-            <strong>How I work →</strong>
-          </div>
-        </a>
+        </div>
+        <button class="dmt-slider__button dmt-slider__button--next" type="button" aria-label="Next problems">›</button>
+        <div class="dmt-slider__status" aria-live="polite"><span class="dmt-slider__dots" aria-hidden="true"></span><span class="dmt-slider__counter">1 / 2</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="beliefs-strip" aria-labelledby="beliefs-title">
+    <div class="container beliefs-paper">
+      <div class="beliefs-grid">
+        <h2 class="beliefs-title" id="beliefs-title">Things<br>I believe →</h2>
+        <div class="belief-item"><span aria-hidden="true">☑</span><p>The agenda is a hypothesis, not a contract.</p></div>
+        <div class="belief-item"><span aria-hidden="true">◯◯</span><p>Participation and progress aren't the same thing.</p></div>
+        <div class="belief-item"><span aria-hidden="true">▱</span><p>A workshop needs better decisions, not more Post-its.</p></div>
+        <div class="belief-item"><span aria-hidden="true">⌫</span><p>If needed, throw away the exercise and follow the insight.</p></div>
       </div>
     </div>
   </section>
@@ -214,11 +253,12 @@
 <footer class="footer">
   <div class="container footer-grid">
     <div><a class="brand" href="index.html">Design My Thinking</a><p class="muted">Better thinking, clearer decisions and workshops designed around real human beings.</p></div>
-    <div><h5>Explore</h5><ul><li><a href="case_studies.html">Work</a></li><li><a href="how-we-work.html">How I Work</a></li><li><a href="musings.html">Musings</a></li><li><a href="about.html">About</a></li></ul></div>
+    <div><h5>Explore</h5><ul><li><a href="#glimpses">Work</a></li><li><a href="how-we-work.html">How I Work</a></li><li><a href="musings.html">Musings</a></li><li><a href="about.html">About</a></li></ul></div>
     <div><h5>Contact</h5><ul><li><a href="mailto:hello@designmythinking.xyz">hello@designmythinking.xyz</a></li><li>Sydney, Australia</li></ul></div>
   </div>
-  <div class="container footer-bottom"><small>© 2026 Design My Thinking. Made with more marker pen than necessary.</small></div>
+  <div class="container footer-bottom"><small>© 2026 Design My Thinking. Human-centred thinking, rough edges included.</small></div>
 </footer>
 <script src="script.js"></script>
+<script src="home.js"></script>
 </body>
 </html>
