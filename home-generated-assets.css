@@ -41,12 +41,20 @@
   background-repeat:no-repeat!important;
 }
 .glimpse-card h3{
+  --card-accent:#f7d850;
+  display:inline!important;
   margin:4px 0 9px!important;
   font-size:clamp(1.65rem,2vw,2rem)!important;
   line-height:.98!important;
+  background:linear-gradient(transparent 60%,var(--card-accent) 60% 88%,transparent 88%);
+  -webkit-box-decoration-break:clone;
+  box-decoration-break:clone;
+  padding:0 .08em;
 }
+.glimpse-card:nth-child(2) h3,.glimpse-card:nth-child(5) h3{--card-accent:#efa4bb}
+.glimpse-card:nth-child(4) h3{--card-accent:#9fd2de}
 .glimpse-card p{
-  margin:0!important;
+  margin:12px 0 0!important;
   font-size:1rem!important;
   line-height:1.38!important;
 }
@@ -130,6 +138,7 @@
     margin:5px 0 8px!important;
   }
   .glimpse-card p{
+    margin-top:10px!important;
     font-size:.98rem!important;
     line-height:1.36!important;
   }
