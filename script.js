@@ -182,3 +182,48 @@
     if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
   });
 })();
+
+/* Keep the public site language and illustrated visual system consistent across legacy inner pages. */
+(function () {
+  const path = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  const isHome = path === '' || path === 'index.html';
+
+  if (!isHome && !document.querySelector('link[href*="illustrated-site.css"]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'illustrated-site.css?v=20260812e';
+    document.head.appendChild(link);
+  }
+
+  const nav = document.getElementById('site-nav');
+  if (nav && !isHome) {
+    const current = path === 'approach.html' ? 'approach' : path === 'musings.html' ? 'musings' : path === 'contact.html' ? 'contact' : '';
+    nav.innerHTML = [
+      '<a href="index.html#glimpses">Work</a>',
+      '<a href="approach.html"' + (current === 'approach' ? ' aria-current="page"' : '') + '>Approach</a>',
+      '<a href="musings.html"' + (current === 'musings' ? ' aria-current="page"' : '') + '>Musings</a>',
+      '<a href="contact.html"' + (current === 'contact' ? ' aria-current="page"' : '') + '>Contact</a>'
+    ].join('');
+    const toggle = document.querySelector('.nav-toggle');
+    nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
+      nav.classList.remove('is-open');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    }));
+  }
+
+  document.querySelectorAll('a[href="how-we-work.html"]').forEach((a) => { a.href = 'approach.html'; a.textContent = 'Approach'; });
+  document.querySelectorAll('.footer h5').forEach((h) => {
+    if (h.textContent.trim().toLowerCase() !== 'explore') return;
+    const ul = h.parentElement && h.parentElement.querySelector('ul');
+    if (ul) ul.innerHTML = '<li><a href="index.html#glimpses">Work</a></li><li><a href="approach.html">Approach</a></li><li><a href="musings.html">Musings</a></li><li><a href="contact.html">Contact</a></li>';
+  });
+
+  if (path === 'musings.html') {
+    ['scenarios','questions','canvas','html'].forEach((name, i) => {
+      const thumb = document.querySelectorAll('.musing-thumb')[i];
+      if (thumb) thumb.classList.add('musing-thumb--' + name);
+      const sketch = document.querySelectorAll('.field-note-sketch')[i];
+      if (sketch) sketch.classList.add('field-note-sketch--' + name);
+    });
+  }
+})();
