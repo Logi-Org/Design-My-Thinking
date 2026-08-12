@@ -1,12 +1,15 @@
 /* Assemble the high-resolution generated artwork from small JS chunks.
-   This avoids the low-resolution traced/vector look while keeping the page copy in HTML. */
+   This keeps the real generated artwork while leaving copy/layout/interaction in HTML. */
 (function(){
   const art=window.DMT_ART||{};
   const dataUrl=(b64)=>b64?`url("data:image/avif;base64,${b64}")`:'';
 
-  const hero=document.querySelector('.art-hero');
+  const hero=document.querySelector('.hero-paper-v3');
   if(hero&&art.hero){
     hero.style.setProperty('background-image',dataUrl(art.hero),'important');
+    hero.style.setProperty('background-size','contain','important');
+    hero.style.setProperty('background-position','center','important');
+    hero.style.setProperty('background-repeat','no-repeat','important');
   }
 
   if(art.glimpses){
