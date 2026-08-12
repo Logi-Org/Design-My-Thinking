@@ -1,7 +1,7 @@
 /* Generated OpenAI artwork mapped as lightweight WebP assets. */
-.art-hero{background-image:url('assets/dmt/hero.webp');}
+.art-hero{background-image:url('assets/dmt/hero.webp?v=20260812c');}
 
-.gl-img{background-image:url('assets/dmt/glimpses.webp');background-size:300% 200%;}
+.gl-img{background-image:url('assets/dmt/glimpses.webp?v=20260812c');background-size:300% 200%;}
 .art-glimpse-01{background-position:0% 0%;}
 .art-glimpse-02{background-position:50% 0%;}
 .art-glimpse-03{background-position:100% 0%;}
@@ -9,14 +9,14 @@
 .art-glimpse-05{background-position:50% 100%;}
 .art-glimpse-06{background-position:100% 100%;}
 
-.pr-img{background-image:url('assets/dmt/problems.webp');background-size:500% 100%;}
+.pr-img{background-image:url('assets/dmt/problems.webp?v=20260812c');background-size:500% 100%;}
 .art-problem-01{background-position:0% 0%;}
 .art-problem-02{background-position:25% 0%;}
 .art-problem-03{background-position:50% 0%;}
 .art-problem-04{background-position:75% 0%;}
 .art-problem-05{background-position:100% 0%;}
 
-.bl-img,.art-cta-mug{background-image:url('assets/dmt/beliefs-cta.webp');background-size:500% 100%;}
+.bl-img,.art-cta-mug{background-image:url('assets/dmt/beliefs-cta.webp?v=20260812c');background-size:500% 100%;}
 .art-belief-01{background-position:0% 0%;}
 .art-belief-02{background-position:25% 0%;}
 .art-belief-03{background-position:50% 0%;}
