@@ -134,6 +134,22 @@ body{
   transform:rotate(-1deg);
 }
 
+/* The same artwork continues inside each opened field note. */
+.field-note-sketch{
+  min-height:260px!important;
+  background-image:url('assets/dmt/musings-refined.svg?v=20260814a')!important;
+  background-size:200% 200%!important;
+  background-repeat:no-repeat!important;
+  background-color:transparent!important;
+  border:0!important;
+  mix-blend-mode:multiply;
+}
+.field-note-sketch svg{display:none!important}
+.field-note-sketch--scenarios{background-position:0 0!important}
+.field-note-sketch--questions{background-position:100% 0!important}
+.field-note-sketch--canvas{background-position:0 100%!important}
+.field-note-sketch--html{background-position:100% 100%!important}
+
 /* Keep the supporting principle visually connected to the same system. */
 .artifact{
   background:#fff8e9!important;
