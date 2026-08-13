@@ -1,60 +1,28 @@
-/* Bespoke inner-page illustration layer. Raster artwork only; intentionally overrides the earlier SVG sprite treatment. */
+/* Bespoke inner-page illustration layer. Raster artwork only; overrides earlier SVG sprite imagery. */
 
-/* Musings: the drawing sits directly on the paper, not inside a coloured image box. */
-.musing-thumb{
-  height:190px!important;
-  background-color:transparent!important;
-  background-repeat:no-repeat!important;
-  background-position:center!important;
-  background-size:contain!important;
-  border:0!important;
-}
+.musing-thumb{height:190px!important;border:0!important;background-color:transparent!important;background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important;margin:6px 0 18px!important;mix-blend-mode:multiply}
 .musing-thumb svg{display:none!important}
-.musing-thumb--scenarios{background-image:var(--musing-scenarios)!important;background-size:contain!important;background-position:center!important}
-.musing-thumb--questions{background-image:var(--musing-question)!important;background-size:contain!important;background-position:center!important}
-.musing-thumb--canvas{background-image:var(--musing-canvas)!important;background-size:contain!important;background-position:center!important}
-.musing-thumb--html{background-image:var(--musing-wallpaper)!important;background-size:contain!important;background-position:center!important}
+.musing-thumb--scenarios{background-image:url('assets/dmt/inner-art/musing-scenarios.jpg?v=20260814b')!important;background-size:contain!important;background-position:center!important}
+.musing-thumb--questions{background-image:url('assets/dmt/inner-art/musing-question.jpg?v=20260814b')!important;background-size:contain!important;background-position:center!important}
+.musing-thumb--canvas{background-image:url('assets/dmt/inner-art/musing-canvas.jpg?v=20260814b')!important;background-size:contain!important;background-position:center!important}
+.musing-thumb--html{background-image:url('assets/dmt/inner-art/musing-wallpaper.jpg?v=20260814b')!important;background-size:contain!important;background-position:center!important}
 
-.field-note-sketch{
-  min-height:300px!important;
-  border:0!important;
-  box-shadow:none!important;
-  background:transparent!important;
-  display:flex!important;
-  align-items:center;
-  justify-content:center;
-}
+.field-note-sketch{min-height:300px!important;border:0!important;box-shadow:none!important;background-color:transparent!important;background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important;mix-blend-mode:multiply}
 .field-note-sketch svg{display:none!important}
-.field-note-sketch .inner-art-img{width:100%;max-width:620px;max-height:360px;object-fit:contain;display:block}
+.field-note-sketch--scenarios{background-image:url('assets/dmt/inner-art/musing-scenarios.jpg?v=20260814b')!important}
+.field-note-sketch--questions{background-image:url('assets/dmt/inner-art/musing-question.jpg?v=20260814b')!important}
+.field-note-sketch--canvas{background-image:url('assets/dmt/inner-art/musing-canvas.jpg?v=20260814b')!important}
+.field-note-sketch--html{background-image:url('assets/dmt/inner-art/musing-wallpaper.jpg?v=20260814b')!important}
 
-/* Contact: restore Daniel's real photograph as a taped-in notebook photo. */
 .contact-layout{align-items:start}
-.contact-photo-note{
-  width:min(310px,78vw);
-  margin:32px 0 6px;
-  padding:13px 13px 34px;
-  background:#fffaf1;
-  box-shadow:7px 10px 20px rgba(47,37,29,.14);
-  transform:rotate(-1.6deg);
-  position:relative;
-}
-.contact-photo-note::before{
-  content:"";position:absolute;top:-12px;left:50%;width:92px;height:27px;transform:translateX(-50%) rotate(2deg);
-  background:rgba(211,182,126,.58);clip-path:polygon(3% 7%,99% 0,96% 95%,0 100%);
-}
+.contact-photo-note{width:min(310px,78vw);margin:32px 0 6px;padding:13px 13px 34px;background:#fffaf1;box-shadow:7px 10px 20px rgba(47,37,29,.14);transform:rotate(-1.6deg);position:relative}
+.contact-photo-note::before{content:"";position:absolute;top:-12px;left:50%;width:92px;height:27px;transform:translateX(-50%) rotate(2deg);background:rgba(211,182,126,.58);clip-path:polygon(3% 7%,99% 0,96% 95%,0 100%)}
 .contact-photo-note img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;filter:saturate(.92) contrast(.98)}
-.contact-photo-note span{display:block;font-family:"Caveat",cursive;font-size:1.25rem;margin:10px 6px -20px;color:var(--dmt-ink,#28221d)}
+.contact-photo-note figcaption{font-family:"Caveat",cursive;font-size:1.25rem;margin:10px 6px -20px;color:var(--dmt-ink,#28221d)}
 
-/* Thank-you page: make the approved envelope drawing the central visual. */
 .thankyou-with-art{display:grid!important;grid-template-columns:minmax(0,.9fr) minmax(300px,1.1fr);gap:42px;align-items:center}
-.thankyou-art{width:100%;max-width:560px;justify-self:end;display:block}
+.thankyou-art{width:100%;max-width:560px;aspect-ratio:1.02;background:transparent url('assets/dmt/inner-art/thankyou-envelope.jpg?v=20260814b') center/contain no-repeat;mix-blend-mode:multiply;justify-self:end}
 
-/* Principles Lab image treatment. */
-.dmt-lab-scale{width:min(390px,100%);margin:6px auto 0;display:block}
+.dmt-lab-scale{width:min(430px,100%);aspect-ratio:2.84;background:transparent url('assets/dmt/inner-art/principles-scale.jpg?v=20260814b') center/contain no-repeat;mix-blend-mode:multiply;margin:6px auto 0}
 
-@media(max-width:760px){
-  .musing-thumb{height:165px!important}
-  .thankyou-with-art{grid-template-columns:1fr;gap:10px}
-  .thankyou-art{justify-self:start;max-width:430px}
-  .contact-photo-note{width:min(270px,85vw)}
-}
+@media(max-width:760px){.musing-thumb{height:165px!important}.thankyou-with-art{grid-template-columns:1fr;gap:10px}.thankyou-art{justify-self:start;max-width:430px}.contact-photo-note{width:min(270px,85vw)}}
