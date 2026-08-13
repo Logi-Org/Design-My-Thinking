@@ -13,15 +13,19 @@ div[aria-label^="Sketch of a question"]{background-image:var(--musing-question)!
 div[aria-label^="Sketch of a workshop canvas"]{background-image:var(--musing-canvas)!important}
 div[aria-label^="Sketch showing familiar paper"]{background-image:var(--musing-wallpaper)!important}
 
+/* Restore the real portrait on Contact as a taped-in notebook photograph. */
 .contact-copy{display:flex;flex-direction:column;align-items:flex-start}
+.contact-copy::after{content:"Daniel Logan-Gill";display:block;box-sizing:border-box;width:min(300px,78vw);height:342px;margin:36px 0 4px;padding:296px 18px 10px;background:#fffaf1 url('assets/team/PFP.jpeg') center 12px/276px 276px no-repeat;box-shadow:7px 10px 20px rgba(47,37,29,.14);transform:rotate(-1.4deg);font-family:"Caveat",cursive;font-size:1.28rem;color:#28221d;text-align:center;position:relative}
 .contact-photo-note{width:min(300px,78vw);margin:34px 0 4px;padding:12px 12px 34px;background:#fffaf1;box-shadow:7px 10px 20px rgba(47,37,29,.14);transform:rotate(-1.4deg);position:relative}
-.contact-photo-note::before{content:"";position:absolute;top:-12px;left:50%;width:92px;height:27px;transform:translateX(-50%) rotate(2deg);background:rgba(211,182,126,.58);clip-path:polygon(3% 7%,99% 0,96% 95%,0 100%)}
 .contact-photo-note img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;filter:saturate(.94) contrast(.98)}
 .contact-photo-note figcaption{font-family:"Caveat",cursive;font-size:1.28rem;margin:10px 6px -20px;color:#28221d}
+.contact-copy:has(.contact-photo-note)::after{display:none}
 
-.thankyou-layout{display:grid!important;grid-template-columns:minmax(0,.86fr) minmax(300px,1.14fr);gap:44px;align-items:center}
+/* The thank-you page is only the hero section, so it can take the approved envelope drawing without changing the form flow. */
+body:has(main > .page-hero:only-child) .page-hero .container{display:grid;grid-template-columns:minmax(0,.86fr) minmax(300px,1.14fr);gap:44px;align-items:center}
+body:has(main > .page-hero:only-child) .page-hero .container::after{content:"";display:block;width:100%;max-width:570px;aspect-ratio:1.02;background-image:var(--thankyou-envelope);background-position:center;background-size:contain;background-repeat:no-repeat;mix-blend-mode:multiply;justify-self:end}
 .thankyou-art{width:100%;max-width:570px;aspect-ratio:1.02;background-image:var(--thankyou-envelope)!important;background-position:center;background-size:contain;background-repeat:no-repeat;mix-blend-mode:multiply;justify-self:end}
 
 .dmt-lab-scale{width:min(470px,100%);aspect-ratio:2.84;background-image:var(--principles-scale)!important;background-position:center;background-size:contain;background-repeat:no-repeat;mix-blend-mode:multiply;margin:10px auto 2px}
 
-@media(max-width:760px){.musing-thumb{height:165px!important}.thankyou-layout{grid-template-columns:1fr;gap:12px}.thankyou-art{justify-self:start;max-width:430px}.contact-photo-note{width:min(270px,85vw)}}
+@media(max-width:760px){.musing-thumb{height:165px!important}.contact-copy::after{width:min(270px,85vw);height:310px;padding-top:264px;background-size:246px 246px}body:has(main > .page-hero:only-child) .page-hero .container{grid-template-columns:1fr;gap:12px}body:has(main > .page-hero:only-child) .page-hero .container::after{justify-self:start;max-width:430px}}
