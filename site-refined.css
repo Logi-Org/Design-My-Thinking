@@ -1,0 +1,254 @@
+/* Design My Thinking — inner-page visual system aligned to the approved homepage. */
+:root{
+  --dmt-paper:#f3ecde;
+  --dmt-cream:#fff8e9;
+  --dmt-ink:#28221d;
+  --dmt-yellow:#f6d94f;
+  --dmt-pink:#f0a4bb;
+  --dmt-blue:#a7d5df;
+  --dmt-line:rgba(40,34,29,.16);
+}
+
+body.dmt-inner{
+  color:var(--dmt-ink);
+  background:
+    radial-gradient(circle at 15% 4%,rgba(255,255,255,.72),transparent 25%),
+    repeating-linear-gradient(0deg,rgba(77,58,41,.018) 0 1px,transparent 1px 5px),
+    var(--dmt-paper);
+}
+body.dmt-inner .site-header{
+  position:relative;top:auto;border:0;background:transparent;backdrop-filter:none;
+}
+body.dmt-inner .nav-inner{min-height:88px}
+body.dmt-inner .site-header .brand,body.dmt-inner .footer .brand{
+  font-family:"Caveat",cursive;font-size:2.1rem;line-height:1;font-weight:700;letter-spacing:-.02em;
+}
+body.dmt-inner .site-header .brand::after{display:none}
+body.dmt-inner .site-nav{gap:34px}
+body.dmt-inner .site-nav a{font-family:"Caveat",cursive;font-size:1.38rem;font-weight:600}
+body.dmt-inner .site-nav a:not(.nav-cta)::after{border-bottom-width:2px}
+body.dmt-inner .site-nav a[aria-current="page"]{background:linear-gradient(transparent 68%,rgba(246,217,79,.9) 68% 90%,transparent 90%)}
+
+body.dmt-inner .page-hero{padding:54px 0 76px;background:transparent;overflow:hidden}
+body.dmt-inner .page-hero .container{position:relative}
+body.dmt-inner .page-hero h1,
+body.dmt-inner .section-heading,
+body.dmt-inner .big-cta h2,
+body.dmt-inner .artifact h3,
+body.dmt-inner .note-card h3,
+body.dmt-inner .musing-card h3,
+body.dmt-inner .article-note h3,
+body.dmt-inner .process-step h3{
+  font-family:"Caveat",cursive;letter-spacing:-.02em;
+}
+body.dmt-inner .page-hero h1{font-size:clamp(4.5rem,7.7vw,7.6rem);line-height:.82;font-weight:600;max-width:980px}
+body.dmt-inner .page-hero p{max-width:760px;color:#514941;font-size:1.08rem;line-height:1.6}
+body.dmt-inner .page-hero .eyebrow,body.dmt-inner .section .eyebrow{
+  font-family:"Caveat",cursive;font-size:1.38rem;line-height:1;font-weight:700;text-transform:none;letter-spacing:.01em;
+}
+body.dmt-inner .hand{font-family:"Caveat",cursive}
+body.dmt-inner .marker{background:linear-gradient(transparent 64%,rgba(240,164,187,.8) 64% 89%,transparent 89%)}
+body.dmt-inner .section{padding:82px 0;background:transparent}
+body.dmt-inner .section-tight{padding-top:56px}
+body.dmt-inner .section-heading{font-size:clamp(3rem,5vw,4.8rem);line-height:.9;font-weight:700}
+body.dmt-inner .section-lead{color:#5b534c}
+
+/* Taped paper, but never a coloured illustration box. */
+body.dmt-inner .artifact,
+body.dmt-inner .musing-card,
+body.dmt-inner .contact-card{
+  background:rgba(255,248,233,.76);border:1px solid rgba(47,37,29,.1);box-shadow:7px 11px 18px rgba(47,37,29,.10);
+  clip-path:polygon(.7% .7%,99.2% 0,98.7% 98.2%,82% 99.4%,62% 98.6%,31% 100%,.4% 98%);
+}
+body.dmt-inner .artifact::before,
+body.dmt-inner .musing-card::before,
+body.dmt-inner .contact-card::before{
+  width:82px;height:24px;top:-8px;background:rgba(211,182,126,.58);box-shadow:none;clip-path:polygon(3% 7%,99% 0,96% 95%,0 100%);
+}
+body.dmt-inner .artifact:nth-child(2){background:rgba(255,248,233,.76)}
+body.dmt-inner .artifact-bottom{border-top:1px dashed rgba(40,34,29,.18)}
+
+/* Footer now belongs to the same notebook rather than a dark corporate band. */
+body.dmt-inner .footer{padding:20px 0 32px;background:transparent;color:var(--dmt-ink);border-top:1px dashed rgba(40,34,29,.18)}
+body.dmt-inner .footer-grid{grid-template-columns:1.2fr .75fr .9fr;gap:32px}
+body.dmt-inner .footer .muted,body.dmt-inner .footer-bottom{color:#6a625a}
+body.dmt-inner .footer-bottom{border-top:1px solid rgba(40,34,29,.12);margin-top:28px}
+body.dmt-inner .footer a:hover{color:var(--dmt-ink);text-decoration:underline;text-decoration-color:var(--dmt-pink);text-decoration-thickness:3px}
+body.dmt-inner .footer .brand::after{display:none}
+
+/* CTA mirrors the torn yellow homepage strip. */
+body.dmt-inner .big-cta{padding:44px 0 64px;border:0;background:transparent}
+body.dmt-inner .big-cta .container{
+  position:relative;background:var(--dmt-yellow);padding:40px 48px;
+  clip-path:polygon(0 7%,12% 1%,27% 8%,43% 2%,58% 8%,74% 1%,89% 7%,100% 2%,100% 94%,87% 99%,69% 94%,52% 100%,31% 94%,13% 99%,0 92%);
+}
+body.dmt-inner .big-cta h2{font-weight:700}
+body.dmt-inner .primary-link,body.dmt-inner .submit-btn{
+  background:var(--dmt-ink);color:#fffaf0;border-color:var(--dmt-ink);font-family:"Caveat",cursive;font-size:1.45rem;font-weight:700;
+  clip-path:polygon(1% 4%,98% 0,100% 10%,98% 96%,3% 100%,0 50%);box-shadow:5px 6px 0 rgba(38,31,25,.10);
+}
+body.dmt-inner .primary-link:hover,body.dmt-inner .submit-btn:hover{background:var(--dmt-ink);color:#fffaf0;transform:rotate(.6deg) translateY(-2px)}
+
+/* -------------------------------------------------------------------------- */
+/* Approach */
+body.page-approach .page-hero .container{padding-right:min(34vw,430px)}
+body.page-approach .page-hero .container::after{
+  content:"";position:absolute;right:-20px;top:-10px;width:min(33vw,420px);height:285px;
+  background:url('assets/dmt/glimpses-refined.avif?v=20260813d') 0 0/300% 200% no-repeat;
+  opacity:.96;transform:rotate(1deg);pointer-events:none;
+}
+body.page-approach .process-wrap{padding:70px 0;border:0;background:rgba(255,250,239,.52);clip-path:polygon(0 1%,12% .2%,24% 1%,40% .2%,58% 1%,74% .3%,90% 1%,100% .2%,100% 99%,80% 98.5%,62% 99.4%,44% 98.7%,22% 99.5%,0 99%)}
+body.page-approach .process-grid{gap:0;margin-top:46px}
+body.page-approach .process-grid::before{display:none}
+body.page-approach .process-step{
+  min-height:405px;padding:200px 30px 28px;background:transparent;border:0;box-shadow:none;clip-path:none;transform:none!important;
+}
+body.page-approach .process-step+ .process-step{border-left:1px solid rgba(40,34,29,.16)}
+body.page-approach .process-step::before{display:none}
+body.page-approach .process-step::after{
+  content:"";position:absolute;left:24px;right:24px;top:18px;height:165px;background-image:url('assets/dmt/glimpses-refined.avif?v=20260813d');background-repeat:no-repeat;background-size:300% 200%;
+}
+body.page-approach .process-step:nth-child(1)::after{background-position:0 0}
+body.page-approach .process-step:nth-child(2)::after{background-position:50% 100%}
+body.page-approach .process-step:nth-child(3)::after{background-position:0 100%}
+body.page-approach .process-dot{position:absolute;left:22px;top:164px;width:50px;height:50px;border:2px solid var(--dmt-ink);background:var(--dmt-yellow)!important;font-size:1.45rem;z-index:3}
+body.page-approach .process-step h3{font-size:2.1rem;margin:3px 0 8px}
+body.page-approach .process-step p{max-width:330px}
+
+body.page-approach .work-grid{gap:30px}
+body.page-approach .artifact{min-height:420px;padding-top:190px}
+body.page-approach .artifact::after{
+  content:"";position:absolute;left:22px;right:22px;top:25px;height:145px;background-image:url('assets/dmt/problems-refined.avif?v=20260813d');background-size:500% 100%;background-repeat:no-repeat;pointer-events:none;
+}
+body.page-approach .artifact:nth-child(1)::after{background-position:25% 0}
+body.page-approach .artifact:nth-child(2)::after{background-image:url('assets/dmt/glimpses-refined.avif?v=20260813d');background-size:300% 200%;background-position:0 0}
+
+body.page-approach .notes-grid{gap:0;background:rgba(255,248,233,.6);padding:26px 18px;clip-path:polygon(.4% 1%,99.3% 0,99.7% 98%,78% 99%,56% 98.5%,31% 100%,.2% 98%)}
+body.page-approach .note-card{
+  min-height:390px;padding:190px 26px 28px;background:transparent!important;border:0;box-shadow:none;clip-path:none;transform:none!important;margin:0!important;
+}
+body.page-approach .note-card+ .note-card{border-left:1px solid rgba(40,34,29,.15)}
+body.page-approach .note-card::before{display:none}
+body.page-approach .note-card::after{
+  content:"";position:absolute;left:20px;right:20px;top:22px;height:145px;background-image:url('assets/dmt/glimpses-refined.avif?v=20260813d');background-size:300% 200%;background-repeat:no-repeat;clip-path:none;filter:none;opacity:1;
+}
+body.page-approach .note-card:nth-child(1)::after{background-position:50% 100%}
+body.page-approach .note-card:nth-child(2)::after{background-position:0 100%}
+body.page-approach .note-card:nth-child(3)::after{background-position:50% 0}
+body.page-approach .note-card .number{position:absolute;left:24px;top:157px;font-family:"Caveat",cursive;font-size:1.2rem;background:var(--dmt-yellow);padding:1px 9px;transform:rotate(-2deg)}
+body.page-approach .note-card h3{font-size:1.9rem;margin:0 0 12px}
+body.page-approach .after-work-grid{align-items:start}
+body.page-approach .article-note{background:transparent;border:0;border-top:1px dashed rgba(40,34,29,.18);box-shadow:none;padding:22px 0;clip-path:none}
+body.page-approach .article-note:first-child{border-top:0}
+body.page-approach .carpark-sketch{background-color:transparent!important;border:0!important;box-shadow:none!important;mix-blend-mode:multiply}
+
+/* -------------------------------------------------------------------------- */
+/* Musings */
+body.page-musings .page-hero .container{padding-right:min(30vw,390px)}
+body.page-musings .page-hero .container::after{
+  content:"";position:absolute;right:0;top:-20px;width:min(29vw,370px);height:250px;background:url('assets/dmt/glimpses-refined.avif?v=20260813d') 100% 100%/300% 200% no-repeat;transform:rotate(1deg);
+}
+body.page-musings .musing-grid{grid-template-columns:repeat(2,1fr);gap:34px}
+body.page-musings .musing-card{min-height:455px;padding:28px 30px 30px}
+body.page-musings .musing-card:nth-child(n){margin-top:0}
+body.page-musings .musing-thumb{height:210px!important;border:0!important;background-color:transparent!important;background-image:none!important;margin:6px 0 18px!important;position:relative}
+body.page-musings .musing-thumb::after{content:"";position:absolute;inset:0;background-repeat:no-repeat}
+body.page-musings .musing-thumb--scenarios::after{background-image:url('assets/dmt/problems-refined.avif?v=20260813d');background-size:500% 100%;background-position:50% 0}
+body.page-musings .musing-thumb--questions::after{background-image:url('assets/dmt/problems-refined.avif?v=20260813d');background-size:500% 100%;background-position:25% 0}
+body.page-musings .musing-thumb--canvas::after{background-image:url('assets/dmt/glimpses-refined.avif?v=20260813d');background-size:300% 200%;background-position:50% 100%}
+body.page-musings .musing-thumb--html::after{background-image:url('assets/dmt/glimpses-refined.avif?v=20260813d');background-size:300% 200%;background-position:100% 100%}
+body.page-musings .musing-card h3{font-size:2rem}
+body.page-musings .musing-open{font-size:1.45rem}
+body.page-musings .field-note{background:var(--dmt-paper)}
+body.page-musings .field-note-sketch{min-height:285px;background:transparent!important;border:0!important;box-shadow:none!important;clip-path:none!important;position:relative}
+body.page-musings .field-note-sketch::before{display:none!important}
+body.page-musings .field-note-sketch::after{content:"";position:absolute;inset:0;background-repeat:no-repeat}
+body.page-musings .field-note-sketch--scenarios::after{background-image:url('assets/dmt/problems-refined.avif?v=20260813d');background-size:500% 100%;background-position:50% 0}
+body.page-musings .field-note-sketch--questions::after{background-image:url('assets/dmt/problems-refined.avif?v=20260813d');background-size:500% 100%;background-position:25% 0}
+body.page-musings .field-note-sketch--canvas::after{background-image:url('assets/dmt/glimpses-refined.avif?v=20260813d');background-size:300% 200%;background-position:50% 100%}
+body.page-musings .field-note-sketch--html::after{background-image:url('assets/dmt/glimpses-refined.avif?v=20260813d');background-size:300% 200%;background-position:100% 100%}
+body.page-musings .field-note-callout{background:var(--dmt-yellow);box-shadow:4px 5px 0 rgba(40,34,29,.07);clip-path:polygon(.5% 3%,99% 0,98.4% 95%,80% 100%,1% 97%)}
+body.page-musings .modal-panel{background:var(--dmt-paper)}
+
+/* -------------------------------------------------------------------------- */
+/* About */
+body.page-about .page-hero .container{padding-right:min(28vw,350px)}
+body.page-about .page-hero .container::after{content:"";position:absolute;right:10px;top:-20px;width:min(27vw,340px);height:245px;background:url('assets/dmt/problems-refined.avif?v=20260813d') 0 0/500% 100% no-repeat;opacity:.95}
+body.page-about .about-photo-wrap{padding:18px 18px 32px;background:rgba(255,248,233,.72);box-shadow:8px 12px 18px rgba(47,37,29,.11);clip-path:polygon(1% .5%,99% 0,98.5% 98%,80% 100%,2% 98%)}
+body.page-about .about-photo-wrap::before{content:"";position:absolute;top:-8px;left:36%;width:94px;height:26px;background:rgba(211,182,126,.64);transform:rotate(-3deg);z-index:3}
+body.page-about .about-photo{border:0;box-shadow:none;filter:grayscale(.12) contrast(.98)}
+body.page-about .about-photo-wrap::after{right:2px;bottom:1px}
+body.page-about .beliefs{display:grid;grid-template-columns:1fr 1fr;gap:0 36px;max-width:none}
+body.page-about .beliefs li{min-height:92px;padding:18px 14px 18px 76px;border-bottom:1px dashed rgba(40,34,29,.16);font-size:1rem!important;font-weight:500!important}
+body.page-about .beliefs li::before{
+  content:""!important;position:absolute;left:6px;top:16px;width:54px;height:58px;background-image:url('assets/dmt/beliefs-v3.svg?v=20260812e');background-size:400% 100%;background-repeat:no-repeat;
+}
+body.page-about .beliefs li:nth-child(4n+1)::before{background-position:0 0}
+body.page-about .beliefs li:nth-child(4n+2)::before{background-position:33.333% 0}
+body.page-about .beliefs li:nth-child(4n+3)::before{background-position:66.666% 0}
+body.page-about .beliefs li:nth-child(4n+4)::before{background-position:100% 0}
+body.page-about .beliefs li:nth-child(3n+1){background:linear-gradient(transparent 78%,rgba(246,217,79,.48) 78% 94%,transparent 94%)}
+body.page-about .work-grid .artifact{min-height:430px;padding-top:190px}
+body.page-about .work-grid .artifact::after{content:"";position:absolute;left:24px;right:24px;top:28px;height:140px;background-image:url('assets/dmt/glimpses-refined.avif?v=20260813d');background-size:300% 200%;background-repeat:no-repeat}
+body.page-about .work-grid .artifact:nth-child(1)::after{background-position:0 100%}
+body.page-about .work-grid .artifact:nth-child(2)::after{background-image:url('assets/dmt/problems-refined.avif?v=20260813d');background-size:500% 100%;background-position:75% 0}
+body.page-about .experience-section{border:0;padding:60px 0}
+body.page-about .experience-list{gap:12px}
+body.page-about .experience-list span{border:0;padding:8px 13px;background:rgba(246,217,79,.62);box-shadow:2px 3px 0 rgba(40,34,29,.05);font-family:"Caveat",cursive;font-size:1.15rem;font-weight:700}
+body.page-about .experience-list span:nth-child(3n+2){background:rgba(240,164,187,.58)}
+body.page-about .experience-list span:nth-child(3n+3){background:rgba(167,213,223,.6)}
+
+/* -------------------------------------------------------------------------- */
+/* Contact */
+body.page-contact .page-hero .container{padding-right:min(31vw,390px)}
+body.page-contact .page-hero .container::after{content:"";position:absolute;right:0;top:-22px;width:min(30vw,380px);height:270px;background:url('assets/dmt/problems-refined.avif?v=20260813d') 0 0/500% 100% no-repeat}
+body.page-contact .contact-layout{gap:54px}
+body.page-contact .contact-card{padding:40px 36px 34px}
+body.page-contact .field input,body.page-contact .field textarea{background:rgba(255,255,255,.08)}
+body.page-contact .notes-grid{gap:28px}
+body.page-contact .note-card{
+  min-height:360px;padding:175px 27px 28px;background:rgba(255,248,233,.72)!important;border:1px solid rgba(40,34,29,.1);box-shadow:6px 9px 14px rgba(40,34,29,.09);clip-path:polygon(.7% 1%,99% 0,98.7% 97%,84% 100%,1% 98%);transform:none!important;margin:0!important;
+}
+body.page-contact .note-card::before{display:none}
+body.page-contact .note-card::after{content:"";position:absolute;left:18px;right:18px;top:18px;height:135px;background-image:url('assets/dmt/problems-refined.avif?v=20260813d');background-size:500% 100%;background-repeat:no-repeat;clip-path:none;filter:none;opacity:1}
+body.page-contact .note-card:nth-child(1)::after{background-position:0 0}
+body.page-contact .note-card:nth-child(2)::after{background-position:75% 0}
+body.page-contact .note-card:nth-child(3)::after{background-position:50% 0}
+body.page-contact .note-card .number{position:absolute;top:145px;left:24px;background:var(--dmt-yellow);padding:1px 9px;transform:rotate(-2deg)}
+body.page-contact .note-card:nth-child(2) .number{background:var(--dmt-pink)}
+body.page-contact .note-card:nth-child(3) .number{background:var(--dmt-blue)}
+body.page-contact .note-card h3{margin:0 0 10px;font-size:2rem}
+
+/* -------------------------------------------------------------------------- */
+/* Thank-you */
+body.page-thank-you .page-hero{min-height:72vh;display:flex;align-items:center}
+body.page-thank-you .page-hero .container{padding:48px min(38vw,480px) 48px 46px;background:rgba(255,248,233,.74);box-shadow:8px 12px 18px rgba(47,37,29,.10);clip-path:polygon(.8% 1%,99% 0,98.7% 98%,82% 99.4%,2% 98%)}
+body.page-thank-you .page-hero .container::before{content:"";position:absolute;top:-10px;left:42%;width:90px;height:25px;background:rgba(211,182,126,.6);transform:rotate(-2deg)}
+body.page-thank-you .page-hero .container::after{content:"";position:absolute;right:24px;top:38px;width:min(32vw,390px);height:255px;background:url('assets/dmt/glimpses-refined.avif?v=20260813d') 50% 100%/300% 200% no-repeat}
+
+@media(max-width:900px){
+  body.page-approach .page-hero .container,body.page-musings .page-hero .container,body.page-about .page-hero .container,body.page-contact .page-hero .container{padding-right:0;padding-bottom:230px}
+  body.page-approach .page-hero .container::after,body.page-musings .page-hero .container::after,body.page-about .page-hero .container::after,body.page-contact .page-hero .container::after{left:0;right:auto;top:auto;bottom:0;width:min(78vw,430px);height:220px}
+  body.page-approach .process-grid{grid-template-columns:1fr}
+  body.page-approach .process-step{min-height:330px;padding-top:180px}
+  body.page-approach .process-step+ .process-step{border-left:0;border-top:1px solid rgba(40,34,29,.15)}
+  body.page-approach .notes-grid{grid-template-columns:1fr}
+  body.page-approach .note-card+ .note-card{border-left:0;border-top:1px solid rgba(40,34,29,.15)}
+  body.page-musings .musing-grid{grid-template-columns:1fr 1fr}
+  body.page-about .beliefs{grid-template-columns:1fr}
+  body.page-thank-you .page-hero .container{padding-right:40px;padding-bottom:280px}
+  body.page-thank-you .page-hero .container::after{left:32px;right:auto;top:auto;bottom:20px;width:min(75vw,390px);height:220px}
+}
+@media(max-width:720px){
+  body.dmt-inner .site-header .nav-inner{min-height:78px}
+  body.dmt-inner .site-nav{top:78px;background:var(--dmt-paper);gap:17px}
+  body.dmt-inner .page-hero{padding-top:34px}
+  body.dmt-inner .page-hero h1{font-size:clamp(4rem,18vw,6rem)}
+  body.dmt-inner .footer-grid{grid-template-columns:1fr}
+  body.page-musings .musing-grid{grid-template-columns:1fr}
+  body.page-musings .musing-thumb{height:180px!important}
+  body.page-about .about-strip{grid-template-columns:1fr}
+  body.page-contact .notes-grid{grid-template-columns:1fr}
+  body.page-contact .note-card{min-height:335px}
+  body.dmt-inner .big-cta .container{padding:32px 24px}
+}
