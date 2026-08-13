@@ -123,7 +123,7 @@
       <div class="discussion" id="discussionPrompt"></div>
     </section>
 
-    <p class="note"><strong>Autosave:</strong> every move is saved into this browser using local storage, so an accidental refresh should restore the activity. “Save workshop file” downloads a JSON snapshot that can be kept with the workshop outputs. Browsers cannot silently create or continuously overwrite files on a participant's device without permission, so this two-layer pattern is safer than pretending an HTML page can guarantee a background file save.</p>
+    <p class="note"><strong>Autosave:</strong> while selections are active, every move is saved into this browser using local storage so an accidental refresh can restore the activity. “Save workshop file” downloads a JSON snapshot to the participant's device. “Reset” clears the browser autosave and any generated balance-check output from the page; a JSON file already downloaded remains only wherever the participant chose to save it.</p>
   </main>
 
   <div class="modal" id="infoModal" aria-hidden="true">
@@ -208,6 +208,12 @@
       saveState();
     }
 
+    function clearResults(){
+      results.classList.remove('visible');
+      ['reinforcingList','counterbalanceList','watchoutList'].forEach(id => { document.getElementById(id).replaceChildren(); });
+      document.getElementById('discussionPrompt').textContent = '';
+    }
+
     function moveTo(id, zone){
       if(!principles.some(p => p.id === id)) return;
       state.top = state.top.filter(x => x !== id);
@@ -220,14 +226,14 @@
       }
       if(selectedIds().length >= 6){ showToast('Your $600 budget is already fully allocated.'); render(); return; }
       state[zone].push(id);
-      results.classList.remove('visible');
+      clearResults();
       render();
     }
 
     function returnToBank(id){
       state.top = state.top.filter(x => x !== id);
       state.support = state.support.filter(x => x !== id);
-      results.classList.remove('visible');
+      clearResults();
       render();
     }
 
@@ -275,6 +281,11 @@
 
     function saveState(){
       try{
+        if(selectedIds().length === 0){
+          localStorage.removeItem(STORAGE_KEY);
+          saveStatus.textContent = 'No selections stored · this browser';
+          return;
+        }
         localStorage.setItem(STORAGE_KEY, JSON.stringify({version:1, savedAt:new Date().toISOString(), top:state.top, support:state.support}));
         saveStatus.textContent = `Autosaved · ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
       }catch(err){ saveStatus.textContent = 'Autosave unavailable in this browser'; }
@@ -309,8 +320,15 @@
     }
 
     function reset(){
-      if(!confirm('Reset the activity and clear the autosaved selections?')) return;
-      state.top=[]; state.support=[]; localStorage.removeItem(STORAGE_KEY); results.classList.remove('visible'); render(); showToast('Activity reset.');
+      if(!confirm('Reset the activity and permanently clear this browser\'s autosaved selections? Any workshop JSON file you already downloaded will remain on your device.')) return;
+      state.top=[];
+      state.support=[];
+      draggedId=null;
+      try{ localStorage.removeItem(STORAGE_KEY); }catch(err){}
+      clearResults();
+      render();
+      saveStatus.textContent = 'Reset complete · no selections stored';
+      showToast('Activity reset. Browser autosave cleared.');
     }
 
     function openInfo(id){
