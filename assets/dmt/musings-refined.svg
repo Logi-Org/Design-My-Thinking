@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 720">
+  <defs>
+    <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="9" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .ink{fill:none;stroke:#28221d;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+      .thin{fill:none;stroke:#28221d;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+      .scratch{fill:none;stroke:#28221d;stroke-width:2.2;stroke-linecap:round;opacity:.45}
+      .pink{fill:#efa4bb;stroke:#28221d;stroke-width:3.4;stroke-linejoin:round}
+      .yellow{fill:#f5d748;stroke:#28221d;stroke-width:3.4;stroke-linejoin:round}
+      .blue{fill:#9fd2de;stroke:#28221d;stroke-width:3.4;stroke-linejoin:round}
+      .paper{fill:#fff8e9;stroke:#28221d;stroke-width:3.4;stroke-linejoin:round}
+      .note{font-family:'Comic Sans MS','Segoe Print',cursive;font-size:24px;font-weight:700;fill:#28221d}
+    </style>
+  </defs>
+
+  <!-- 01: Scenarios stretch thinking -->
+  <g transform="translate(0 0)" filter="url(#rough)">
+    <path class="scratch" d="M110 292c74-14 151-14 226-2M364 294c65-11 129-10 194 2"/>
+    <path class="ink" d="M340 88c-3 70-2 138 0 206"/>
+    <path class="thin" d="M334 91c8 60 9 129 5 202" opacity=".48"/>
+    <path class="paper" d="M337 103l108-34 35 25-34 34-109 4z"/>
+    <path class="paper" d="M339 159l-112-23-34 28 38 30 108-4z"/>
+    <path class="paper" d="M338 218l111-16 34 29-39 30-106-7z"/>
+    <path class="thin" d="M365 106l64-20M223 160l76 14M366 231l66-10" opacity=".45"/>
+    <path class="ink" d="M95 263c49-40 96-55 144-45 34 8 55 18 92 14"/>
+    <path class="ink" d="M346 269c45-20 88-43 132-74 36-26 63-42 105-45"/>
+    <path class="thin" d="M495 208l28-35 33 26M531 179l29-30 35 31"/>
+    <path class="scratch" d="M73 274c36-14 72-20 108-17M479 278c41-12 82-14 123-8"/>
+    <path class="pink" d="M93 151l112-13 12 92-111 15z"/>
+    <text class="note" x="117" y="177" transform="rotate(-5 117 177)">which</text>
+    <text class="note" x="126" y="204" transform="rotate(-5 126 204)">way now?</text>
+    <path class="thin" d="M124 218c22 6 44 5 65-2"/>
+    <path class="thin" d="M79 101c17-15 39-13 50 1 9-10 26-8 32 6 13-3 27 6 28 19H77c-2-11 0-19 2-26zM512 99c14-13 34-12 44 1 8-9 23-7 29 6 12-2 25 6 26 18h-101c-2-9-1-17 2-25z"/>
+  </g>
+
+  <!-- 02: Seed the question, not the answer -->
+  <g transform="translate(720 0)" filter="url(#rough)">
+    <path class="thin" d="M120 173c-18-16-18-43 3-53-2-23 20-41 41-32 13-20 45-19 55 2 22-12 47 4 47 28 22 4 30 32 15 49 10 23-13 48-37 39-18 20-50 13-57-9-20 13-46-1-44-25-11 6-22 5-23 1z"/>
+    <path class="scratch" d="M145 118c21-17 35 8 26 21 24-25 45-3 34 16 16-24 42-16 41 5M141 160c18 13 34 4 39-9 5 22 27 27 42 13 1 20 19 24 34 15"/>
+    <path class="ink" d="M291 163c43 0 59 20 91 20"/>
+    <path class="thin" d="M370 175l18 8-18 9"/>
+    <g transform="translate(405 160)">
+      <circle class="thin" cx="0" cy="0" r="13"/><path class="thin" d="M0 13v56M0 32l-21 21M0 33l21 18M0 69l-17 27M0 69l17 27"/>
+    </g>
+    <g transform="translate(482 158)">
+      <circle class="thin" cx="0" cy="0" r="13"/><path class="thin" d="M0 13v56M0 32l-20 18M0 33l20 20M0 69l-16 27M0 69l18 27"/>
+    </g>
+    <g transform="translate(548 162)">
+      <circle class="thin" cx="0" cy="0" r="13"/><path class="thin" d="M0 13v56M0 32l-18 18M0 33l19 20M0 69l-15 27M0 69l17 27"/>
+    </g>
+    <path class="paper" d="M376 72c-2-32 51-38 60-7 9 31-13 45-29 54l-17 18 5-25c-12-7-18-20-19-40z"/>
+    <text class="note" x="399" y="92">?</text>
+    <path class="paper" d="M469 66c2-28 50-30 57-1 6 23-10 38-27 44l-15 16 4-21c-12-8-18-22-19-38z"/>
+    <text class="note" x="492" y="90">!</text>
+    <g transform="translate(621 86)">
+      <path class="yellow" d="M-29 15c-5-29 19-51 46-40 25 10 30 38 11 56-10 9-13 18-14 26h-32c-1-10-4-20-11-28-4-5-7-9-8-14z"/>
+      <path class="thin" d="M-15 57h28M-12 68h22M-7 78h13"/>
+      <path class="thin" d="M-51-24l-16-14M-55 8h-22M43-23l15-14M47 7h22M-4-42v-22"/>
+    </g>
+    <path class="ink" d="M603 235c-75 38-165 48-254 31-49-9-88-29-118-54"/>
+    <path class="thin" d="M240 223l-10-14 19 2"/>
+  </g>
+
+  <!-- 03: The value of a canvas -->
+  <g transform="translate(0 360)" filter="url(#rough)">
+    <g transform="translate(126 85)">
+      <path class="pink" d="M0 20l88-12 11 82-89 12z"/>
+      <path class="yellow" d="M83 0l84 8-9 75-83-8z"/>
+      <path class="paper" d="M44 80l83-4 6 79-82 5z"/>
+      <path class="pink" d="M116 76l86 8-8 80-86-9z"/>
+      <path class="yellow" d="M-14 101l81-1 5 77-82 1z"/>
+      <path class="pink" d="M54 156l80 5-6 74-80-4z"/>
+      <path class="yellow" d="M126 156l88 10-11 79-86-10z"/>
+      <path class="thin" d="M19 48l46-7M102 30l38 5M66 106l42-4M137 106l39 5M6 125l43 1M73 186l36 4M144 188l40 5" opacity=".5"/>
+    </g>
+    <path class="ink" d="M361 162c58-3 85 4 118 39"/>
+    <path class="thin" d="M463 185l22 20-29 1"/>
+    <path class="ink" d="M358 209c59 6 81 20 111 49"/>
+    <path class="thin" d="M454 242l21 19-28 3"/>
+    <circle class="paper" cx="560" cy="168" r="61"/>
+    <path class="yellow" d="M560 120l15 31 35 4-25 24 7 35-32-17-32 17 7-35-26-24 36-4z"/>
+    <path class="thin" d="M505 276h111M505 301h88M510 326h105"/>
+    <path class="thin" d="M488 274l8 8 14-18M488 299l8 8 14-18M488 324l8 8 14-18"/>
+  </g>
+
+  <!-- 04: When Post-its become wallpaper / HTML as a material -->
+  <g transform="translate(720 360)" filter="url(#rough)">
+    <path class="paper" d="M150 80l376 4 17 224-407-1z"/>
+    <path class="thin" d="M153 113l376 3"/>
+    <circle cx="174" cy="98" r="4" fill="#28221d"/><circle cx="190" cy="98" r="4" fill="#28221d"/><circle cx="206" cy="98" r="4" fill="#28221d"/>
+    <path class="thin" d="M181 147h80v114h-80zM279 147h212M279 180h176M279 211h198M279 242h141"/>
+    <path class="pink" d="M205 164l55-2 2 46-55 3z"/>
+    <path class="yellow" d="M304 162l66 4-4 51-66-3z"/>
+    <path class="blue" d="M394 161l63 1-2 50-62-1z"/>
+    <path class="yellow" d="M331 231l72-1 1 51-72 1z"/>
+    <path class="ink" d="M112 315h458l-45 34H151z"/>
+    <path class="scratch" d="M178 326h334M205 337h276"/>
+    <path class="thin" d="M92 201c-10-17-8-38 3-52 13-17 13-31 5-46M111 211c-7-15-4-30 7-42 10-12 11-24 5-38"/>
+    <path class="paper" d="M55 217c37-8 68-2 81 18 11 17 6 62-13 77-20 16-62 14-79-4-19-21-17-74 11-91z"/>
+    <path class="thin" d="M134 240c23-4 35 11 33 29-2 20-17 29-38 24"/>
+    <path class="paper" d="M578 189l63-4 13 126-73 6z"/>
+    <path class="thin" d="M592 179l20-57M615 178l11-66M630 183l36-51"/>
+    <path class="pink" d="M555 298l79-8 8 48-81 8z"/>
+  </g>
+</svg>
