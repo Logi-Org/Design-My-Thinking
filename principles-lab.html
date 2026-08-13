@@ -6,7 +6,6 @@
   <title>Leadership Principles Tension Lab — Design My Thinking</title>
   <meta name="description" content="A workshop interaction for prioritising leadership principles, making trade-offs visible and discussing the tensions between them." />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
     :root{--ink:#27231f;--paper:#f7f1e7;--card:#fffaf1;--pink:#ff4fa3;--yellow:#ffe28a;--green:#cfe8c7;--blue:#cfe2ef;--red:#f7c6c6;--line:#27231f;--muted:#6f675f;--shadow:7px 8px 0 rgba(39,35,31,.12)}
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -63,51 +62,6 @@
     .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 14px;font-weight:800;font-size:13px;opacity:0;pointer-events:none;transition:.18s;z-index:30}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
     @media(max-width:960px){.hero,.lab{grid-template-columns:1fr}.bank{position:static;max-height:none;order:-1}.bank-list{grid-template-columns:repeat(2,minmax(0,1fr))}.pyramid{min-height:0}.results-grid{grid-template-columns:1fr}.dropzone.top{width:76%}.dropzone.support{width:100%}}
     @media(max-width:620px){.shell{padding-inline:12px}.hero{gap:16px}.bank-list,.zone-items{grid-template-columns:1fr}.dropzone.top,.dropzone.support{clip-path:none;width:100%;padding:58px 12px 14px;min-height:210px}.top .zone-title,.support .zone-title{top:12px}.toolbar{align-items:stretch}.budget{width:100%}.status{width:100%}.btn{flex:1}.topbar{align-items:flex-start}.back{font-size:13px}}
-
-    /* Refined Design My Thinking treatment: preserve the interaction, change the material. */
-    :root{--paper:#f3ecde;--card:#fff8e9;--pink:#f0a4bb;--yellow:#f6d94f;--blue:#a7d5df;--green:#dcebd2;--muted:#61584f;--shadow:7px 11px 18px rgba(47,37,29,.10)}
-    body{background:radial-gradient(circle at 15% 4%,rgba(255,255,255,.72),transparent 25%),repeating-linear-gradient(0deg,rgba(77,58,41,.018) 0 1px,transparent 1px 5px),var(--paper)}
-    .shell{max-width:1380px;padding-top:24px}
-    .brand{font-family:"Caveat",cursive;font-size:2.15rem;font-weight:700;letter-spacing:-.02em}
-    .back{font-family:"Caveat",cursive;font-size:1.3rem;font-weight:700;border-bottom:0;background:linear-gradient(transparent 69%,rgba(167,213,223,.72) 69% 90%,transparent 90%)}
-    .hero{align-items:center;gap:38px;margin:20px 0 34px}
-    .eyebrow{font-family:"Caveat",cursive;font-size:1.25rem;text-transform:none;letter-spacing:.01em;font-weight:700}
-    h1{font-family:"Caveat",cursive;font-size:clamp(4.4rem,7vw,7.4rem);line-height:.82;font-weight:600;letter-spacing:-.025em;margin-top:6px}
-    .marker:after{background:var(--yellow);opacity:.88;bottom:.08em;height:.22em}
-    .hero p{font-size:1.03rem;line-height:1.6;color:#514941}
-    .brief{position:relative;border:1px solid rgba(40,34,29,.10);background:rgba(255,248,233,.76);padding:165px 24px 24px;box-shadow:var(--shadow);clip-path:polygon(.7% 1%,99% 0,98.5% 97%,84% 100%,2% 98%);transform:rotate(.35deg)}
-    .brief:before{content:"";position:absolute;top:-8px;left:38%;width:82px;height:24px;background:rgba(211,182,126,.58);transform:rotate(-2deg);z-index:2}
-    .brief:after{content:"";position:absolute;left:20px;right:20px;top:18px;height:138px;background:url('assets/dmt/problems-refined.avif?v=20260813d') 50% 0/500% 100% no-repeat}
-    .brief strong{font-family:"Caveat",cursive;font-size:1.55rem;line-height:1.05}
-    .brief p{font-size:.9rem}
-    .toolbar{padding:14px 0 8px;border-top:1px dashed rgba(40,34,29,.14)}
-    .budget{border:0;background:var(--yellow);box-shadow:3px 4px 0 rgba(39,35,31,.07);transform:rotate(-1deg);clip-path:polygon(1% 4%,99% 0,98% 96%,3% 100%)}
-    .budget strong{font-family:"Caveat",cursive;font-size:2rem}
-    .btn{border:1px solid rgba(40,34,29,.35);background:rgba(255,248,233,.76);box-shadow:3px 4px 0 rgba(39,35,31,.07);font-family:"Caveat",cursive;font-size:1.15rem;font-weight:700;clip-path:polygon(1% 2%,99% 0,98% 97%,2% 100%)}
-    .btn.primary{background:var(--ink);color:#fffaf0}
-    .section-label h2,.bank h2,.results h2,.modal-card h2{font-family:"Caveat",cursive;font-size:1.8rem}
-    .section-label span{font-weight:600}
-    .pyramid{gap:18px}
-    .dropzone{border:2px dashed rgba(40,34,29,.52);background:rgba(255,248,233,.34);box-shadow:none}
-    .dropzone.top{background:rgba(246,217,79,.18)}
-    .dropzone.support{background:rgba(167,213,223,.16)}
-    .zone-title{font-family:"Caveat",cursive;font-size:1.45rem;font-weight:700}
-    .zone-title small{font-family:Inter,sans-serif;font-size:.66rem}
-    .bank{border:1px solid rgba(40,34,29,.11);background:rgba(255,248,233,.72);box-shadow:var(--shadow);clip-path:polygon(.6% 1%,99% 0,98.7% 98%,83% 100%,1% 98%);padding:22px 18px 18px}
-    .bank:before{content:"";display:block;width:82px;height:22px;background:rgba(211,182,126,.58);margin:-30px auto 10px;transform:rotate(-2deg)}
-    .principle{border:1px solid rgba(40,34,29,.16);background:rgba(255,248,233,.94);box-shadow:3px 4px 0 rgba(39,35,31,.055);padding:13px 12px;clip-path:polygon(.7% 1%,99% 0,98.5% 97%,86% 100%,1% 98%)}
-    .principle:nth-child(3n+1){transform:rotate(-.35deg)}.principle:nth-child(3n+2){transform:rotate(.3deg)}
-    .principle h3{font-family:"Caveat",cursive;font-size:1.27rem;line-height:1.05;font-weight:700}
-    .principle .cost{font-size:.64rem}
-    .mini{border:1px solid rgba(40,34,29,.26);background:#fffaf0;font-size:.68rem;border-radius:0}.mini.top-choice{background:var(--yellow)}.mini.support-choice{background:var(--blue)}
-    .info,.remove{border:1px solid rgba(40,34,29,.3);background:#fffaf0}
-    .results{border:1px solid rgba(40,34,29,.11);background:rgba(255,248,233,.74);box-shadow:var(--shadow);clip-path:polygon(.6% 1%,99% 0,98.7% 98%,83% 100%,1% 98%);padding:26px}
-    .result-card{border:0;border-top:1px dashed rgba(40,34,29,.18);background:transparent!important;padding:18px 8px}
-    .result-card h3{font-family:"Caveat",cursive;font-size:1.35rem}.result-card.good{border-top:7px solid rgba(167,213,223,.75)}.result-card.watch{border-top:7px solid rgba(246,217,79,.8)}.result-card.neutral{border-top:7px solid rgba(240,164,187,.7)}
-    .discussion{border-left:0;background:var(--yellow);font-family:"Caveat",cursive;font-size:1.35rem;clip-path:polygon(.7% 2%,99% 0,98% 96%,2% 100%)}
-    .note{border-top:1px dashed rgba(40,34,29,.14);padding-top:16px}
-    .modal-card{border:1px solid rgba(40,34,29,.16);background:var(--paper);box-shadow:var(--shadow);clip-path:polygon(.8% 1%,99% 0,98.5% 98%,84% 100%,1% 98%)}
-    @media(max-width:960px){.brief{padding-top:145px}.hero{align-items:start}}
   </style>
 </head>
 <body>

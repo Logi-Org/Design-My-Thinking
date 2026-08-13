@@ -62,7 +62,12 @@
   nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
 })();
 
-/* Reusable content modal. */
+/*
+  Reusable content modal.
+  Preferred pattern: trigger uses data-modal-template="template-id" and the page
+  contains a matching <template id="template-id">. The same shell can therefore
+  host musings, case studies, future narrated notes, images, or legacy PDFs.
+*/
 (function () {
   const modal = document.getElementById('serviceModal');
   if (!modal) return;
@@ -178,33 +183,16 @@
   });
 })();
 
-/* Keep the public site language and visual system consistent across inner pages. */
+/* Keep the public site language and illustrated visual system consistent across legacy inner pages. */
 (function () {
   const path = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
   const isHome = path === '' || path === 'index.html';
 
-  if (!isHome) {
-    const pageName = path.replace(/\.html$/,'').replace(/[^a-z0-9-]/g,'-') || 'inner';
-    document.body.classList.add('dmt-inner','page-' + pageName);
-
-    if (!document.querySelector('link[href*="illustrated-site.css"]')) {
-      const illustrated = document.createElement('link');
-      illustrated.rel = 'stylesheet';
-      illustrated.href = 'illustrated-site.css?v=20260812e';
-      document.head.appendChild(illustrated);
-    }
-    if (!document.querySelector('link[href*="site-refined.css"]')) {
-      const refined = document.createElement('link');
-      refined.rel = 'stylesheet';
-      refined.href = 'site-refined.css?v=20260813a';
-      document.head.appendChild(refined);
-    }
-    if (!document.querySelector('link[href*="site-refined-fixes.css"]')) {
-      const fixes = document.createElement('link');
-      fixes.rel = 'stylesheet';
-      fixes.href = 'site-refined-fixes.css?v=20260813a';
-      document.head.appendChild(fixes);
-    }
+  if (!isHome && !document.querySelector('link[href*="illustrated-site.css"]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'illustrated-site.css?v=20260812e';
+    document.head.appendChild(link);
   }
 
   const nav = document.getElementById('site-nav');
@@ -227,7 +215,7 @@
   document.querySelectorAll('.footer h5').forEach((h) => {
     if (h.textContent.trim().toLowerCase() !== 'explore') return;
     const ul = h.parentElement && h.parentElement.querySelector('ul');
-    if (ul) ul.innerHTML = '<li><a href="index.html#glimpses">Work</a></li><li><a href="approach.html">Approach</a></li><li><a href="musings.html">Musings</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>';
+    if (ul) ul.innerHTML = '<li><a href="index.html#glimpses">Work</a></li><li><a href="approach.html">Approach</a></li><li><a href="musings.html">Musings</a></li><li><a href="contact.html">Contact</a></li>';
   });
 
   if (path === 'musings.html') {
