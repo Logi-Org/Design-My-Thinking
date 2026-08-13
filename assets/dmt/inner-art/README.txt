@@ -1,0 +1,1 @@
+Bespoke raster illustrations for inner pages. Generated from approved hand-drawn visual direction. No SVG artwork is used here.
