@@ -191,8 +191,15 @@
   if (!isHome && !document.querySelector('link[href*="illustrated-site.css"]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = 'illustrated-site.css?v=20260812e';
+    link.href = 'illustrated-site.css?v=20260814a';
     document.head.appendChild(link);
+  }
+
+  if (path === 'musings.html' && !document.querySelector('link[href*="musings-refined.css"]')) {
+    const musingsLink = document.createElement('link');
+    musingsLink.rel = 'stylesheet';
+    musingsLink.href = 'musings-refined.css?v=20260814a';
+    document.head.appendChild(musingsLink);
   }
 
   const nav = document.getElementById('site-nav');
