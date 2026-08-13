@@ -1,0 +1,1 @@
+div[aria-label^="Sketch showing one present"]{background-image:var(--musing-scenarios)!important}div[aria-label^="Sketch of a question"]{background-image:var(--musing-question)!important}div[aria-label^="Sketch of a workshop canvas"]{background-image:var(--musing-canvas)!important}div[aria-label^="Sketch showing familiar paper"]{background-image:var(--musing-wallpaper)!important}
