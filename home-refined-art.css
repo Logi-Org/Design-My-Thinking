@@ -1,11 +1,11 @@
-/* Approved hand-drawn homepage art treatment — 2026-08-13.
-   Keep the existing carousel/card structure, but use one warm paper tone and reserve colour for meaningful accents inside the drawings. */
+/* Approved hand-drawn homepage art treatment — corrected 2026-08-13.
+   Keep the existing carousel/card structure and let the drawings sit directly on the same warm paper surface. */
 
 .gl-img{
   background-size:300% 200%!important;
   background-repeat:no-repeat!important;
   background-color:#fdf6ea!important;
-  mix-blend-mode:multiply!important;
+  mix-blend-mode:normal!important;
 }
 .art-glimpse-01{background-position:0 0!important}
 .art-glimpse-02{background-position:50% 0!important}
@@ -20,7 +20,7 @@
   background-size:500% 100%!important;
   background-repeat:no-repeat!important;
   background-color:#fdf6ea!important;
-  mix-blend-mode:multiply!important;
+  mix-blend-mode:normal!important;
 }
 .art-problem-01{background-position:0 0!important}
 .art-problem-02{background-position:25% 0!important}
