@@ -1,0 +1,34 @@
+/* Approved hand-drawn homepage art treatment — 2026-08-13.
+   Keep the existing carousel/card structure, but use one warm paper tone and reserve colour for meaningful accents inside the drawings. */
+
+.gl-img{
+  background-size:300% 200%!important;
+  background-repeat:no-repeat!important;
+  background-color:#fdf6ea!important;
+  mix-blend-mode:multiply!important;
+}
+.art-glimpse-01{background-position:0 0!important}
+.art-glimpse-02{background-position:50% 0!important}
+.art-glimpse-03{background-position:100% 0!important}
+.art-glimpse-04{background-position:0 100%!important}
+.art-glimpse-05{background-position:50% 100%!important}
+.art-glimpse-06{background-position:100% 100%!important}
+.glimpse-card{background:#fdf6ea!important}
+.glimpse-image{background-color:#fdf6ea!important}
+
+.pr-img{
+  background-size:500% 100%!important;
+  background-repeat:no-repeat!important;
+  background-color:#fdf6ea!important;
+  mix-blend-mode:multiply!important;
+}
+.art-problem-01{background-position:0 0!important}
+.art-problem-02{background-position:25% 0!important}
+.art-problem-03{background-position:50% 0!important}
+.art-problem-04{background-position:75% 0!important}
+.art-problem-05{background-position:100% 0!important}
+.problem-note,.problem-note--yellow,.problem-note--pink,.problem-note--blue{
+  background:#fdf6ea!important;
+  border:1px solid rgba(47,37,29,.12)!important;
+}
+.problem-art{background-color:#fdf6ea!important}
