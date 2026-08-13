@@ -199,6 +199,12 @@
       refined.href = 'site-refined.css?v=20260813a';
       document.head.appendChild(refined);
     }
+    if (!document.querySelector('link[href*="site-refined-fixes.css"]')) {
+      const fixes = document.createElement('link');
+      fixes.rel = 'stylesheet';
+      fixes.href = 'site-refined-fixes.css?v=20260813a';
+      document.head.appendChild(fixes);
+    }
   }
 
   const nav = document.getElementById('site-nav');
