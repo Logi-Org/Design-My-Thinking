@@ -1,5 +1,6 @@
 /* Refined Musings page — 2026-08-14.
-   Same warm paper, hand-drawn ink and restrained accent colours as the homepage. */
+   Same warm paper, hand-drawn ink and restrained accent colours as the homepage.
+   The card and field-note artwork below uses the approved raster illustrations — no SVG sprite treatment. */
 
 body{
   color:#28221d;
@@ -66,7 +67,7 @@ body{
 }
 .musing-card{
   position:relative;
-  min-height:520px!important;
+  min-height:545px!important;
   padding:22px 26px 28px!important;
   background:#fff8e9!important;
   border:1px solid rgba(47,37,29,.11)!important;
@@ -90,21 +91,22 @@ body{
 .musing-card:hover{transform:rotate(0deg) translateY(-5px)!important;box-shadow:9px 14px 20px rgba(47,37,29,.14)!important}
 .musing-card>.hand{font-size:1.23rem!important;color:#746b62!important;margin-bottom:3px}
 
+/* Approved bespoke raster art. The inline SVGs remain in the HTML only as a no-JS fallback and are hidden here. */
 .musing-thumb{
-  height:245px!important;
-  margin:4px 0 12px!important;
+  height:270px!important;
+  margin:2px 0 12px!important;
   border:0!important;
-  background-image:url('assets/dmt/musings-refined.svg?v=20260814a')!important;
-  background-size:200% 200%!important;
+  background-size:contain!important;
+  background-position:center!important;
   background-repeat:no-repeat!important;
   background-color:transparent!important;
   mix-blend-mode:multiply;
 }
 .musing-thumb svg{display:none!important}
-.musing-card:nth-child(1) .musing-thumb{background-position:0 0!important}
-.musing-card:nth-child(2) .musing-thumb{background-position:100% 0!important}
-.musing-card:nth-child(3) .musing-thumb{background-position:0 100%!important}
-.musing-card:nth-child(4) .musing-thumb{background-position:100% 100%!important}
+.musing-card:nth-child(1) .musing-thumb{background-image:var(--musing-scenarios)!important}
+.musing-card:nth-child(2) .musing-thumb{background-image:var(--musing-question)!important}
+.musing-card:nth-child(3) .musing-thumb{background-image:var(--musing-canvas)!important}
+.musing-card:nth-child(4) .musing-thumb{background-image:var(--musing-wallpaper)!important}
 
 .musing-card h3{
   margin:4px 0 12px!important;
@@ -134,21 +136,22 @@ body{
   transform:rotate(-1deg);
 }
 
-/* The same artwork continues inside each opened field note. */
+/* Carry the same richer artwork into the opened field notes. */
 .field-note-sketch{
-  min-height:260px!important;
-  background-image:url('assets/dmt/musings-refined.svg?v=20260814a')!important;
-  background-size:200% 200%!important;
+  min-height:320px!important;
+  background-size:contain!important;
+  background-position:center!important;
   background-repeat:no-repeat!important;
   background-color:transparent!important;
   border:0!important;
+  box-shadow:none!important;
   mix-blend-mode:multiply;
 }
 .field-note-sketch svg{display:none!important}
-.field-note-sketch--scenarios{background-position:0 0!important}
-.field-note-sketch--questions{background-position:100% 0!important}
-.field-note-sketch--canvas{background-position:0 100%!important}
-.field-note-sketch--html{background-position:100% 100%!important}
+.field-note-sketch--scenarios{background-image:var(--musing-scenarios)!important}
+.field-note-sketch--questions{background-image:var(--musing-question)!important}
+.field-note-sketch--canvas{background-image:var(--musing-canvas)!important}
+.field-note-sketch--html{background-image:var(--musing-wallpaper)!important}
 
 /* Keep the supporting principle visually connected to the same system. */
 .artifact{
@@ -170,13 +173,14 @@ body{
   .page-hero{padding-top:48px!important}
   .page-hero .container{margin-inline:auto}
   .musing-grid{grid-template-columns:1fr!important;gap:26px!important}
-  .musing-card{min-height:480px!important;transform:none!important;margin-top:0!important}
+  .musing-card{min-height:500px!important;transform:none!important;margin-top:0!important}
   .musing-card:nth-child(even){transform:none!important;margin-top:0!important}
-  .musing-thumb{height:220px!important}
+  .musing-thumb{height:245px!important}
+  .field-note-sketch{min-height:270px!important}
 }
 @media(max-width:560px){
   .page-hero h1{font-size:clamp(3.6rem,16vw,5.2rem)!important}
-  .musing-card{padding:18px 19px 24px!important;min-height:440px!important}
-  .musing-thumb{height:190px!important}
+  .musing-card{padding:18px 19px 24px!important;min-height:460px!important}
+  .musing-thumb{height:215px!important}
   .musing-card h3{font-size:1.8rem!important}
 }
