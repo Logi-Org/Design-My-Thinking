@@ -1,0 +1,140 @@
+/* Approach page — richer image treatment aligned to the approved homepage art.
+   Uses the same warm paper, pencil/ink texture and restrained pink/yellow/blue accents.
+   All supporting artwork is raster-based. */
+
+.approach-page .page-hero{padding-bottom:58px!important}
+.approach-page .page-hero .container{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.72fr);gap:56px;align-items:center}
+.approach-page .page-hero-copy{max-width:760px}
+
+.approach-hero-art,
+.approach-inline-art,
+.approach-wide-art,
+.after-work-art{
+  position:relative;
+  background-color:#fff8e9;
+  background-repeat:no-repeat;
+  background-position:center;
+  border:1px solid rgba(47,37,29,.10);
+  box-shadow:8px 12px 20px rgba(47,37,29,.12);
+  isolation:isolate;
+}
+.approach-hero-art::before,
+.approach-inline-art::before,
+.approach-wide-art::before,
+.after-work-art::before{
+  content:"";
+  position:absolute;
+  top:-12px;
+  left:42%;
+  width:94px;
+  height:27px;
+  background:rgba(211,182,126,.58);
+  transform:rotate(-2deg);
+  clip-path:polygon(3% 7%,99% 0,96% 95%,0 100%);
+  z-index:2;
+}
+
+/* Exact approved homepage sprite crop: mountain / route / decision journey. */
+.approach-hero-art{
+  min-height:410px;
+  background-image:url('assets/dmt/glimpses-refined.avif?v=20260814e');
+  background-size:300% 200%;
+  background-position:0 0;
+  transform:rotate(.7deg);
+  clip-path:polygon(.6% 1%,99% 0,98.7% 98.3%,80% 99.4%,55% 98.7%,28% 100%,.4% 98.2%);
+}
+.approach-hero-art::after{
+  content:"start with the problem →";
+  position:absolute;
+  right:22px;
+  bottom:18px;
+  font-family:"Caveat",cursive;
+  font-size:1.4rem;
+  color:#28221d;
+  background:rgba(245,215,72,.82);
+  padding:4px 10px 5px;
+  transform:rotate(-2deg);
+}
+
+/* Give the simple Understand / Design / Do model more visual presence without turning it into diagram wallpaper. */
+.approach-page .process-wrap{border:0!important;background:transparent!important;padding-top:46px!important}
+.approach-page .process-grid{gap:28px!important}
+.approach-page .process-grid::before{display:none!important}
+.approach-page .process-step{
+  background:#fff8e9;
+  border:1px solid rgba(47,37,29,.10);
+  box-shadow:6px 9px 16px rgba(47,37,29,.09);
+  padding:24px 25px 26px;
+  min-height:285px;
+  clip-path:polygon(.7% 1%,99% 0,98.5% 98.5%,75% 99.4%,47% 98.6%,20% 100%,.5% 98%);
+}
+.approach-page .process-step:nth-child(1){transform:rotate(-.35deg)}
+.approach-page .process-step:nth-child(2){transform:rotate(.4deg);margin-top:10px}
+.approach-page .process-step:nth-child(3){transform:rotate(-.2deg);margin-top:2px}
+.approach-page .process-dot{width:58px!important;height:58px!important;border:0!important;background:#f5d748!important;font-size:1.45rem!important;box-shadow:2px 3px 0 rgba(40,34,29,.14)}
+.approach-page .process-step:nth-child(2) .process-dot{background:#efa4bb!important}
+.approach-page .process-step:nth-child(3) .process-dot{background:#9fd2de!important}
+.approach-page .process-step h3{font-family:"Caveat",cursive;font-size:2rem!important;line-height:.95;margin-top:8px!important}
+
+.approach-visual-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px;margin:34px 0 12px}
+.approach-inline-art{min-height:315px;background-size:contain;mix-blend-mode:multiply}
+.approach-inline-art--brief{background-image:var(--musing-question);transform:rotate(-.6deg)}
+.approach-inline-art--frame{background-image:var(--musing-scenarios);transform:rotate(.5deg)}
+.approach-inline-art .art-caption,
+.approach-wide-art .art-caption,
+.after-work-art .art-caption{
+  position:absolute;
+  left:22px;
+  bottom:16px;
+  max-width:72%;
+  font-family:"Caveat",cursive;
+  font-size:1.35rem;
+  line-height:1.02;
+  color:#28221d;
+  background:rgba(255,248,233,.9);
+  padding:5px 8px 4px;
+  transform:rotate(-1deg);
+}
+
+.approach-wide-art{
+  min-height:430px;
+  margin:34px 0 38px;
+  background-image:var(--musing-canvas);
+  background-size:contain;
+  mix-blend-mode:multiply;
+  transform:rotate(-.25deg);
+}
+.approach-wide-art .art-caption{background:rgba(159,210,222,.78);max-width:56%;font-size:1.5rem}
+
+/* The old line-art car-park SVG is replaced by the approved richer laptop/shareback illustration. */
+.after-work-art{
+  min-height:470px;
+  background-image:var(--musing-wallpaper);
+  background-size:contain;
+  mix-blend-mode:multiply;
+  transform:rotate(.65deg);
+}
+.after-work-art .art-caption{background:rgba(239,164,187,.72);max-width:78%;font-size:1.48rem}
+
+/* Keep the supporting text cards quieter so the illustrations carry the visual weight. */
+.approach-page .artifact{background:#fff8e9!important}
+.approach-page .notes-grid{align-items:stretch}
+.approach-page .note-card{min-height:245px!important}
+.approach-page .article-note{background:#fff8e9!important}
+
+@media(max-width:900px){
+  .approach-page .page-hero .container{grid-template-columns:1fr;gap:28px}
+  .approach-hero-art{min-height:340px;max-width:680px}
+  .approach-visual-row{grid-template-columns:1fr}
+  .approach-inline-art{min-height:300px}
+  .approach-wide-art{min-height:350px}
+  .after-work-art{min-height:360px}
+}
+@media(max-width:620px){
+  .approach-hero-art{min-height:270px}
+  .approach-page .process-step{min-height:230px}
+  .approach-inline-art{min-height:245px}
+  .approach-wide-art{min-height:275px}
+  .after-work-art{min-height:290px}
+  .approach-inline-art .art-caption,.approach-wide-art .art-caption,.after-work-art .art-caption{max-width:88%;font-size:1.2rem}
+}
