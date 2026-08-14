@@ -1,0 +1,47 @@
+/* Contact page — bring the human back into the conversation. */
+.contact-page .page-hero{padding-bottom:54px!important}
+.contact-page .contact-layout{grid-template-columns:minmax(0,.82fr) minmax(420px,1.18fr)!important;gap:58px!important;align-items:start!important}
+.contact-page .contact-copy{display:flex;flex-direction:column;align-items:flex-start}
+
+.contact-person-card{
+  width:min(390px,100%);
+  margin-top:38px;
+  padding:14px 14px 24px;
+  background:#fff8e9;
+  border:1px solid rgba(47,37,29,.10);
+  box-shadow:8px 12px 20px rgba(47,37,29,.13);
+  transform:rotate(-1.1deg);
+  position:relative;
+  clip-path:polygon(.8% 1%,99% 0,98.8% 98.6%,79% 99.4%,56% 98.7%,29% 100%,.5% 98%);
+}
+.contact-person-card::before{
+  content:"";
+  position:absolute;
+  top:-12px;
+  left:50%;
+  width:96px;
+  height:28px;
+  transform:translateX(-50%) rotate(2deg);
+  background:rgba(211,182,126,.62);
+  clip-path:polygon(3% 7%,99% 0,96% 95%,0 100%);
+  z-index:2;
+}
+.contact-person-photo{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 30%;filter:saturate(.92) contrast(.98);border:1px solid rgba(47,37,29,.08)}
+.contact-person-copy{padding:15px 11px 3px}
+.contact-person-name{display:inline-block;font-family:"Caveat",cursive;font-size:2rem;font-weight:700;line-height:1;margin:0 0 8px;background:linear-gradient(transparent 64%,rgba(245,215,72,.78) 64% 88%,transparent 88%)}
+.contact-person-role{display:block;font-family:"Caveat",cursive;font-size:1.25rem;color:#665d54;margin-bottom:11px}
+.contact-person-copy p{font-size:.96rem!important;line-height:1.48!important;color:#514941!important;margin:0 0 12px!important}
+.contact-person-link{font-family:"Caveat",cursive;font-size:1.25rem;font-weight:600;text-decoration:none;border-bottom:2px solid rgba(40,34,29,.7)}
+.contact-person-link:hover{border-color:#efa4bb}
+
+.contact-page .contact-card{background:#fff8e9!important;border:1px solid rgba(47,37,29,.11)!important;box-shadow:8px 12px 20px rgba(47,37,29,.11)!important;transform:rotate(.25deg)}
+.contact-page .notes-grid{margin-top:8px}
+
+@media(max-width:880px){
+  .contact-page .contact-layout{grid-template-columns:1fr!important}
+  .contact-person-card{width:min(420px,92vw)}
+}
+@media(max-width:560px){
+  .contact-person-card{padding:11px 11px 20px}
+  .contact-person-name{font-size:1.75rem}
+}
