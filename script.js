@@ -187,19 +187,27 @@
 (function () {
   const path = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
   const isHome = path === '' || path === 'index.html';
+  const VERSION = '20260814e';
 
-  if (!isHome && !document.querySelector('link[href*="illustrated-site.css"]')) {
+  function loadStylesheet(href, marker) {
+    if (document.querySelector('link[href*="' + marker + '"]')) return;
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = 'illustrated-site.css?v=20260814a';
+    link.href = href;
     document.head.appendChild(link);
   }
 
-  if (path === 'musings.html' && !document.querySelector('link[href*="musings-refined.css"]')) {
-    const musingsLink = document.createElement('link');
-    musingsLink.rel = 'stylesheet';
-    musingsLink.href = 'musings-refined.css?v=20260814a';
-    document.head.appendChild(musingsLink);
+  if (!isHome) {
+    loadStylesheet('illustrated-site.css?v=' + VERSION, 'illustrated-site.css');
+  }
+
+  if (path === 'musings.html') {
+    /* These define the approved raster artwork variables used by Musings cards and their opened field notes. */
+    loadStylesheet('inner-art-scenarios.css?v=' + VERSION, 'inner-art-scenarios.css');
+    loadStylesheet('inner-art-question.css?v=' + VERSION, 'inner-art-question.css');
+    loadStylesheet('inner-art-canvas.css?v=' + VERSION, 'inner-art-canvas.css');
+    loadStylesheet('inner-art-wallpaper.css?v=' + VERSION, 'inner-art-wallpaper.css');
+    loadStylesheet('musings-refined.css?v=' + VERSION, 'musings-refined.css');
   }
 
   const nav = document.getElementById('site-nav');
@@ -229,8 +237,6 @@
     ['scenarios','questions','canvas','html'].forEach((name, i) => {
       const thumb = document.querySelectorAll('.musing-thumb')[i];
       if (thumb) thumb.classList.add('musing-thumb--' + name);
-      const sketch = document.querySelectorAll('.field-note-sketch')[i];
-      if (sketch) sketch.classList.add('field-note-sketch--' + name);
     });
   }
 })();
