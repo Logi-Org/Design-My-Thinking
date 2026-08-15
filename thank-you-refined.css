@@ -1,0 +1,31 @@
+/* Thank-you page — approved envelope + handwritten acknowledgement. */
+.thank-you-page .page-hero{padding:66px 0 90px!important}
+.thank-you-page .page-hero .container{display:grid;grid-template-columns:minmax(0,.72fr) minmax(460px,1.28fr);gap:54px;align-items:center;max-width:1180px}
+.thank-you-page .thank-copy{max-width:620px}
+.thank-you-page .thank-copy h1{margin-bottom:18px}
+.thank-you-page .thank-visual{
+  min-height:520px;
+  background-image:var(--thankyou-envelope);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:contain;
+  mix-blend-mode:multiply;
+  position:relative;
+}
+.thank-you-page .thank-visual::after{
+  content:"message received ✓";
+  position:absolute;
+  right:9%;
+  bottom:7%;
+  padding:6px 10px 5px;
+  font-family:"Caveat",cursive;
+  font-size:1.25rem;
+  font-weight:700;
+  background:#f5d748;
+  color:#28221d;
+  transform:rotate(2deg);
+  box-shadow:3px 5px 8px rgba(47,37,29,.10);
+}
+.thank-you-page .primary-link{display:inline-block;margin-top:28px}
+@media(max-width:900px){.thank-you-page .page-hero .container{grid-template-columns:1fr}.thank-you-page .thank-visual{min-height:430px;order:-1}.thank-you-page .thank-copy{max-width:720px}}
+@media(max-width:560px){.thank-you-page .thank-visual{min-height:315px}.thank-you-page .page-hero{padding-top:42px!important}}
