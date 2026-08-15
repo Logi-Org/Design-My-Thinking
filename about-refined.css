@@ -1,0 +1,36 @@
+/* About page — approved Workshop Table treatment. */
+.about-page .about-strip{align-items:center;gap:54px!important}
+.about-page .about-photo-wrap{position:relative;padding:14px;background:#fff8e9;border:1px solid rgba(47,37,29,.10);box-shadow:8px 12px 20px rgba(47,37,29,.12);transform:rotate(-1deg);clip-path:polygon(.7% 1%,99% 0,98.8% 98.5%,77% 99.5%,52% 98.7%,25% 100%,.5% 98%)}
+.about-page .about-photo-wrap::before{content:"";position:absolute;top:-12px;left:50%;width:100px;height:28px;transform:translateX(-50%) rotate(2deg);background:rgba(211,182,126,.62);z-index:2;clip-path:polygon(3% 7%,99% 0,96% 95%,0 100%)}
+.about-page .about-photo{display:block;width:100%;filter:saturate(.94) contrast(.98)}
+.about-page .about-copy h2{font-family:"Caveat",cursive;font-size:clamp(2.7rem,4.6vw,4.5rem);line-height:.92;margin:.15em 0 .4em}
+
+.about-concepts{padding-top:26px!important}
+.about-concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.about-concept-card{position:relative;min-height:390px;padding:28px 30px 30px;background:#fff8e9;border:1px solid rgba(47,37,29,.11);box-shadow:7px 11px 18px rgba(47,37,29,.11);clip-path:polygon(.8% 1%,99% 0,98.7% 98.3%,80% 99.5%,58% 98.7%,29% 100%,.5% 98%)}
+.about-concept-card:nth-child(1){transform:rotate(-.35deg)}
+.about-concept-card:nth-child(2){transform:rotate(.35deg);margin-top:12px}
+.about-concept-card::before{content:"";position:absolute;top:-8px;left:42%;width:80px;height:24px;background:rgba(211,182,126,.58);transform:rotate(-2deg);z-index:2;clip-path:polygon(3% 7%,99% 0,96% 95%,0 100%)}
+.about-concept-card>.hand{display:block;font-size:1.42rem;font-weight:700;margin-bottom:24px}
+.about-concept-card p{max-width:620px;color:#514941;line-height:1.55;margin:22px 0 0}
+
+.belief-sequence{display:flex;align-items:center;justify-content:center;gap:15px;min-height:190px}
+.belief-note{display:flex;align-items:center;justify-content:center;width:145px;aspect-ratio:1.07;padding:16px;text-align:center;font-family:"Caveat",cursive;font-size:1.8rem;font-weight:700;line-height:.94;border:1px solid rgba(47,37,29,.15);box-shadow:5px 7px 12px rgba(47,37,29,.10)}
+.belief-note--yellow{background:#f5d748;transform:rotate(-3deg)}
+.belief-note--blue{background:#9fd2de;transform:rotate(2deg)}
+.belief-note--pink{background:#efa4bb;transform:rotate(-1deg)}
+.belief-arrow{font-family:"Caveat",cursive;font-size:2.4rem;font-weight:700}
+
+.how-work-diagram{position:relative;min-height:230px;margin-top:4px}
+.how-circle{position:absolute;width:185px;height:185px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;font-family:"Caveat",cursive;font-size:1.35rem;font-weight:700;line-height:1.05;border:2px solid rgba(40,34,29,.62);mix-blend-mode:multiply}
+.how-circle--one{left:50%;top:0;transform:translateX(-50%);background:rgba(245,215,72,.42)}
+.how-circle--two{left:18%;top:76px;background:rgba(159,210,222,.45)}
+.how-circle--three{right:18%;top:76px;background:rgba(239,164,187,.36)}
+.how-heart{position:absolute;left:50%;top:145px;transform:translate(-50%,-50%);font-family:"Caveat",cursive;font-size:2rem;color:#d24d78;z-index:3}
+
+.about-page .beliefs.narrow{max-width:920px;display:grid;grid-template-columns:1fr 1fr;gap:14px 22px}
+.about-page .beliefs.narrow li{background:#fff8e9;border:1px solid rgba(47,37,29,.10);padding:15px 18px;box-shadow:3px 5px 9px rgba(47,37,29,.06)}
+.about-page .experience-list span{font-family:"Caveat",cursive;font-size:1.22rem;background:#fff8e9;border:1px solid rgba(47,37,29,.11);transform:rotate(-.5deg)}
+
+@media(max-width:900px){.about-concept-grid{grid-template-columns:1fr}.about-concept-card:nth-child(2){margin-top:0}.about-page .beliefs.narrow{grid-template-columns:1fr}.how-circle--two{left:23%}.how-circle--three{right:23%}}
+@media(max-width:620px){.belief-sequence{gap:7px}.belief-note{width:29vw;max-width:110px;font-size:1.35rem;padding:10px}.belief-arrow{font-size:1.6rem}.how-work-diagram{min-height:300px}.how-circle{width:155px;height:155px;font-size:1.12rem}.how-circle--one{top:0}.how-circle--two{left:3%;top:115px}.how-circle--three{right:3%;top:115px}.how-heart{top:180px}}
