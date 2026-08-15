@@ -1,1 +1,1 @@
-Deployment refresh at 2026-08-12 18:45 AEST. Cache-busted homepage assets are active.
+Approved Workshop Table visual implementation deployed 2026-08-15.
