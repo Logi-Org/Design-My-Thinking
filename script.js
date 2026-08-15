@@ -62,12 +62,7 @@
   nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
 })();
 
-/*
-  Reusable content modal.
-  Preferred pattern: trigger uses data-modal-template="template-id" and the page
-  contains a matching <template id="template-id">. The same shell can therefore
-  host musings, case studies, future narrated notes, images, or legacy PDFs.
-*/
+/* Reusable content modal. */
 (function () {
   const modal = document.getElementById('serviceModal');
   if (!modal) return;
@@ -173,50 +168,54 @@
   });
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
-
   modal.addEventListener('click', (e) => {
     if (panel && !panel.contains(e.target)) closeModal();
   });
-
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
   });
 })();
 
-/* Keep the public site language and illustrated visual system consistent across legacy inner pages. */
+/* Keep the public site language and approved illustrated visual system consistent across inner pages. */
 (function () {
   const path = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
   const isHome = path === '' || path === 'index.html';
-  const VERSION = '20260814e';
 
-  function loadStylesheet(href, marker) {
-    if (document.querySelector('link[href*="' + marker + '"]')) return;
+  function loadCss(href) {
+    const base = href.split('?')[0];
+    if (document.querySelector('link[href*="' + base + '"]')) return;
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = href;
     document.head.appendChild(link);
   }
 
-  if (!isHome) {
-    loadStylesheet('illustrated-site.css?v=' + VERSION, 'illustrated-site.css');
-  }
+  if (!isHome) loadCss('illustrated-site.css?v=20260815a');
 
-  if (path === 'musings.html') {
-    /* These define the approved raster artwork variables used by Musings cards and their opened field notes. */
-    loadStylesheet('inner-art-scenarios.css?v=' + VERSION, 'inner-art-scenarios.css');
-    loadStylesheet('inner-art-question.css?v=' + VERSION, 'inner-art-question.css');
-    loadStylesheet('inner-art-canvas.css?v=' + VERSION, 'inner-art-canvas.css');
-    loadStylesheet('inner-art-wallpaper.css?v=' + VERSION, 'inner-art-wallpaper.css');
-    loadStylesheet('musings-refined.css?v=' + VERSION, 'musings-refined.css');
+  /* These files contain the approved high-resolution raster illustrations as data URIs.
+     Loading them explicitly means Musings never falls back to the rejected SVG artwork. */
+  if (path === 'musings.html' || path === 'approach.html') {
+    loadCss('inner-art-scenarios.css?v=20260815a');
+    loadCss('inner-art-question.css?v=20260815a');
+    loadCss('inner-art-canvas.css?v=20260815a');
+    loadCss('inner-art-wallpaper.css?v=20260815a');
+  }
+  if (path === 'musings.html') loadCss('musings-refined.css?v=20260815a');
+  if (path === 'about.html') loadCss('about-refined.css?v=20260815a');
+  if (path === 'contact.html') loadCss('contact-refined.css?v=20260815a');
+  if (path === 'thank-you.html') {
+    loadCss('inner-art-thanks.css?v=20260815a');
+    loadCss('thank-you-refined.css?v=20260815a');
   }
 
   const nav = document.getElementById('site-nav');
   if (nav && !isHome) {
-    const current = path === 'approach.html' ? 'approach' : path === 'musings.html' ? 'musings' : path === 'contact.html' ? 'contact' : '';
+    const current = path === 'approach.html' ? 'approach' : path === 'musings.html' ? 'musings' : path === 'about.html' ? 'about' : path === 'contact.html' ? 'contact' : '';
     nav.innerHTML = [
       '<a href="index.html#glimpses">Work</a>',
       '<a href="approach.html"' + (current === 'approach' ? ' aria-current="page"' : '') + '>Approach</a>',
       '<a href="musings.html"' + (current === 'musings' ? ' aria-current="page"' : '') + '>Musings</a>',
+      '<a href="about.html"' + (current === 'about' ? ' aria-current="page"' : '') + '>About</a>',
       '<a href="contact.html"' + (current === 'contact' ? ' aria-current="page"' : '') + '>Contact</a>'
     ].join('');
     const toggle = document.querySelector('.nav-toggle');
@@ -230,13 +229,15 @@
   document.querySelectorAll('.footer h5').forEach((h) => {
     if (h.textContent.trim().toLowerCase() !== 'explore') return;
     const ul = h.parentElement && h.parentElement.querySelector('ul');
-    if (ul) ul.innerHTML = '<li><a href="index.html#glimpses">Work</a></li><li><a href="approach.html">Approach</a></li><li><a href="musings.html">Musings</a></li><li><a href="contact.html">Contact</a></li>';
+    if (ul) ul.innerHTML = '<li><a href="index.html#glimpses">Work</a></li><li><a href="approach.html">Approach</a></li><li><a href="musings.html">Musings</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>';
   });
 
   if (path === 'musings.html') {
     ['scenarios','questions','canvas','html'].forEach((name, i) => {
       const thumb = document.querySelectorAll('.musing-thumb')[i];
       if (thumb) thumb.classList.add('musing-thumb--' + name);
+      const sketch = document.querySelectorAll('.field-note-sketch')[i];
+      if (sketch) sketch.classList.add('field-note-sketch--' + name);
     });
   }
 })();
