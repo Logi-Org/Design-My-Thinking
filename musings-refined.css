@@ -1,7 +1,10 @@
-/* Refined Musings page — 2026-08-14.
-   Same warm paper, hand-drawn ink and restrained accent colours as the homepage.
-   The card and field-note artwork below uses the approved raster illustrations — no SVG sprite treatment. */
+@import url('inner-art-scenarios.css?v=20260815a');
+@import url('inner-art-question.css?v=20260815a');
+@import url('inner-art-canvas.css?v=20260815a');
+@import url('inner-art-wallpaper.css?v=20260815a');
 
+/* Refined Musings page — approved Workshop Table / editorial illustration treatment.
+   The card and field-note artwork uses the approved raster illustrations — no SVG sprite treatment. */
 body{
   color:#28221d;
   background:
@@ -9,178 +12,54 @@ body{
     repeating-linear-gradient(0deg,rgba(77,58,41,.018) 0 1px,transparent 1px 5px),
     #f3ecde;
 }
-.site-header{
-  background:rgba(243,236,222,.92)!important;
-  border-bottom:0!important;
-  backdrop-filter:blur(8px);
-}
-.site-header .brand,.footer .brand{
-  font-family:"Caveat",cursive!important;
-  font-size:2.05rem!important;
-  font-weight:700!important;
-  letter-spacing:-.02em!important;
-}
-.site-nav{gap:31px!important}
-.site-nav a{
-  font-family:"Caveat",cursive!important;
-  font-size:1.32rem!important;
-  font-weight:600!important;
-}
+.site-header{background:rgba(243,236,222,.92)!important;border-bottom:0!important;backdrop-filter:blur(8px)}
+.site-header .brand,.footer .brand{font-family:"Caveat",cursive!important;font-size:2.05rem!important;font-weight:700!important;letter-spacing:-.02em!important}
+.site-nav{gap:31px!important}.site-nav a{font-family:"Caveat",cursive!important;font-size:1.32rem!important;font-weight:600!important}
 .site-nav .nav-cta{background:transparent!important;color:inherit!important;padding:0!important;border:0!important}
 .site-nav a[aria-current="page"]{background:linear-gradient(transparent 68%,rgba(245,215,72,.92) 68% 90%,transparent 90%)}
 
-.page-hero{
-  padding:70px 0 48px!important;
-  background:transparent!important;
-}
+.page-hero{padding:70px 0 48px!important;background:transparent!important}
 .page-hero .container{max-width:980px;margin-left:max(4vw,calc((100vw - 1180px)/2));margin-right:auto}
-.page-hero .eyebrow{
-  font-family:"Caveat",cursive;
-  font-size:1.35rem;
-  font-weight:700;
-  text-transform:none;
-  letter-spacing:.02em;
-  margin-bottom:12px;
-}
-.page-hero h1{
-  margin:0 0 24px;
-  max-width:880px;
-  font-family:"Caveat",cursive;
-  font-size:clamp(4.4rem,7vw,7rem);
-  line-height:.84;
-  font-weight:700;
-  letter-spacing:-.035em;
-}
+.page-hero .eyebrow{font-family:"Caveat",cursive;font-size:1.35rem;font-weight:700;text-transform:none;letter-spacing:.02em;margin-bottom:12px}
+.page-hero h1{margin:0 0 24px;max-width:880px;font-family:"Caveat",cursive;font-size:clamp(4.4rem,7vw,7rem);line-height:.84;font-weight:700;letter-spacing:-.035em}
 .page-hero .marker{background:linear-gradient(transparent 62%,rgba(239,164,187,.74) 62% 89%,transparent 89%)}
 .page-hero p:not(.eyebrow){max-width:760px;color:#514941;font-size:1.08rem;line-height:1.55}
 .page-hero .hand{display:block;margin-top:18px;color:#514941;transform:rotate(-1deg)}
 
 .section-tight{padding:34px 0 84px!important}
-.musing-grid{
-  display:grid!important;
-  grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  gap:36px 38px!important;
-  margin-top:18px!important;
-  max-width:1120px;
-  margin-left:auto!important;
-  margin-right:auto!important;
-}
-.musing-card{
-  position:relative;
-  min-height:545px!important;
-  padding:22px 26px 28px!important;
-  background:#fff8e9!important;
-  border:1px solid rgba(47,37,29,.11)!important;
-  box-shadow:7px 11px 18px rgba(47,37,29,.12)!important;
-  clip-path:polygon(.8% 1%,99% 0,98.7% 98.3%,80% 99.5%,58% 98.7%,29% 100%,.5% 98%)!important;
-  transform:rotate(-.35deg)!important;
-}
+.musing-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:36px 38px!important;margin-top:18px!important;max-width:1120px;margin-left:auto!important;margin-right:auto!important}
+.musing-card{position:relative;min-height:545px!important;padding:22px 26px 28px!important;background:#fff8e9!important;border:1px solid rgba(47,37,29,.11)!important;box-shadow:7px 11px 18px rgba(47,37,29,.12)!important;clip-path:polygon(.8% 1%,99% 0,98.7% 98.3%,80% 99.5%,58% 98.7%,29% 100%,.5% 98%)!important;transform:rotate(-.35deg)!important}
 .musing-card:nth-child(even){transform:rotate(.35deg)!important;margin-top:12px!important}
-.musing-card::before{
-  content:"";
-  position:absolute;
-  top:-8px;
-  left:42%;
-  width:78px;
-  height:24px;
-  background:rgba(211,182,126,.58);
-  transform:rotate(-2deg);
-  z-index:2;
-  clip-path:polygon(3% 7%,99% 0,96% 95%,0 100%);
-}
+.musing-card::before{content:"";position:absolute;top:-8px;left:42%;width:78px;height:24px;background:rgba(211,182,126,.58);transform:rotate(-2deg);z-index:2;clip-path:polygon(3% 7%,99% 0,96% 95%,0 100%)}
 .musing-card:hover{transform:rotate(0deg) translateY(-5px)!important;box-shadow:9px 14px 20px rgba(47,37,29,.14)!important}
 .musing-card>.hand{font-size:1.23rem!important;color:#746b62!important;margin-bottom:3px}
 
-/* Approved bespoke raster art. The inline SVGs remain in the HTML only as a no-JS fallback and are hidden here. */
-.musing-thumb{
-  height:270px!important;
-  margin:2px 0 12px!important;
-  border:0!important;
-  background-size:contain!important;
-  background-position:center!important;
-  background-repeat:no-repeat!important;
-  background-color:transparent!important;
-  mix-blend-mode:multiply;
-}
+.musing-thumb{height:270px!important;margin:2px 0 12px!important;border:0!important;background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important;background-color:transparent!important;mix-blend-mode:multiply}
 .musing-thumb svg{display:none!important}
 .musing-card:nth-child(1) .musing-thumb{background-image:var(--musing-scenarios)!important}
 .musing-card:nth-child(2) .musing-thumb{background-image:var(--musing-question)!important}
 .musing-card:nth-child(3) .musing-thumb{background-image:var(--musing-canvas)!important}
 .musing-card:nth-child(4) .musing-thumb{background-image:var(--musing-wallpaper)!important}
 
-.musing-card h3{
-  margin:4px 0 12px!important;
-  font-family:"Caveat",cursive!important;
-  font-size:2.05rem!important;
-  line-height:1!important;
-  letter-spacing:-.025em!important;
-}
+.musing-card h3{margin:4px 0 12px!important;font-family:"Caveat",cursive!important;font-size:2.05rem!important;line-height:1!important;letter-spacing:-.025em!important}
 .musing-card:nth-child(1) h3{display:inline;background:linear-gradient(transparent 64%,rgba(245,215,72,.78) 64% 88%,transparent 88%)}
 .musing-card:nth-child(2) h3{display:inline;background:linear-gradient(transparent 64%,rgba(239,164,187,.7) 64% 88%,transparent 88%)}
 .musing-card:nth-child(3) h3{display:inline;background:linear-gradient(transparent 64%,rgba(159,210,222,.72) 64% 88%,transparent 88%)}
 .musing-card:nth-child(4) h3{display:inline;background:linear-gradient(transparent 64%,rgba(245,215,72,.78) 64% 88%,transparent 88%)}
-.musing-card p{
-  margin:14px 0 22px!important;
-  color:#5a5148!important;
-  font-size:1rem!important;
-  line-height:1.48!important;
-}
-.musing-open{
-  margin-top:auto!important;
-  font-family:"Caveat",cursive!important;
-  font-size:1.42rem!important;
-  font-weight:600;
-  display:inline-block;
-  width:max-content;
-  border-bottom:2px solid rgba(40,34,29,.7);
-  transform:rotate(-1deg);
-}
+.musing-card p{margin:14px 0 22px!important;color:#5a5148!important;font-size:1rem!important;line-height:1.48!important}
+.musing-open{margin-top:auto!important;font-family:"Caveat",cursive!important;font-size:1.42rem!important;font-weight:600;display:inline-block;width:max-content;border-bottom:2px solid rgba(40,34,29,.7);transform:rotate(-1deg)}
 
-/* Carry the same richer artwork into the opened field notes. */
-.field-note-sketch{
-  min-height:320px!important;
-  background-size:contain!important;
-  background-position:center!important;
-  background-repeat:no-repeat!important;
-  background-color:transparent!important;
-  border:0!important;
-  box-shadow:none!important;
-  mix-blend-mode:multiply;
-}
+.field-note-sketch{min-height:320px!important;background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important;background-color:transparent!important;border:0!important;box-shadow:none!important;mix-blend-mode:multiply}
 .field-note-sketch svg{display:none!important}
 .field-note-sketch--scenarios{background-image:var(--musing-scenarios)!important}
 .field-note-sketch--questions{background-image:var(--musing-question)!important}
 .field-note-sketch--canvas{background-image:var(--musing-canvas)!important}
 .field-note-sketch--html{background-image:var(--musing-wallpaper)!important}
 
-/* Keep the supporting principle visually connected to the same system. */
-.artifact{
-  background:#fff8e9!important;
-  border:1px solid rgba(47,37,29,.11)!important;
-  box-shadow:7px 11px 18px rgba(47,37,29,.10)!important;
-}
+.artifact{background:#fff8e9!important;border:1px solid rgba(47,37,29,.11)!important;box-shadow:7px 11px 18px rgba(47,37,29,.10)!important}
 .artifact h3{font-family:"Caveat",cursive!important;font-size:2.55rem!important;line-height:.96!important}
-.big-cta{background:transparent!important}
-.big-cta .container{
-  background:#f5d748;
-  padding:42px 48px;
-  clip-path:polygon(0 7%,12% 1%,27% 8%,43% 2%,58% 8%,74% 1%,89% 7%,100% 2%,100% 94%,87% 99%,69% 94%,52% 100%,31% 94%,13% 99%,0 92%);
-}
-.big-cta h2{font-family:"Caveat",cursive!important}
-.footer{background:rgba(255,248,233,.52)!important}
+.big-cta{background:transparent!important}.big-cta .container{background:#f5d748;padding:42px 48px;clip-path:polygon(0 7%,12% 1%,27% 8%,43% 2%,58% 8%,74% 1%,89% 7%,100% 2%,100% 94%,87% 99%,69% 94%,52% 100%,31% 94%,13% 99%,0 92%)}
+.big-cta h2{font-family:"Caveat",cursive!important}.footer{background:rgba(255,248,233,.52)!important}
 
-@media(max-width:820px){
-  .page-hero{padding-top:48px!important}
-  .page-hero .container{margin-inline:auto}
-  .musing-grid{grid-template-columns:1fr!important;gap:26px!important}
-  .musing-card{min-height:500px!important;transform:none!important;margin-top:0!important}
-  .musing-card:nth-child(even){transform:none!important;margin-top:0!important}
-  .musing-thumb{height:245px!important}
-  .field-note-sketch{min-height:270px!important}
-}
-@media(max-width:560px){
-  .page-hero h1{font-size:clamp(3.6rem,16vw,5.2rem)!important}
-  .musing-card{padding:18px 19px 24px!important;min-height:460px!important}
-  .musing-thumb{height:215px!important}
-  .musing-card h3{font-size:1.8rem!important}
-}
+@media(max-width:820px){.page-hero{padding-top:48px!important}.page-hero .container{margin-inline:auto}.musing-grid{grid-template-columns:1fr!important;gap:26px!important}.musing-card{min-height:500px!important;transform:none!important;margin-top:0!important}.musing-card:nth-child(even){transform:none!important;margin-top:0!important}.musing-thumb{height:245px!important}.field-note-sketch{min-height:270px!important}}
+@media(max-width:560px){.page-hero h1{font-size:clamp(3.6rem,16vw,5.2rem)!important}.musing-card{padding:18px 19px 24px!important;min-height:460px!important}.musing-thumb{height:215px!important}.musing-card h3{font-size:1.8rem!important}}
