@@ -1,10 +1,5 @@
-@import url('inner-art-scenarios.css?v=20260815a');
-@import url('inner-art-question.css?v=20260815a');
-@import url('inner-art-canvas.css?v=20260815a');
-@import url('inner-art-wallpaper.css?v=20260815a');
-
 /* Refined Musings page — approved Workshop Table / editorial illustration treatment.
-   The card and field-note artwork uses the approved raster illustrations — no SVG sprite treatment. */
+   Musings now uses the approved page-specific raster artwork directly, independent of Approach artwork. */
 body{
   color:#28221d;
   background:
@@ -36,10 +31,10 @@ body{
 
 .musing-thumb{height:270px!important;margin:2px 0 12px!important;border:0!important;background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important;background-color:transparent!important;mix-blend-mode:multiply}
 .musing-thumb svg{display:none!important}
-.musing-card:nth-child(1) .musing-thumb{background-image:var(--musing-scenarios)!important}
-.musing-card:nth-child(2) .musing-thumb{background-image:var(--musing-question)!important}
-.musing-card:nth-child(3) .musing-thumb{background-image:var(--musing-canvas)!important}
-.musing-card:nth-child(4) .musing-thumb{background-image:var(--musing-wallpaper)!important}
+.musing-card:nth-child(1) .musing-thumb{background-image:url('assets/dmt/musings-approved-scenarios.webp?v=20260816b')!important}
+.musing-card:nth-child(2) .musing-thumb{background-image:url('assets/dmt/musings-approved-seed.webp?v=20260816b')!important}
+.musing-card:nth-child(3) .musing-thumb{background-image:url('assets/dmt/musings-approved-canvas.webp?v=20260816b')!important}
+.musing-card:nth-child(4) .musing-thumb{background-image:url('assets/dmt/musings-approved-wallpaper.webp?v=20260816b')!important}
 
 .musing-card h3{margin:4px 0 12px!important;font-family:"Caveat",cursive!important;font-size:2.05rem!important;line-height:1!important;letter-spacing:-.025em!important}
 .musing-card:nth-child(1) h3{display:inline;background:linear-gradient(transparent 64%,rgba(245,215,72,.78) 64% 88%,transparent 88%)}
@@ -51,10 +46,10 @@ body{
 
 .field-note-sketch{min-height:320px!important;background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important;background-color:transparent!important;border:0!important;box-shadow:none!important;mix-blend-mode:multiply}
 .field-note-sketch svg{display:none!important}
-.field-note-sketch--scenarios{background-image:var(--musing-scenarios)!important}
-.field-note-sketch--questions{background-image:var(--musing-question)!important}
-.field-note-sketch--canvas{background-image:var(--musing-canvas)!important}
-.field-note-sketch--html{background-image:var(--musing-wallpaper)!important}
+.field-note-sketch--scenarios{background-image:url('assets/dmt/musings-approved-scenarios.webp?v=20260816b')!important}
+.field-note-sketch--questions{background-image:url('assets/dmt/musings-approved-seed.webp?v=20260816b')!important}
+.field-note-sketch--canvas{background-image:url('assets/dmt/musings-approved-canvas.webp?v=20260816b')!important}
+.field-note-sketch--html{background-image:url('assets/dmt/musings-approved-wallpaper.webp?v=20260816b')!important}
 
 .artifact{background:#fff8e9!important;border:1px solid rgba(47,37,29,.11)!important;box-shadow:7px 11px 18px rgba(47,37,29,.10)!important}
 .artifact h3{font-family:"Caveat",cursive!important;font-size:2.55rem!important;line-height:.96!important}
