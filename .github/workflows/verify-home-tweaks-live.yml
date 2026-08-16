@@ -7,8 +7,9 @@ on:
       - 'index.html'
       - 'home-refined-art.css'
       - 'home-refined-art.js'
-      - 'assets/dmt/glimpse-priorities-decision.svg'
-      - 'assets/dmt/problem-decision-over-discussion.svg'
+      - 'assets/dmt/glimpse-priorities-handdrawn.webp'
+      - 'assets/dmt/problem-decision-handdrawn.webp'
+      - 'assets/dmt/hero-blue-note-handdrawn.webp'
       - '.github/workflows/verify-home-tweaks-live.yml'
 
 permissions:
@@ -19,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Wait for GitHub Pages
+      - name: Wait for GitHub Pages and verify exact assets
         shell: bash
         run: |
           set -euo pipefail
@@ -28,25 +29,31 @@ jobs:
           for attempt in $(seq 1 12); do
             echo "Live check attempt ${attempt}/12"
             curl -fsSL -H 'Cache-Control: no-cache' "$url" -o home-live.html || true
-            curl -fsSL "https://designmythinking.xyz/assets/dmt/glimpse-priorities-decision.svg?verify=${GITHUB_SHA}" -o priorities.svg || true
-            curl -fsSL "https://designmythinking.xyz/assets/dmt/problem-decision-over-discussion.svg?verify=${GITHUB_SHA}" -o decision.svg || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/glimpse-priorities-handdrawn.webp?verify=${GITHUB_SHA}" -o priorities.webp || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-decision-handdrawn.webp?verify=${GITHUB_SHA}" -o decision.webp || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/hero-blue-note-handdrawn.webp?verify=${GITHUB_SHA}" -o blue-note.webp || true
+            html_ok=0
+            assets_ok=0
             if grep -q 'Reimagining professional services with AI' home-live.html 2>/dev/null \
-              && grep -q 'hero-blue-note-fix' home-live.html 2>/dev/null \
-              && grep -q 'Competing priorities converging into one decision' priorities.svg 2>/dev/null \
-              && grep -q 'A real decision, not just a good discussion' decision.svg 2>/dev/null; then
+              && grep -q 'home-refined-art.css?v=20260816b' home-live.html 2>/dev/null \
+              && grep -q 'home-refined-art.js?v=20260816b' home-live.html 2>/dev/null; then
+              html_ok=1
+            fi
+            if echo '6063bc1b7438d20bec01eeff446b19f1dcd0b8b4f5ddedcc4de04a7789d48bd8  priorities.webp' | sha256sum -c - >/dev/null 2>&1 \
+              && echo 'cb0abe6716df100f86ed433aaafd0b5ab70f3febb12aabed7786ef847e08880a  decision.webp' | sha256sum -c - >/dev/null 2>&1 \
+              && echo 'd295ea57789c8db22e9b8937b1e0af2b8bc94eca23ac71beadcab3fe750045e2  blue-note.webp' | sha256sum -c - >/dev/null 2>&1; then
+              assets_ok=1
+            fi
+            if [ "$html_ok" -eq 1 ] && [ "$assets_ok" -eq 1 ]; then
               ok=1
               break
             fi
             sleep 10
           done
           if [ "$ok" -ne 1 ]; then
-            echo 'Expected live homepage revision was not visible after retries.'
-            echo '--- homepage markers ---'
-            grep -E 'Reimagining (legal|professional) services|hero-blue-note-fix' home-live.html || true
-            echo '--- priorities title ---'
-            grep -E '<title|<desc' priorities.svg || true
-            echo '--- decision title ---'
-            grep -E '<title|<desc' decision.svg || true
+            echo 'Expected hand-drawn homepage revision was not visible after retries.'
+            grep -E 'Reimagining professional services|home-refined-art\.(css|js)' home-live.html || true
+            sha256sum priorities.webp decision.webp blue-note.webp 2>/dev/null || true
             exit 1
           fi
       - name: Capture live homepage views
