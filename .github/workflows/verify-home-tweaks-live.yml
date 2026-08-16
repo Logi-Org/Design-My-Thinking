@@ -1,0 +1,59 @@
+name: Verify homepage tweaks live
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'home-refined-art.css'
+      - 'home-refined-art.js'
+      - 'assets/dmt/glimpse-priorities-decision.svg'
+      - 'assets/dmt/problem-decision-over-discussion.svg'
+      - '.github/workflows/verify-home-tweaks-live.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for GitHub Pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          sleep 30
+          url="https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}"
+          curl -fsSL -H 'Cache-Control: no-cache' "$url" -o home-live.html
+          grep -q 'Reimagining professional services with AI' home-live.html
+          grep -q 'hero-blue-note-fix' home-live.html
+          curl -fsSL "https://designmythinking.xyz/assets/dmt/glimpse-priorities-decision.svg?verify=${GITHUB_SHA}" -o priorities.svg
+          curl -fsSL "https://designmythinking.xyz/assets/dmt/problem-decision-over-discussion.svg?verify=${GITHUB_SHA}" -o decision.svg
+          grep -q 'Competing priorities converging into one decision' priorities.svg
+          grep -q 'A real decision, not just a good discussion' decision.svg
+      - name: Capture live homepage views
+        shell: bash
+        run: |
+          set -euo pipefail
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --window-size=1440,900 \
+            --screenshot=home-hero-live.png \
+            "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}"
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --window-size=1440,900 \
+            --screenshot=home-glimpses-live.png \
+            "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}#glimpses"
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --window-size=1440,900 \
+            --screenshot=home-problems-live.png \
+            "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}#problems"
+          test -s home-hero-live.png
+          test -s home-glimpses-live.png
+          test -s home-problems-live.png
+      - name: Upload live screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: homepage-tweaks-live-verification
+          path: 'home-*-live.png'
+          retention-days: 7
