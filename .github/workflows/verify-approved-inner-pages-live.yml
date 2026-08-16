@@ -1,0 +1,71 @@
+name: Verify approved inner pages live
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.asset-transfer/verify-trigger.txt'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for approved implementation to reach GitHub Pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          ready=0
+          for i in $(seq 1 32); do
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approved-inner-art.css?verify=${GITHUB_SHA}-${i}" -o live-approved.css || true
+            if grep -q 'APPROVED_INNER_ART_20260816' live-approved.css 2>/dev/null; then
+              ok=1
+              for page in approach about contact thank-you principles-lab; do
+                curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/${page}.html?verify=${GITHUB_SHA}-${i}" -o "live-${page}.html" || ok=0
+                grep -q 'approved-inner-art.css' "live-${page}.html" 2>/dev/null || ok=0
+              done
+              if [ "$ok" = 1 ]; then ready=1; break; fi
+            fi
+            sleep 15
+          done
+          test "$ready" = 1
+
+      - name: Verify exact artwork sprite bytes are live
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in approved-approach-sprite approved-secondary-sprite; do
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/${name}.webp?verify=${GITHUB_SHA}" -o "live-${name}.webp"
+            cmp "assets/dmt/${name}.webp" "live-${name}.webp"
+          done
+
+      - name: Capture actual live pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          for page in approach about contact thank-you principles-lab; do
+            google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+              --window-size=1440,5000 \
+              --screenshot="${page}-live.png" \
+              "https://designmythinking.xyz/${page}.html?verify=${GITHUB_SHA}"
+            test -s "${page}-live.png"
+          done
+
+      - name: Upload live visual verification
+        uses: actions/upload-artifact@v4
+        with:
+          name: approved-inner-pages-live-verification
+          path: |
+            approach-live.png
+            about-live.png
+            contact-live.png
+            thank-you-live.png
+            principles-lab-live.png
+            live-approved.css
+            live-approved-approach-sprite.webp
+            live-approved-secondary-sprite.webp
+          retention-days: 7
