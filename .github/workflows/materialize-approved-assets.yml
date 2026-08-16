@@ -17,6 +17,12 @@ jobs:
         with:
           ref: main
 
+      - name: Verify transfer chunks
+        shell: bash
+        run: |
+          set -euo pipefail
+          sha256sum .asset-transfer/approach-*.txt .asset-transfer/secondary-*.txt
+
       - name: Decode approved sprites
         shell: bash
         run: |
