@@ -1,0 +1,150 @@
+name: Apply approved inner-page artwork
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.asset-transfer/apply-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Reconstruct approved artwork sprites
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/dmt
+          cat .asset-transfer/approach-*.txt | tr -d '\n\r\t ' | base64 -d > assets/dmt/approved-approach-sprite.webp
+          cat .asset-transfer/secondary-*.txt | tr -d '\n\r\t ' | base64 -d > assets/dmt/approved-secondary-sprite.webp
+          file assets/dmt/approved-approach-sprite.webp | grep -qi 'Web/P\|RIFF'
+          file assets/dmt/approved-secondary-sprite.webp | grep -qi 'Web/P\|RIFF'
+
+      - name: Write approved artwork overrides
+        shell: bash
+        run: |
+          cat > approved-inner-art.css <<'CSS'
+          /* APPROVED_INNER_ART_20260816 — artwork approved in the review mock-ups. */
+          :root{
+            --approved-approach-sprite:url("assets/dmt/approved-approach-sprite.webp?v=20260816f");
+            --approved-secondary-sprite:url("assets/dmt/approved-secondary-sprite.webp?v=20260816f");
+          }
+
+          .approach-hero-art,.approach-inline-art--brief,.approach-wide-art,.after-work-art,
+          .belief-sequence,.how-work-diagram,.thank-visual,.scale-visual{
+            border:0!important;box-shadow:none!important;background-color:transparent!important;
+            background-repeat:no-repeat!important;mix-blend-mode:multiply;
+          }
+
+          /* APPROACH: From brief to better decisions / question beneath request / visible thinking / capture momentum */
+          .approach-hero-art{
+            background-image:var(--approved-approach-sprite)!important;background-size:100% 200%!important;
+            background-position:left top!important;aspect-ratio:24/5!important;width:100%!important;
+            min-height:0!important;height:auto!important;
+          }
+          .approach-inline-art--brief{
+            background-image:var(--approved-approach-sprite)!important;background-size:300% 200%!important;
+            background-position:left bottom!important;aspect-ratio:8/5!important;width:100%!important;
+            min-height:0!important;height:auto!important;
+          }
+          .approach-inline-art--frame{display:none!important;}
+          .approach-wide-art{
+            background-image:var(--approved-approach-sprite)!important;background-size:300% 200%!important;
+            background-position:center bottom!important;aspect-ratio:8/5!important;width:100%!important;
+            min-height:0!important;height:auto!important;
+          }
+          .after-work-art{
+            background-image:var(--approved-approach-sprite)!important;background-size:300% 200%!important;
+            background-position:right bottom!important;aspect-ratio:8/5!important;width:100%!important;
+            min-height:0!important;height:auto!important;
+          }
+          .approach-hero-art::before,.approach-hero-art::after,
+          .approach-inline-art--brief::before,.approach-inline-art--brief::after,
+          .approach-wide-art::before,.approach-wide-art::after,
+          .after-work-art::before,.after-work-art::after{content:none!important;display:none!important;}
+          .approach-hero-art>*,.approach-inline-art--brief>*,.approach-wide-art>*,.after-work-art>*{display:none!important;}
+
+          /* ABOUT: What I believe + How I work */
+          .belief-sequence{
+            background-image:var(--approved-secondary-sprite)!important;background-size:300% 200%!important;
+            background-position:left top!important;aspect-ratio:4/3!important;width:100%!important;
+            min-height:0!important;height:auto!important;padding:0!important;
+          }
+          .how-work-diagram{
+            background-image:var(--approved-secondary-sprite)!important;background-size:300% 200%!important;
+            background-position:center top!important;aspect-ratio:4/3!important;width:100%!important;
+            min-height:0!important;height:auto!important;padding:0!important;
+          }
+          .belief-sequence>*,.how-work-diagram>*{display:none!important;}
+          .belief-sequence::before,.belief-sequence::after,.how-work-diagram::before,.how-work-diagram::after{content:none!important;display:none!important;}
+
+          /* CONTACT: preserve Daniel's portrait; add approved Put it on the table artwork */
+          .contact-copy::after{
+            content:""!important;display:block!important;position:relative!important;inset:auto!important;
+            width:min(100%,430px)!important;aspect-ratio:4/3!important;height:auto!important;margin:28px 0 4px!important;
+            background-image:var(--approved-secondary-sprite)!important;background-size:300% 200%!important;
+            background-position:right top!important;background-repeat:no-repeat!important;background-color:transparent!important;
+            border:0!important;box-shadow:none!important;transform:none!important;mix-blend-mode:multiply;
+          }
+
+          /* THANK YOU: envelope + handwritten acknowledgement */
+          .thank-visual{
+            background-image:var(--approved-secondary-sprite)!important;background-size:300% 200%!important;
+            background-position:left bottom!important;aspect-ratio:4/3!important;width:min(100%,720px)!important;
+            min-height:0!important;height:auto!important;margin-inline:auto!important;padding:0!important;
+          }
+          .thank-visual>*{display:none!important;}
+          .thank-visual::before,.thank-visual::after{content:none!important;display:none!important;}
+
+          /* PRINCIPLES LAB: leadership tension scale */
+          .scale-visual{
+            background-image:var(--approved-secondary-sprite)!important;background-size:300% 200%!important;
+            background-position:center bottom!important;aspect-ratio:4/3!important;width:min(100%,560px)!important;
+            min-height:0!important;height:auto!important;margin-inline:auto!important;padding:0!important;
+          }
+          .scale-visual>*{display:none!important;}
+          .scale-visual::before,.scale-visual::after{content:none!important;display:none!important;}
+
+          @media(max-width:760px){
+            .contact-copy::after{width:min(100%,380px)!important;margin-top:20px!important;}
+          }
+          CSS
+
+      - name: Load overrides last on each inner page
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          pages=['approach.html','about.html','contact.html','thank-you.html','principles-lab.html']
+          link='  <link rel="stylesheet" href="approved-inner-art.css?v=20260816f" />\n'
+          for name in pages:
+              p=Path(name)
+              text=p.read_text()
+              lines=[ln for ln in text.splitlines(True) if 'approved-inner-art.css' not in ln]
+              text=''.join(lines)
+              if '</head>' not in text:
+                  raise SystemExit(f'No </head> in {name}')
+              text=text.replace('</head>',link+'</head>',1)
+              p.write_text(text)
+          PY
+
+      - name: Commit approved implementation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/dmt/approved-approach-sprite.webp assets/dmt/approved-secondary-sprite.webp approved-inner-art.css approach.html about.html contact.html thank-you.html principles-lab.html
+          if git diff --cached --quiet; then
+            echo 'Approved implementation already current.'
+            exit 0
+          fi
+          git commit -m 'Apply approved artwork to inner pages'
+          git push
