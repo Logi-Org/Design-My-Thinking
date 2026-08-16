@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 420" role="img" aria-labelledby="title desc">
+  <title id="title">Competing priorities converging into one decision</title>
+  <desc id="desc">Eight colourful priority cards feed through a hand-drawn trade-off funnel into one clear checked decision.</desc>
+  <rect width="620" height="420" fill="#fdf6ea"/>
+  <g fill="none" stroke="#2b2622" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M242 84 C292 90 310 122 332 150"/>
+    <path d="M242 148 C286 151 307 158 332 169"/>
+    <path d="M242 217 C287 214 307 201 332 190"/>
+    <path d="M242 285 C292 278 310 240 332 211"/>
+    <path d="M378 150 C399 129 420 111 450 99"/>
+    <path d="M378 210 C404 226 425 245 451 268"/>
+    <path d="M332 137 L378 137 L395 181 L378 225 L332 225 L314 181 Z"/>
+    <path d="M346 180 l11 12 22 -28"/>
+    <path d="M396 181 C437 182 469 185 499 190"/>
+    <path d="M494 169 l26 21 -26 22"/>
+  </g>
+
+  <g stroke="#2b2622" stroke-width="3" stroke-linejoin="round">
+    <g transform="translate(50 43) rotate(-5 72 42)"><rect x="0" y="0" width="144" height="84" rx="3" fill="#f3a2bb"/><path d="M17 25h65M17 42h92M17 59h49" fill="none"/></g>
+    <g transform="translate(73 135) rotate(3 72 42)"><rect x="0" y="0" width="144" height="84" rx="3" fill="#f5d748"/><path d="M17 25h86M17 42h58M17 59h95" fill="none"/></g>
+    <g transform="translate(55 226) rotate(-2 72 42)"><rect x="0" y="0" width="144" height="84" rx="3" fill="#9fd2de"/><path d="M17 25h55M17 42h98M17 59h70" fill="none"/></g>
+    <g transform="translate(88 317) rotate(4 72 42)"><rect x="0" y="0" width="144" height="68" rx="3" fill="#cfe8c7"/><path d="M17 23h88M17 41h61" fill="none"/></g>
+
+    <g transform="translate(405 38) rotate(4 58 36)"><rect x="0" y="0" width="116" height="72" rx="3" fill="#9fd2de"/><path d="M14 23h71M14 41h83" fill="none"/></g>
+    <g transform="translate(440 108) rotate(-4 58 36)"><rect x="0" y="0" width="116" height="72" rx="3" fill="#f5d748"/><path d="M14 23h78M14 41h55" fill="none"/></g>
+    <g transform="translate(424 240) rotate(3 58 36)"><rect x="0" y="0" width="116" height="72" rx="3" fill="#efa4bb"/><path d="M14 23h62M14 41h86" fill="none"/></g>
+    <g transform="translate(397 319) rotate(-3 58 36)"><rect x="0" y="0" width="116" height="68" rx="3" fill="#cfe8c7"/><path d="M14 22h77M14 40h48" fill="none"/></g>
+  </g>
+
+  <g transform="translate(500 145) rotate(2 52 64)">
+    <rect x="0" y="0" width="104" height="128" rx="4" fill="#fff8e9" stroke="#2b2622" stroke-width="4"/>
+    <path d="M18 55 l15 16 31 -39" fill="none" stroke="#2b2622" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="52" y="99" text-anchor="middle" font-family="Caveat, cursive" font-size="24" font-weight="700" fill="#2b2622">decision</text>
+  </g>
+
+  <text x="355" y="113" text-anchor="middle" font-family="Caveat, cursive" font-size="24" font-weight="700" fill="#2b2622">trade-offs</text>
+  <path d="M260 361 C298 377 337 375 369 357" fill="none" stroke="#2b2622" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 9"/>
+</svg>
