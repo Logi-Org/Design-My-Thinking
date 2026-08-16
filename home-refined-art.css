@@ -33,53 +33,28 @@
 }
 .problem-art{background-color:#fdf6ea!important}
 
-/* The raster hero's blue note was cropped at the right edge. Keep the approved
-   mountain illustration, but place a complete blue note over that cropped area. */
+/* The source hero art clips the original blue note. Cover that cropped note with
+   a complete raster note rendered in the same hand-drawn / paper style. The
+   transparent canvas gives the note breathing room so no edge is clipped. */
 .hero-paper-v3{position:relative!important;overflow:visible!important}
 .hero-blue-note-fix{
   position:absolute;
   z-index:6;
-  right:1.5%;
-  bottom:5.8%;
-  width:24.5%;
-  aspect-ratio:1.08/1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:9% 8% 7%;
-  background:#9fd2de;
-  color:#28221d;
-  font-family:"Caveat",cursive;
-  font-size:clamp(1rem,2.1vw,1.55rem);
-  line-height:1.02;
-  font-weight:700;
-  text-align:center;
-  transform:rotate(-4deg);
-  box-shadow:5px 7px 10px rgba(47,37,29,.16);
-  clip-path:polygon(1% 2%,98% 0,100% 95%,82% 98%,58% 96%,30% 100%,0 97%);
+  right:-1%;
+  bottom:0.8%;
+  width:30%;
+  aspect-ratio:1/1;
+  padding:0;
+  background:url('assets/dmt/hero-blue-note-handdrawn.webp?v=20260816b') center/contain no-repeat;
+  color:transparent;
+  font-size:0;
+  line-height:0;
+  text-indent:-9999px;
+  overflow:visible;
+  pointer-events:none;
 }
-.hero-blue-note-fix::before{
-  content:"";
-  position:absolute;
-  top:-7%;
-  left:33%;
-  width:42%;
-  height:15%;
-  background:rgba(211,182,126,.58);
-  transform:rotate(3deg);
-}
-.hero-blue-note-fix::after{
-  content:"";
-  position:absolute;
-  left:22%;
-  right:22%;
-  bottom:18%;
-  height:3px;
-  background:#28221d;
-  border-radius:50%;
-  transform:rotate(-2deg);
-}
+.hero-blue-note-fix::before,.hero-blue-note-fix::after{display:none!important}
 
 @media(max-width:700px){
-  .hero-blue-note-fix{right:1%;bottom:5%;width:25.5%;font-size:clamp(.9rem,4.6vw,1.25rem)}
+  .hero-blue-note-fix{right:-1.5%;bottom:0;width:31%}
 }
