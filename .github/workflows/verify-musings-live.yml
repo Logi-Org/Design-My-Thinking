@@ -1,0 +1,75 @@
+name: Verify Musings live
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'musings-refined.css'
+      - 'musings.html'
+      - 'assets/dmt/musings-approved-*.webp'
+      - '.github/workflows/verify-musings-live.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for the current Musings CSS to reach GitHub Pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          found=0
+          for i in $(seq 1 24); do
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/musings-refined.css?verify=${GITHUB_SHA}-${i}" -o live-musings.css || true
+            if grep -q "musings-approved-scenarios.webp" live-musings.css && \
+               grep -q "musings-approved-seed.webp" live-musings.css && \
+               grep -q "musings-approved-canvas.webp" live-musings.css && \
+               grep -q "musings-approved-wallpaper.webp" live-musings.css; then
+              found=1
+              break
+            fi
+            sleep 15
+          done
+          test "$found" = "1"
+
+      - name: Verify the live page and exact approved image bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/musings.html?verify=${GITHUB_SHA}" -o live-musings.html
+          grep -q "Scenarios stretch thinking" live-musings.html
+          grep -q "Seed the question, not the answer" live-musings.html
+          grep -q "The value of a canvas" live-musings.html
+          grep -q "When Post-its become wallpaper" live-musings.html
+
+          for name in scenarios seed canvas wallpaper; do
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/musings-approved-${name}.webp?verify=${GITHUB_SHA}" -o "live-${name}.webp"
+            cmp "assets/dmt/musings-approved-${name}.webp" "live-${name}.webp"
+          done
+
+      - name: Capture the actual live Musings page
+        shell: bash
+        run: |
+          set -euo pipefail
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --window-size=1440,1400 \
+            --screenshot=musings-live.png \
+            "https://designmythinking.xyz/musings.html?verify=${GITHUB_SHA}"
+          test -s musings-live.png
+
+      - name: Upload visual verification
+        uses: actions/upload-artifact@v4
+        with:
+          name: musings-live-verification
+          path: |
+            musings-live.png
+            live-musings.css
+            live-scenarios.webp
+            live-seed.webp
+            live-canvas.webp
+            live-wallpaper.webp
+          retention-days: 7
