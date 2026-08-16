@@ -23,15 +23,32 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sleep 30
           url="https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}"
-          curl -fsSL -H 'Cache-Control: no-cache' "$url" -o home-live.html
-          grep -q 'Reimagining professional services with AI' home-live.html
-          grep -q 'hero-blue-note-fix' home-live.html
-          curl -fsSL "https://designmythinking.xyz/assets/dmt/glimpse-priorities-decision.svg?verify=${GITHUB_SHA}" -o priorities.svg
-          curl -fsSL "https://designmythinking.xyz/assets/dmt/problem-decision-over-discussion.svg?verify=${GITHUB_SHA}" -o decision.svg
-          grep -q 'Competing priorities converging into one decision' priorities.svg
-          grep -q 'A real decision, not just a good discussion' decision.svg
+          ok=0
+          for attempt in $(seq 1 12); do
+            echo "Live check attempt ${attempt}/12"
+            curl -fsSL -H 'Cache-Control: no-cache' "$url" -o home-live.html || true
+            curl -fsSL "https://designmythinking.xyz/assets/dmt/glimpse-priorities-decision.svg?verify=${GITHUB_SHA}" -o priorities.svg || true
+            curl -fsSL "https://designmythinking.xyz/assets/dmt/problem-decision-over-discussion.svg?verify=${GITHUB_SHA}" -o decision.svg || true
+            if grep -q 'Reimagining professional services with AI' home-live.html 2>/dev/null \
+              && grep -q 'hero-blue-note-fix' home-live.html 2>/dev/null \
+              && grep -q 'Competing priorities converging into one decision' priorities.svg 2>/dev/null \
+              && grep -q 'A real decision, not just a good discussion' decision.svg 2>/dev/null; then
+              ok=1
+              break
+            fi
+            sleep 10
+          done
+          if [ "$ok" -ne 1 ]; then
+            echo 'Expected live homepage revision was not visible after retries.'
+            echo '--- homepage markers ---'
+            grep -E 'Reimagining (legal|professional) services|hero-blue-note-fix' home-live.html || true
+            echo '--- priorities title ---'
+            grep -E '<title|<desc' priorities.svg || true
+            echo '--- decision title ---'
+            grep -E '<title|<desc' decision.svg || true
+            exit 1
+          fi
       - name: Capture live homepage views
         shell: bash
         run: |
