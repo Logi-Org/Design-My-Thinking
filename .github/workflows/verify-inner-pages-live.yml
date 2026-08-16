@@ -1,0 +1,52 @@
+name: Verify inner pages live
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'approach.html'
+      - 'approach-refined.css'
+      - 'about.html'
+      - 'about-refined.css'
+      - 'contact.html'
+      - 'contact-refined.css'
+      - 'thank-you.html'
+      - 'thank-you-refined.css'
+      - 'principles-lab.html'
+      - 'assets/dmt/approved-*.webp'
+      - '.github/workflows/verify-inner-pages-live.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for GitHub Pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          sleep 25
+          for page in approach about contact thank-you principles-lab; do
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/${page}.html?verify=${GITHUB_SHA}" -o "${page}.html.live"
+            test -s "${page}.html.live"
+          done
+      - name: Capture actual live pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          for page in approach about contact thank-you principles-lab; do
+            google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+              --window-size=1440,1800 \
+              --screenshot="${page}-live.png" \
+              "https://designmythinking.xyz/${page}.html?verify=${GITHUB_SHA}"
+            test -s "${page}-live.png"
+          done
+      - name: Upload live screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: inner-pages-live-verification
+          path: '*-live.png'
+          retention-days: 7
