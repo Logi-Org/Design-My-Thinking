@@ -39,9 +39,9 @@ jobs:
               && grep -q 'home-refined-art.js?v=20260816b' home-live.html 2>/dev/null; then
               html_ok=1
             fi
-            if echo '6063bc1b7438d20bec01eeff446b19f1dcd0b8b4f5ddedcc4de04a7789d48bd8  priorities.webp' | sha256sum -c - >/dev/null 2>&1 \
-              && echo 'cb0abe6716df100f86ed433aaafd0b5ab70f3febb12aabed7786ef847e08880a  decision.webp' | sha256sum -c - >/dev/null 2>&1 \
-              && echo 'd295ea57789c8db22e9b8937b1e0af2b8bc94eca23ac71beadcab3fe750045e2  blue-note.webp' | sha256sum -c - >/dev/null 2>&1; then
+            if cmp -s assets/dmt/glimpse-priorities-handdrawn.webp priorities.webp \
+              && cmp -s assets/dmt/problem-decision-handdrawn.webp decision.webp \
+              && cmp -s assets/dmt/hero-blue-note-handdrawn.webp blue-note.webp; then
               assets_ok=1
             fi
             if [ "$html_ok" -eq 1 ] && [ "$assets_ok" -eq 1 ]; then
@@ -53,6 +53,9 @@ jobs:
           if [ "$ok" -ne 1 ]; then
             echo 'Expected hand-drawn homepage revision was not visible after retries.'
             grep -E 'Reimagining professional services|home-refined-art\.(css|js)' home-live.html || true
+            echo 'Repository asset hashes:'
+            sha256sum assets/dmt/glimpse-priorities-handdrawn.webp assets/dmt/problem-decision-handdrawn.webp assets/dmt/hero-blue-note-handdrawn.webp || true
+            echo 'Live asset hashes:'
             sha256sum priorities.webp decision.webp blue-note.webp 2>/dev/null || true
             exit 1
           fi
