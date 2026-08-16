@@ -58,16 +58,11 @@ jobs:
             --screenshot=home-hero-live.png \
             "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}"
           google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
-            --window-size=1440,900 \
-            --screenshot=home-glimpses-live.png \
-            "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}#glimpses"
-          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
-            --window-size=1440,900 \
-            --screenshot=home-problems-live.png \
-            "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}#problems"
+            --window-size=1440,3600 \
+            --screenshot=home-full-live.png \
+            "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}"
           test -s home-hero-live.png
-          test -s home-glimpses-live.png
-          test -s home-problems-live.png
+          test -s home-full-live.png
       - name: Upload live screenshots
         uses: actions/upload-artifact@v4
         with:
