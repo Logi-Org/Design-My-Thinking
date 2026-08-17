@@ -1,0 +1,65 @@
+name: Verify Contact page live
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'contact.html'
+      - 'contact-refined.css'
+      - '.github/workflows/verify-contact-live.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for contact revision to reach GitHub Pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          ok=0
+          for attempt in $(seq 1 24); do
+            echo "Live check attempt ${attempt}/24"
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/contact.html?verify=${GITHUB_SHA}-${attempt}" -o contact-live.html || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/contact-refined.css?v=20260817b&verify=${GITHUB_SHA}-${attempt}" -o contact-live.css || true
+            if grep -q 'contact-refined.css?v=20260817b' contact-live.html 2>/dev/null \
+              && grep -q 'contact-sticky-pair' contact-live.html 2>/dev/null \
+              && ! grep -q 'No pitch deck. No perfectly formed brief.' contact-live.html 2>/dev/null \
+              && grep -q 'contact-sticky--yellow' contact-live.css 2>/dev/null \
+              && grep -q 'contact-card::before{display:none' contact-live.css 2>/dev/null; then
+              ok=1
+              break
+            fi
+            sleep 10
+          done
+          if [ "$ok" -ne 1 ]; then
+            echo 'Contact revision did not reach live domain in time.'
+            exit 1
+          fi
+
+      - name: Capture live desktop and mobile Contact views
+        shell: bash
+        run: |
+          set -euo pipefail
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --window-size=1440,2200 \
+            --screenshot=contact-desktop-live.png \
+            "https://designmythinking.xyz/contact.html?verify=${GITHUB_SHA}"
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --window-size=412,3000 \
+            --force-device-scale-factor=1 \
+            --screenshot=contact-mobile-live.png \
+            "https://designmythinking.xyz/contact.html?verify=${GITHUB_SHA}"
+          test -s contact-desktop-live.png
+          test -s contact-mobile-live.png
+
+      - name: Upload live screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: contact-postits-live-verification
+          path: 'contact-*-live.png'
+          retention-days: 7
