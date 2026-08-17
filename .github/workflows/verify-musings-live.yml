@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'musings-refined.css'
+      - 'musings-transparent-art.css'
+      - 'musings-transparent-art.js'
       - 'musings.html'
       - 'assets/dmt/musings-approved-*.webp'
       - '.github/workflows/verify-musings-live.yml'
@@ -18,17 +20,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Wait for the current Musings CSS to reach GitHub Pages
+      - name: Wait for the transparent Musings revision to reach GitHub Pages
         shell: bash
         run: |
           set -euo pipefail
           found=0
           for i in $(seq 1 24); do
-            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/musings-refined.css?verify=${GITHUB_SHA}-${i}" -o live-musings.css || true
-            if grep -q "musings-approved-scenarios.webp" live-musings.css && \
-               grep -q "musings-approved-seed.webp" live-musings.css && \
-               grep -q "musings-approved-canvas.webp" live-musings.css && \
-               grep -q "musings-approved-wallpaper.webp" live-musings.css; then
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/musings.html?verify=${GITHUB_SHA}-${i}" -o live-musings.html || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/musings-transparent-art.css?v=20260817a&verify=${GITHUB_SHA}-${i}" -o live-transparent.css || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/musings-transparent-art.js?v=20260817a&verify=${GITHUB_SHA}-${i}" -o live-transparent.js || true
+            if grep -q "musings-transparent-art.css?v=20260817a" live-musings.html 2>/dev/null && \
+               grep -q "musings-transparent-art.js?v=20260817a" live-musings.html 2>/dev/null && \
+               grep -q "Let the approved Musings drawings sit directly" live-transparent.css 2>/dev/null && \
+               grep -q "transparentDataURL" live-transparent.js 2>/dev/null; then
               found=1
               break
             fi
@@ -40,7 +44,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/musings.html?verify=${GITHUB_SHA}" -o live-musings.html
           grep -q "Scenarios stretch thinking" live-musings.html
           grep -q "Seed the question, not the answer" live-musings.html
           grep -q "The value of a canvas" live-musings.html
@@ -51,23 +54,33 @@ jobs:
             cmp "assets/dmt/musings-approved-${name}.webp" "live-${name}.webp"
           done
 
-      - name: Capture the actual live Musings page
+      - name: Capture the actual live Musings page on desktop and mobile
         shell: bash
         run: |
           set -euo pipefail
           google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
-            --window-size=1440,1400 \
-            --screenshot=musings-live.png \
+            --window-size=1440,1800 \
+            --virtual-time-budget=5000 \
+            --screenshot=musings-desktop-live.png \
             "https://designmythinking.xyz/musings.html?verify=${GITHUB_SHA}"
-          test -s musings-live.png
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --window-size=412,4200 \
+            --force-device-scale-factor=1 \
+            --virtual-time-budget=5000 \
+            --screenshot=musings-mobile-live.png \
+            "https://designmythinking.xyz/musings.html?verify=${GITHUB_SHA}"
+          test -s musings-desktop-live.png
+          test -s musings-mobile-live.png
 
       - name: Upload visual verification
         uses: actions/upload-artifact@v4
         with:
-          name: musings-live-verification
+          name: musings-transparent-live-verification
           path: |
-            musings-live.png
-            live-musings.css
+            musings-desktop-live.png
+            musings-mobile-live.png
+            live-transparent.css
+            live-transparent.js
             live-scenarios.webp
             live-seed.webp
             live-canvas.webp
