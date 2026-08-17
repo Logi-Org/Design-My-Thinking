@@ -5,8 +5,6 @@ on:
     branches: [main]
     paths:
       - 'index.html'
-      - 'home-sketch-fix.css'
-      - 'home-sketch-fix.js'
       - 'home-ai-levels.js'
       - '.github/workflows/verify-home-tweaks-live.yml'
 
@@ -18,31 +16,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Wait for GitHub Pages and verify cache-safe files
+      - name: Verify AI transformation sketch is live
         shell: bash
         run: |
           set -euo pipefail
-          ok=0
-          for attempt in $(seq 1 24); do
-            echo "Live check attempt ${attempt}/24"
-            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}" -o home-live.html || true
-            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-sketch-fix.js?verify=${GITHUB_SHA}" -o sketch-live.js || true
-            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-sketch-fix.css?verify=${GITHUB_SHA}" -o sketch-live.css || true
-            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-ai-levels.js?v=20260817b&verify=${GITHUB_SHA}" -o ai-live.js || true
-            if grep -q 'home-ai-levels.js?v=20260817b' home-live.html 2>/dev/null \
-              && grep -q 'art-problem-05' ai-live.js 2>/dev/null \
-              && grep -q 'verify-ai' ai-live.js 2>/dev/null \
-              && grep -q 'Task' ai-live.js 2>/dev/null \
-              && grep -q 'Workflow' ai-live.js 2>/dev/null \
-              && grep -q 'Function' ai-live.js 2>/dev/null \
-              && grep -q 'Company' ai-live.js 2>/dev/null \
-              && grep -q 'hero-blue-note-fix' sketch-live.css 2>/dev/null; then
-              ok=1
-              break
-            fi
-            sleep 10
-          done
-          [ "$ok" -eq 1 ] || { echo 'Homepage AI transformation sketch did not reach live site.'; exit 1; }
+          curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}" -o home-live.html
+          curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-ai-levels.js?v=20260817b&verify=${GITHUB_SHA}" -o ai-live.js
+          grep -q 'home-ai-levels.js?v=20260817b' home-live.html
+          grep -q 'art-problem-05' ai-live.js
+          grep -q 'verify-ai' ai-live.js
+          grep -q 'Task' ai-live.js
+          grep -q 'Workflow' ai-live.js
+          grep -q 'Function' ai-live.js
+          grep -q 'Company' ai-live.js
       - name: Capture live desktop and mobile AI problem card
         shell: bash
         run: |
