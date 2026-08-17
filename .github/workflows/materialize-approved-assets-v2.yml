@@ -17,30 +17,24 @@ jobs:
         with:
           ref: main
 
-      - name: Decode approved sprites
+      - name: Decode homepage AI artwork
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p assets/dmt
-          cat .asset-transfer/approach-*.txt | tr -d '\n\r\t ' | base64 -d > assets/dmt/approved-approach-sprite.webp
-          cat .asset-transfer/secondary-*.txt | tr -d '\n\r\t ' | base64 -d > assets/dmt/approved-secondary-sprite.webp
           cat .asset-transfer/ai-small-*.txt | tr -d '\n\r\t ' | base64 -d > assets/dmt/ai-levels-handdrawn.webp
-          file assets/dmt/approved-approach-sprite.webp
-          file assets/dmt/approved-secondary-sprite.webp
           file assets/dmt/ai-levels-handdrawn.webp
-          test "$(stat -c%s assets/dmt/approved-approach-sprite.webp)" -gt 10000
-          test "$(stat -c%s assets/dmt/approved-secondary-sprite.webp)" -gt 10000
           test "$(stat -c%s assets/dmt/ai-levels-handdrawn.webp)" -gt 15000
 
-      - name: Commit binary assets
+      - name: Commit binary asset
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/dmt/approved-approach-sprite.webp assets/dmt/approved-secondary-sprite.webp assets/dmt/ai-levels-handdrawn.webp
+          git config user.email '4189825+github-actions[bot]@users.noreply.github.com'
+          git add assets/dmt/ai-levels-handdrawn.webp
           if git diff --cached --quiet; then
-            echo 'Assets already current.'
+            echo 'Asset already current.'
             exit 0
           fi
           git commit -m 'Add approved homepage AI artwork'
