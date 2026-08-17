@@ -32,7 +32,6 @@ jobs:
               && grep -q 'home-ai-levels.js?v=20260818a' home-live.html \
               && grep -q 'ai-levels-handdrawn.webp?v=20260818a' ai-live.js \
               && grep -q 'art-problem-05' ai-live.js \
-              && grep -q 'verify-ai' ai-live.js \
               && test "$(stat -c%s ai-live.webp)" -gt 15000; then
               file ai-live.webp
               ok=1
@@ -42,21 +41,54 @@ jobs:
           done
           test "$ok" -eq 1
 
-      - name: Capture live desktop and mobile AI problem card
+      - name: Capture live desktop and mobile card through real slider navigation
         shell: bash
         run: |
           set -euo pipefail
-          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
-            --window-size=1440,3600 \
-            --virtual-time-budget=5000 \
-            --screenshot=home-desktop-live.png \
-            "https://designmythinking.xyz/index.html?verify-ai=1&verify=${GITHUB_SHA}#problems"
-          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
-            --window-size=412,4200 \
-            --force-device-scale-factor=1 \
-            --virtual-time-budget=5000 \
-            --screenshot=home-mobile-live.png \
-            "https://designmythinking.xyz/index.html?verify-ai=1&verify=${GITHUB_SHA}#problems"
+          python -m pip install --quiet selenium
+          python - <<'PY'
+          import time
+          from selenium import webdriver
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.support.ui import WebDriverWait
+
+          URL = 'https://designmythinking.xyz/index.html?visual-check=20260818a#problems'
+
+          def capture(width, height, clicks, expected_counter, path):
+              opts = Options()
+              opts.add_argument('--headless=new')
+              opts.add_argument('--no-sandbox')
+              opts.add_argument('--disable-gpu')
+              opts.add_argument('--hide-scrollbars')
+              opts.add_argument(f'--window-size={width},{height}')
+              driver = webdriver.Chrome(options=opts)
+              try:
+                  driver.set_window_size(width, height)
+                  driver.get(URL)
+                  wait = WebDriverWait(driver, 20)
+                  section = wait.until(lambda d: d.find_element(By.ID, 'problems'))
+                  next_button = section.find_element(By.CSS_SELECTOR, '.dmt-slider__button--next')
+                  counter = section.find_element(By.CSS_SELECTOR, '.dmt-slider__counter')
+                  for _ in range(clicks):
+                      wait.until(lambda d: next_button.is_enabled())
+                      driver.execute_script('arguments[0].click()', next_button)
+                      time.sleep(0.55)
+                  wait.until(lambda d: counter.text.strip() == expected_counter)
+                  img = section.find_element(By.CSS_SELECTOR, '.art-problem-05 img.ai-levels-handdrawn')
+                  wait.until(lambda d: d.execute_script('return arguments[0].complete && arguments[0].naturalWidth > 0', img))
+                  assert img.is_displayed(), 'AI artwork image is not displayed'
+                  assert 'ai-levels-handdrawn.webp' in img.get_attribute('src')
+                  driver.execute_script("arguments[0].scrollIntoView({block:'center', inline:'nearest'});", section)
+                  time.sleep(0.8)
+                  section.screenshot(path)
+                  print(f'{path}: {counter.text}; image={img.size}; src={img.get_attribute("src")}')
+              finally:
+                  driver.quit()
+
+          capture(1440, 1100, 1, '2 / 2', 'home-desktop-live.png')
+          capture(412, 1000, 4, '5 / 5', 'home-mobile-live.png')
+          PY
           test -s home-desktop-live.png
           test -s home-mobile-live.png
 
