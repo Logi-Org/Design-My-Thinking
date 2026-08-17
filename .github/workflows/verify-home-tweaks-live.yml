@@ -6,6 +6,7 @@ on:
     paths:
       - 'index.html'
       - 'home-ai-levels.js'
+      - 'assets/dmt/ai-levels-handdrawn.webp'
       - '.github/workflows/verify-home-tweaks-live.yml'
 
 permissions:
@@ -16,36 +17,49 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify AI transformation sketch is live
+
+      - name: Wait for hand-drawn AI artwork to be live
         shell: bash
         run: |
           set -euo pipefail
-          curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}" -o home-live.html
-          curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-ai-levels.js?v=20260817b&verify=${GITHUB_SHA}" -o ai-live.js
-          grep -q 'home-ai-levels.js?v=20260817b' home-live.html
-          grep -q 'art-problem-05' ai-live.js
-          grep -q 'verify-ai' ai-live.js
-          grep -q 'Task' ai-live.js
-          grep -q 'Workflow' ai-live.js
-          grep -q 'Function' ai-live.js
-          grep -q 'Company' ai-live.js
+          ok=0
+          for attempt in $(seq 1 24); do
+            echo "Live verification attempt ${attempt}/24"
+            rm -f home-live.html ai-live.js ai-live.webp
+            if curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}&attempt=${attempt}" -o home-live.html \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-ai-levels.js?v=20260818a&verify=${GITHUB_SHA}&attempt=${attempt}" -o ai-live.js \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/ai-levels-handdrawn.webp?v=20260818a&verify=${GITHUB_SHA}&attempt=${attempt}" -o ai-live.webp \
+              && grep -q 'home-ai-levels.js?v=20260818a' home-live.html \
+              && grep -q 'ai-levels-handdrawn.webp?v=20260818a' ai-live.js \
+              && grep -q 'art-problem-05' ai-live.js \
+              && grep -q 'verify-ai' ai-live.js \
+              && test "$(stat -c%s ai-live.webp)" -gt 15000; then
+              file ai-live.webp
+              ok=1
+              break
+            fi
+            sleep 15
+          done
+          test "$ok" -eq 1
+
       - name: Capture live desktop and mobile AI problem card
         shell: bash
         run: |
           set -euo pipefail
           google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
             --window-size=1440,3600 \
-            --virtual-time-budget=3000 \
+            --virtual-time-budget=5000 \
             --screenshot=home-desktop-live.png \
             "https://designmythinking.xyz/index.html?verify-ai=1&verify=${GITHUB_SHA}#problems"
           google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
             --window-size=412,4200 \
             --force-device-scale-factor=1 \
-            --virtual-time-budget=3000 \
+            --virtual-time-budget=5000 \
             --screenshot=home-mobile-live.png \
             "https://designmythinking.xyz/index.html?verify-ai=1&verify=${GITHUB_SHA}#problems"
           test -s home-desktop-live.png
           test -s home-mobile-live.png
+
       - name: Upload live screenshots
         uses: actions/upload-artifact@v4
         with:
