@@ -1,0 +1,66 @@
+name: Verify Approach page live
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'approach.html'
+      - 'approach-approved.css'
+      - 'approach-approved-art.js'
+      - '.github/workflows/verify-approach-live.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for live Approach revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          ok=0
+          for attempt in $(seq 1 18); do
+            echo "Live check attempt ${attempt}/18"
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach.html?verify=${GITHUB_SHA}" -o approach-live.html || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach-approved.css?v=20260817a&verify=${GITHUB_SHA}" -o approach-live.css || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach-approved-art.js?v=20260817a&verify=${GITHUB_SHA}" -o approach-live.js || true
+            if grep -q 'approach-approved.css?v=20260817a' approach-live.html 2>/dev/null \
+              && grep -q 'approach-approved-art.js?v=20260817a' approach-live.html 2>/dev/null \
+              && grep -q 'approved Workshop Table illustration pass' approach-live.css 2>/dev/null \
+              && grep -q 'function hero(host)' approach-live.js 2>/dev/null \
+              && grep -q 'function before(host)' approach-live.js 2>/dev/null \
+              && grep -q 'function during(host)' approach-live.js 2>/dev/null \
+              && grep -q 'function after(host)' approach-live.js 2>/dev/null; then
+              ok=1
+              break
+            fi
+            sleep 10
+          done
+          if [ "$ok" -ne 1 ]; then
+            echo 'Approved Approach revision did not reach live domain in time.'
+            exit 1
+          fi
+      - name: Capture live desktop and mobile Approach views
+        shell: bash
+        run: |
+          set -euo pipefail
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --window-size=1440,5200 \
+            --screenshot=approach-desktop-live.png \
+            "https://designmythinking.xyz/approach.html?verify=${GITHUB_SHA}"
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --window-size=412,5600 \
+            --force-device-scale-factor=1 \
+            --screenshot=approach-mobile-live.png \
+            "https://designmythinking.xyz/approach.html?verify=${GITHUB_SHA}"
+          test -s approach-desktop-live.png
+          test -s approach-mobile-live.png
+      - name: Upload live screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: approach-approved-live-verification
+          path: 'approach-*-live.png'
+          retention-days: 7
