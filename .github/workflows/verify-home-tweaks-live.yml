@@ -7,6 +7,7 @@ on:
       - 'index.html'
       - 'home-sketch-fix.css'
       - 'home-sketch-fix.js'
+      - 'home-ai-levels.js'
       - '.github/workflows/verify-home-tweaks-live.yml'
 
 permissions:
@@ -22,32 +23,38 @@ jobs:
         run: |
           set -euo pipefail
           ok=0
-          for attempt in $(seq 1 18); do
-            echo "Live check attempt ${attempt}/18"
+          for attempt in $(seq 1 24); do
+            echo "Live check attempt ${attempt}/24"
             curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}" -o home-live.html || true
             curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-sketch-fix.js?verify=${GITHUB_SHA}" -o sketch-live.js || true
             curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-sketch-fix.css?verify=${GITHUB_SHA}" -o sketch-live.css || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-ai-levels.js?v=20260817a&verify=${GITHUB_SHA}" -o ai-live.js || true
             if grep -q 'home-sketch-fix.css?v=20260817b' home-live.html 2>/dev/null \
               && grep -q 'home-sketch-fix.js?v=20260817b' home-live.html 2>/dev/null \
+              && grep -q 'home-ai-levels.js?v=20260817a' home-live.html 2>/dev/null \
               && grep -q 'drawPriorities' sketch-live.js 2>/dev/null \
               && grep -q 'drawDecision' sketch-live.js 2>/dev/null \
-              && grep -q 'hero-blue-note-fix' sketch-live.css 2>/dev/null; then
+              && grep -q 'hero-blue-note-fix' sketch-live.css 2>/dev/null \
+              && grep -q "Task\\nlevel" ai-live.js 2>/dev/null \
+              && grep -q "Workflow\\nlevel" ai-live.js 2>/dev/null \
+              && grep -q "Function\\nlevel" ai-live.js 2>/dev/null \
+              && grep -q "Company\\nlevel" ai-live.js 2>/dev/null; then
               ok=1
               break
             fi
             sleep 10
           done
-          [ "$ok" -eq 1 ] || { echo 'Cache-safe homepage sketch files did not reach live site.'; exit 1; }
+          [ "$ok" -eq 1 ] || { echo 'Homepage AI transformation sketch did not reach live site.'; exit 1; }
       - name: Capture live desktop and mobile homepage views
         shell: bash
         run: |
           set -euo pipefail
           google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
-            --window-size=1440,3600 \
+            --window-size=1440,5200 \
             --screenshot=home-desktop-live.png \
             "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}"
           google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
-            --window-size=412,3000 \
+            --window-size=412,5200 \
             --force-device-scale-factor=1 \
             --screenshot=home-mobile-live.png \
             "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}"
@@ -56,6 +63,6 @@ jobs:
       - name: Upload live screenshots
         uses: actions/upload-artifact@v4
         with:
-          name: homepage-mobile-fix-live-verification
+          name: homepage-ai-levels-live-verification
           path: 'home-*-live.png'
           retention-days: 7
