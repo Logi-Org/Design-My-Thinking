@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Wait for hand-drawn AI artwork to be live
+      - name: Wait for transparent hand-drawn AI artwork to be live
         shell: bash
         run: |
           set -euo pipefail
@@ -27,12 +27,12 @@ jobs:
             echo "Live verification attempt ${attempt}/24"
             rm -f home-live.html ai-live.js ai-live.webp
             if curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}&attempt=${attempt}" -o home-live.html \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-ai-levels.js?v=20260818a&verify=${GITHUB_SHA}&attempt=${attempt}" -o ai-live.js \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/ai-levels-handdrawn.webp?v=20260818a&verify=${GITHUB_SHA}&attempt=${attempt}" -o ai-live.webp \
-              && grep -q 'home-ai-levels.js?v=20260818a' home-live.html \
-              && grep -q 'ai-levels-handdrawn.webp?v=20260818a' ai-live.js \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-ai-levels.js?v=20260818b&verify=${GITHUB_SHA}&attempt=${attempt}" -o ai-live.js \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/ai-levels-handdrawn.webp?v=20260818b&verify=${GITHUB_SHA}&attempt=${attempt}" -o ai-live.webp \
+              && grep -q 'home-ai-levels.js?v=20260818b' home-live.html \
+              && grep -q 'ai-levels-handdrawn.webp?v=20260818b' ai-live.js \
               && grep -q 'art-problem-05' ai-live.js \
-              && test "$(stat -c%s ai-live.webp)" -gt 15000; then
+              && test "$(stat -c%s ai-live.webp)" -gt 50000; then
               file ai-live.webp
               ok=1
               break
@@ -40,6 +40,17 @@ jobs:
             sleep 15
           done
           test "$ok" -eq 1
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          from PIL import Image
+          im=Image.open('ai-live.webp')
+          assert im.mode == 'RGBA', f'Expected RGBA transparency, got {im.mode}'
+          alpha=im.getchannel('A')
+          lo,hi=alpha.getextrema()
+          assert lo == 0, f'Expected fully transparent background pixels, alpha min={lo}'
+          assert hi > 200, f'Artwork unexpectedly faint, alpha max={hi}'
+          print('Transparent artwork verified:', im.size, im.mode, (lo,hi))
+          PY
 
       - name: Capture live desktop and mobile card through real slider navigation
         shell: bash
@@ -53,7 +64,7 @@ jobs:
           from selenium.webdriver.chrome.options import Options
           from selenium.webdriver.support.ui import WebDriverWait
 
-          URL = 'https://designmythinking.xyz/index.html?visual-check=20260818a#problems'
+          URL = 'https://designmythinking.xyz/index.html?visual-check=20260818b#problems'
 
           def capture(width, height, clicks, expected_counter, path):
               opts = Options()
@@ -78,7 +89,7 @@ jobs:
                   img = section.find_element(By.CSS_SELECTOR, '.art-problem-05 img.ai-levels-handdrawn')
                   wait.until(lambda d: d.execute_script('return arguments[0].complete && arguments[0].naturalWidth > 0', img))
                   assert img.is_displayed(), 'AI artwork image is not displayed'
-                  assert 'ai-levels-handdrawn.webp' in img.get_attribute('src')
+                  assert 'ai-levels-handdrawn.webp?v=20260818b' in img.get_attribute('src')
                   driver.execute_script("arguments[0].scrollIntoView({block:'center', inline:'nearest'});", section)
                   time.sleep(0.8)
                   section.screenshot(path)
@@ -95,6 +106,6 @@ jobs:
       - name: Upload live screenshots
         uses: actions/upload-artifact@v4
         with:
-          name: homepage-ai-levels-live-verification
+          name: homepage-ai-levels-transparent-live-verification
           path: 'home-*-live.png'
           retention-days: 7
