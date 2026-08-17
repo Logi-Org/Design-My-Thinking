@@ -1,264 +1,260 @@
-/* Homepage artwork refinement.
-   Keep the approved raster sprite family for the existing scenes, but draw the
-   two revised decision concepts as deliberately imperfect canvas sketches so
-   they share the loose ink / sticky-note language of the hero. */
+/* Final homepage artwork layer.
+   The two decision illustrations are drawn directly on canvas so the live site
+   cannot fall back to the older clean/vector-looking assets on mobile. */
 (function(){
+  const INK = '#2c251f';
   const PAPER = '#fdf6ea';
-  const INK = '#29231e';
-  const YELLOW = '#f5d64e';
-  const PINK = '#eca0b8';
-  const BLUE = '#9fd4df';
-  const MINT = '#b9d7b9';
+  const PINK = '#ec91a6';
+  const YELLOW = '#f5d252';
+  const BLUE = '#94cdda';
+  const GREEN = '#bbd1aa';
 
-  document.querySelectorAll('.gl-img').forEach((el)=>{
-    if (el.classList.contains('art-glimpse-01')) {
-      el.style.setProperty('background-image','none','important');
-      return;
-    }
-    el.style.setProperty('background-image','url("assets/dmt/glimpses-refined.avif?v=20260813d")','important');
-  });
-  document.querySelectorAll('.pr-img').forEach((el)=>{
-    if (el.classList.contains('art-problem-03')) {
-      el.style.setProperty('background-image','none','important');
-      return;
-    }
-    el.style.setProperty('background-image','url("assets/dmt/problems-refined.avif?v=20260813d")','important');
-  });
-
-  function seeded(seed){
+  function rng(seed){
     let s = seed >>> 0;
-    return function(){
-      s = (s * 1664525 + 1013904223) >>> 0;
-      return s / 4294967296;
-    };
+    return function(){ s = (1664525 * s + 1013904223) >>> 0; return s / 4294967296; };
   }
 
-  function makeSketch(el, label, seed){
-    if (!el || el.querySelector('canvas')) return null;
-    const c = document.createElement('canvas');
-    c.width = 900;
-    c.height = 560;
-    c.setAttribute('aria-hidden','true');
-    c.style.width = '100%';
-    c.style.height = '100%';
-    c.style.display = 'block';
-    c.style.mixBlendMode = 'multiply';
-    c.dataset.sketch = label;
-    el.appendChild(c);
-    const ctx = c.getContext('2d');
-    const rnd = seeded(seed);
-    return {c,ctx,rnd};
+  function setupCanvas(host, width, height, label){
+    host.style.setProperty('background-image','none','important');
+    host.style.setProperty('background-color',PAPER,'important');
+    host.innerHTML = '';
+    const canvas = document.createElement('canvas');
+    canvas.className = 'handdrawn-canvas';
+    canvas.width = width;
+    canvas.height = height;
+    canvas.setAttribute('role','img');
+    canvas.setAttribute('aria-label',label);
+    host.appendChild(canvas);
+    return canvas;
   }
 
-  function j(rnd, n=2.5){ return (rnd()-.5)*n*2; }
-
-  function paper(ctx,rnd){
-    ctx.fillStyle = PAPER;
-    ctx.fillRect(0,0,900,560);
-    ctx.save();
-    ctx.globalAlpha = .07;
-    ctx.strokeStyle = '#8b725b';
-    ctx.lineWidth = 1;
-    for(let i=0;i<180;i++){
-      const x=rnd()*900, y=rnd()*560, len=8+rnd()*28;
-      ctx.beginPath();
-      ctx.moveTo(x,y);
-      ctx.lineTo(x+len,y+j(rnd,1.2));
-      ctx.stroke();
-    }
-    ctx.restore();
-  }
-
-  function roughLine(ctx,rnd,x1,y1,x2,y2,w=3,alpha=1){
+  function roughLine(ctx, points, rand, width=3, passes=2, jitter=2){
     ctx.save();
     ctx.strokeStyle = INK;
-    ctx.globalAlpha = alpha;
     ctx.lineCap = 'round';
-    for(let pass=0;pass<2;pass++){
-      ctx.lineWidth = Math.max(1,w-(pass*.9));
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = width;
+    for(let p=0;p<passes;p++){
       ctx.beginPath();
-      const mx=(x1+x2)/2+j(rnd,3), my=(y1+y2)/2+j(rnd,3);
-      ctx.moveTo(x1+j(rnd,1.6),y1+j(rnd,1.6));
-      ctx.quadraticCurveTo(mx,my,x2+j(rnd,1.6),y2+j(rnd,1.6));
+      points.forEach((pt,i)=>{
+        const x = pt[0] + (rand()-.5)*jitter*2;
+        const y = pt[1] + (rand()-.5)*jitter*2;
+        if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      });
       ctx.stroke();
     }
     ctx.restore();
   }
 
-  function roughPoly(ctx,rnd,pts,fill=null,w=3){
+  function roughPoly(ctx, points, rand, fill=null, width=3, jitter=2.5){
+    const p = points.map(([x,y])=>[x+(rand()-.5)*jitter*2,y+(rand()-.5)*jitter*2]);
     ctx.save();
-    if(fill){ ctx.fillStyle=fill; ctx.globalAlpha=.95; }
-    ctx.strokeStyle=INK;
-    ctx.lineWidth=w;
-    ctx.lineJoin='round';
-    ctx.beginPath();
-    ctx.moveTo(pts[0][0]+j(rnd,2),pts[0][1]+j(rnd,2));
-    for(let i=1;i<pts.length;i++) ctx.lineTo(pts[i][0]+j(rnd,2),pts[i][1]+j(rnd,2));
-    ctx.closePath();
-    if(fill) ctx.fill();
-    ctx.stroke();
+    if(fill){
+      ctx.fillStyle = fill;
+      ctx.beginPath();
+      p.forEach((pt,i)=>i?ctx.lineTo(pt[0],pt[1]):ctx.moveTo(pt[0],pt[1]));
+      ctx.closePath();
+      ctx.fill();
+    }
     ctx.restore();
+    roughLine(ctx,[...p,p[0]],rand,width,2,1.4);
   }
 
-  function roughEllipse(ctx,rnd,cx,cy,rx,ry,w=3){
+  function roughEllipse(ctx,x,y,w,h,rand,width=3,passes=2){
     ctx.save();
     ctx.strokeStyle=INK;
-    ctx.lineWidth=w;
-    for(let pass=0;pass<2;pass++){
+    ctx.lineWidth=width;
+    for(let p=0;p<passes;p++){
       ctx.beginPath();
-      ctx.ellipse(cx+j(rnd,2),cy+j(rnd,2),rx+j(rnd,2),ry+j(rnd,2),j(rnd,.01),0,Math.PI*2);
+      ctx.ellipse(x+(rand()-.5)*5,y+(rand()-.5)*5,w/2+(rand()-.5)*5,h/2+(rand()-.5)*5,(rand()-.5)*.025,0,Math.PI*2);
       ctx.stroke();
     }
     ctx.restore();
   }
 
-  function arrow(ctx,rnd,x1,y1,x2,y2,w=3){
-    roughLine(ctx,rnd,x1,y1,x2,y2,w);
-    const a=Math.atan2(y2-y1,x2-x1);
-    const s=16;
-    roughLine(ctx,rnd,x2,y2,x2-Math.cos(a-.55)*s,y2-Math.sin(a-.55)*s,w);
-    roughLine(ctx,rnd,x2,y2,x2-Math.cos(a+.55)*s,y2-Math.sin(a+.55)*s,w);
-  }
-
-  function font(ctx,size,weight=700){
+  function handText(ctx, text, x, y, size, weight='700', align='center'){
+    ctx.save();
+    ctx.fillStyle=INK;
     ctx.font = `${weight} ${size}px Caveat, cursive`;
-    ctx.fillStyle = INK;
-    ctx.textBaseline = 'middle';
+    ctx.textAlign=align;
+    ctx.textBaseline='middle';
+    const lines = String(text).split('\n');
+    const step=size*.88;
+    lines.forEach((line,i)=>ctx.fillText(line,x,y+(i-(lines.length-1)/2)*step));
+    ctx.restore();
   }
 
-  function sticky(ctx,rnd,x,y,w,h,color,text,rotation=0,size=27){
+  function sticky(ctx,x,y,w,h,color,label,rand,rotation=0){
     ctx.save();
     ctx.translate(x+w/2,y+h/2);
     ctx.rotate(rotation);
-    ctx.shadowColor='rgba(40,30,20,.18)';
-    ctx.shadowBlur=10;
+    ctx.translate(-w/2,-h/2);
+    ctx.shadowColor='rgba(45,34,25,.16)';
+    ctx.shadowBlur=8;
     ctx.shadowOffsetX=5;
-    ctx.shadowOffsetY=6;
-    const pts=[[-w/2+j(rnd,2),-h/2+j(rnd,2)],[w/2+j(rnd,2),-h/2+j(rnd,2)],[w/2+j(rnd,2),h/2+j(rnd,2)],[-w/2+j(rnd,2),h/2+j(rnd,2)]];
+    ctx.shadowOffsetY=7;
+    const pts=[[4,5],[w-4,1],[w, h-5],[2,h]];
     ctx.fillStyle=color;
     ctx.beginPath();
-    ctx.moveTo(pts[0][0],pts[0][1]);
-    for(let i=1;i<pts.length;i++) ctx.lineTo(pts[i][0],pts[i][1]);
+    pts.forEach((pt,i)=>i?ctx.lineTo(pt[0],pt[1]):ctx.moveTo(pt[0],pt[1]));
     ctx.closePath();
     ctx.fill();
     ctx.shadowColor='transparent';
-    ctx.strokeStyle='rgba(41,35,30,.42)';
-    ctx.lineWidth=1.6;
+    ctx.strokeStyle='rgba(55,43,34,.55)';
+    ctx.lineWidth=2;
     ctx.stroke();
-    // a couple of imperfect paper fibres
-    ctx.globalAlpha=.13;
-    ctx.strokeStyle='#725e4d';
-    for(let yy=-h/3; yy<h/2; yy+=18){
-      ctx.beginPath();ctx.moveTo(-w/2+8,yy+j(rnd,1));ctx.lineTo(w/2-8,yy+j(rnd,1));ctx.stroke();
+    ctx.strokeStyle='rgba(255,255,255,.32)';
+    ctx.lineWidth=1;
+    for(let i=0;i<10;i++){
+      const yy=12+rand()*(h-24);
+      ctx.beginPath();
+      ctx.moveTo(12+rand()*22,yy);
+      ctx.lineTo(w-12-rand()*24,yy+(rand()-.5)*2);
+      ctx.stroke();
     }
-    ctx.globalAlpha=1;
-    font(ctx,size,700);
-    ctx.textAlign='center';
-    ctx.fillText(text,0,2);
+    handText(ctx,label,w/2,h/2+2,Math.max(23,h*.34),'700');
     ctx.restore();
   }
 
-  function person(ctx,rnd,x,y,scale=1){
-    roughEllipse(ctx,rnd,x,y-45*scale,13*scale,13*scale,2.6*scale);
-    roughLine(ctx,rnd,x,y-32*scale,x,y+10*scale,2.8*scale);
-    roughLine(ctx,rnd,x,y-18*scale,x-22*scale,y+1*scale,2.5*scale);
-    roughLine(ctx,rnd,x,y-17*scale,x+22*scale,y-2*scale,2.5*scale);
-    roughLine(ctx,rnd,x,y+10*scale,x-18*scale,y+42*scale,2.5*scale);
-    roughLine(ctx,rnd,x,y+10*scale,x+18*scale,y+42*scale,2.5*scale);
+  function bust(ctx,cx,cy,s,rand,pointDir=0){
+    roughEllipse(ctx,cx,cy,34*s,34*s,rand,2.5,1);
+    roughLine(ctx,[[cx-11*s,cy-11*s],[cx,cy-17*s],[cx+12*s,cy-9*s]],rand,2,1,1.4);
+    roughLine(ctx,[[cx-5*s,cy+17*s],[cx-7*s,cy+29*s]],rand,2,1,1);
+    roughLine(ctx,[[cx+5*s,cy+17*s],[cx+7*s,cy+29*s]],rand,2,1,1);
+    roughLine(ctx,[[cx-36*s,cy+45*s],[cx-8*s,cy+29*s],[cx+8*s,cy+29*s],[cx+37*s,cy+45*s]],rand,3,1,1.5);
+    roughLine(ctx,[[cx-36*s,cy+45*s],[cx-30*s,cy+91*s],[cx+31*s,cy+91*s],[cx+37*s,cy+45*s]],rand,3,1,1.6);
+    if(pointDir){
+      roughLine(ctx,[[cx+pointDir*25*s,cy+52*s],[cx+pointDir*78*s,cy+31*s]],rand,3,1,1.6);
+    }
   }
 
-  function scribbleText(ctx,text,x,y,size=31,align='left'){
-    font(ctx,size,700);
-    ctx.textAlign=align;
-    ctx.fillText(text,x,y);
-  }
-
-  function drawPriorities(){
-    const el=document.querySelector('.art-glimpse-01');
-    const s=makeSketch(el,'competing priorities to one decision',8127);
-    if(!s) return;
-    const {ctx,rnd}=s;
-    paper(ctx,rnd);
-
-    const notes=[
-      [58,54,PINK,'people',-.045],[196,44,YELLOW,'speed',.035],[337,56,BLUE,'quality',-.025],
-      [112,160,YELLOW,'cost',-.025],[270,154,PINK,'risk',.025],[409,152,MINT,'impact',-.02],
-      [168,278,PINK,'effort',.025],[340,286,BLUE,'time',-.025]
-    ];
-    notes.forEach(n=>sticky(ctx,rnd,n[0],n[1],112,60,n[2],n[3],n[4],25));
-
-    roughEllipse(ctx,rnd,470,220,88,84,3.2);
-    scribbleText(ctx,'trade-offs',470,225,31,'center');
-    // messy paths into the trade-off conversation
-    [[112,110],[250,103],[392,113],[165,220],[324,215],[462,210],[220,336],[390,345]].forEach((p,i)=>{
-      const tx=435+(i%3)*20, ty=180+(i%4)*22;
-      arrow(ctx,rnd,p[0],p[1],tx,ty,2.2);
-    });
-
-    // decision sheet
-    const sheet=[[625,83],[830,78],[838,369],[612,375]];
-    roughPoly(ctx,rnd,sheet,'#fffaf0',3);
-    sticky(ctx,rnd,702,50,120,56,PINK,'DECIDE',-.035,25);
-    scribbleText(ctx,'one decision',720,131,34,'center');
-    [190,250,310].forEach((yy,idx)=>{
-      roughPoly(ctx,rnd,[[653,yy-12],[680,yy-12],[680,yy+15],[653,yy+15]],null,2.4);
-      roughLine(ctx,rnd,705,yy,800,yy,2,idx===1?1:.5);
-    });
-    roughLine(ctx,rnd,654,245,665,260,4);
-    roughLine(ctx,rnd,665,260,687,225,4);
-    arrow(ctx,rnd,558,228,614,230,3.3);
-
-    person(ctx,rnd,92,477,.8);
-    person(ctx,rnd,152,485,.72);
-    scribbleText(ctx,'make the tensions visible',52,536,31,'left');
-    roughLine(ctx,rnd,52,516,314,516,1.4,.55);
-  }
-
-  function speechBubble(ctx,rnd,cx,cy,rx,ry){
-    roughEllipse(ctx,rnd,cx,cy,rx,ry,2.6);
-    roughLine(ctx,rnd,cx-rx*.25,cy+ry*.75,cx-rx*.38,cy+ry+20,2.2);
-    for(let i=-1;i<=1;i++) roughLine(ctx,rnd,cx-rx*.45,cy+i*15,cx+rx*.38,cy+i*15,1.5,.7);
-  }
-
-  function drawDecision(){
-    const el=document.querySelector('.art-problem-03');
-    const s=makeSketch(el,'decision not just discussion',4931);
-    if(!s) return;
-    const {ctx,rnd}=s;
-    paper(ctx,rnd);
-    scribbleText(ctx,'good discussion',66,46,31,'left');
-    speechBubble(ctx,rnd,130,120,78,48);
-    speechBubble(ctx,rnd,265,151,72,43);
-    speechBubble(ctx,rnd,364,108,72,45);
-
-    person(ctx,rnd,105,420,.78);
-    person(ctx,rnd,198,444,.68);
-    person(ctx,rnd,286,420,.8);
-    person(ctx,rnd,416,452,.68);
-    arrow(ctx,rnd,170,248,315,244,2.4);
-    arrow(ctx,rnd,315,244,206,276,2.2);
-
-    // a rough choice canvas
-    roughPoly(ctx,rnd,[[465,88],[635,91],[632,322],[462,322]],'#fffaf0',3);
-    sticky(ctx,rnd,480,118,92,55,YELLOW,'option A',-.025,22);
-    sticky(ctx,rnd,545,184,92,55,PINK,'option B',.02,22);
-    scribbleText(ctx,'choose',500,280,29,'left');
-    arrow(ctx,rnd,635,250,700,250,3);
-
-    // clear decision note with tape
-    sticky(ctx,rnd,710,168,145,105,BLUE,'DECISION',-.035,31);
+  function paperGrain(ctx,w,h,rand){
     ctx.save();
-    ctx.fillStyle='rgba(213,183,126,.62)';
-    ctx.translate(780,165);ctx.rotate(.035);ctx.fillRect(-38,-19,76,22);ctx.restore();
-    roughLine(ctx,rnd,754,232,776,254,5);
-    roughLine(ctx,rnd,776,254,817,205,5);
-    scribbleText(ctx,'clear choice',694,405,31,'left');
-    scribbleText(ctx,'clear owner',694,442,31,'left');
-    ctx.save();ctx.strokeStyle=PINK;ctx.lineWidth=7;ctx.globalAlpha=.8;ctx.beginPath();ctx.moveTo(690,466);ctx.lineTo(856,461);ctx.stroke();ctx.restore();
+    ctx.strokeStyle='rgba(68,54,42,.10)';
+    ctx.lineWidth=1;
+    for(let i=0;i<120;i++){
+      const x=rand()*w, y=rand()*h, len=8+rand()*45;
+      ctx.beginPath();
+      ctx.moveTo(x,y);
+      ctx.lineTo(Math.min(w,x+len),y+(rand()-.5)*2);
+      ctx.stroke();
+    }
+    ctx.restore();
   }
 
-  const render=()=>{ drawPriorities(); drawDecision(); };
-  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(render); }
-  else if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',render,{once:true}); }
-  else render();
+  function drawPriorities(host){
+    const canvas=setupCanvas(host,1200,700,'Hand-drawn workshop table showing eight competing priorities being worked through as visible trade-offs into one decision');
+    const ctx=canvas.getContext('2d');
+    const rand=rng(4117);
+    ctx.fillStyle=PAPER; ctx.fillRect(0,0,1200,700);
+    paperGrain(ctx,1200,700,rand);
+
+    // Eight tactile Post-its — deliberately loose, not a flow chart.
+    [
+      [70,105,PINK,'people',-.08],[250,70,YELLOW,'speed',.045],[440,110,BLUE,'quality',-.05],
+      [105,275,YELLOW,'cost',-.035],[315,255,PINK,'risk',.07],[505,270,GREEN,'impact',-.03],
+      [210,430,PINK,'effort',.045],[440,425,BLUE,'time',-.06]
+    ].forEach(([x,y,c,t,r])=>sticky(ctx,x,y,145,92,c,t,rand,r));
+
+    // People physically working with the cards.
+    bust(ctx,82,525,.72,rand,1);
+    bust(ctx,760,520,.70,rand,-1);
+
+    // Messy tension in the middle: pencil-like scribble rather than a node.
+    roughEllipse(ctx,720,300,205,195,rand,4,3);
+    for(let i=0;i<13;i++){
+      roughLine(ctx,[[642+rand()*30,220+rand()*150],[785+rand()*25,220+rand()*150]],rand,1.4,1,2.8);
+    }
+    handText(ctx,'trade-offs',720,292,37,'700');
+
+    const starts=[[205,150],[395,115],[585,155],[245,320],[455,305],[645,315],[350,475],[580,470]];
+    starts.forEach(([sx,sy])=>{
+      const pts=[[sx,sy]];
+      for(let t=1;t<=4;t++){
+        const u=t/4;
+        pts.push([sx*(1-u)+650*u + Math.sin(u*Math.PI)*(rand()-.5)*70, sy*(1-u)+300*u + Math.sin(u*Math.PI)*(rand()-.5)*70]);
+      }
+      roughLine(ctx,pts,rand,2,1,3.2);
+    });
+
+    // One selected decision, taped to the table.
+    roughPoly(ctx,[[900,115],[1120,108],[1107,565],[880,552]],rand,'#fffaf0',4,5);
+    roughPoly(ctx,[[956,91],[1044,87],[1048,124],[952,127]],rand,'rgba(215,186,133,.72)',1,2);
+    handText(ctx,'one decision',1000,165,37,'700');
+    sticky(ctx,920,255,155,96,YELLOW,'choose',rand,-.025);
+    roughLine(ctx,[[946,405],[974,443],[1035,378]],rand,7,2,2);
+    handText(ctx,'owner + next step',1000,495,27,'500');
+    roughLine(ctx,[[825,304],[850,318],[878,301]],rand,4,2,3);
+    roughLine(ctx,[[864,288],[880,301],[865,315]],rand,4,1,2);
+    handText(ctx,'make the tensions visible',55,662,30,'700','left');
+  }
+
+  function drawDecision(host){
+    const canvas=setupCanvas(host,1200,620,'Hand-drawn people having a good discussion, then making a visible choice with an owner and next step');
+    const ctx=canvas.getContext('2d');
+    const rand=rng(7821);
+    ctx.fillStyle=PAPER; ctx.fillRect(0,0,1200,620);
+    paperGrain(ctx,1200,620,rand);
+
+    // Conversation: a human room scene, not speech-box-to-decision geometry.
+    bust(ctx,115,325,.66,rand,0);
+    bust(ctx,250,290,.76,rand,1);
+    bust(ctx,415,315,.70,rand,0);
+    bust(ctx,550,300,.68,rand,-1);
+    roughEllipse(ctx,340,445,420,120,rand,4,2);
+    sticky(ctx,245,420,90,58,PINK,'A',rand,-.055);
+    sticky(ctx,350,430,90,58,YELLOW,'B',rand,.035);
+    sticky(ctx,455,415,90,58,BLUE,'C',rand,-.03);
+
+    const bubbles=[
+      [[55,65],[210,150],'what are\nwe deciding?'],
+      [[245,45],[430,135],'good\nconversation'],
+      [[455,72],[625,150],'but what\nchanges?']
+    ];
+    bubbles.forEach(([[x0,y0],[x1,y1],copy])=>{
+      roughPoly(ctx,[[x0+12,y0+18],[x0+42,y0],[x1-30,y0+3],[x1,y0+34],[x1-14,y1-12],[x0+32,y1],[x0,y0+68]],rand,'rgba(255,250,240,.92)',3,5);
+      handText(ctx,copy,(x0+x1)/2,(y0+y1)/2-2,27,'500');
+    });
+    handText(ctx,'a good discussion',335,560,32,'700');
+
+    // A person steps to a working wall and commits to one option.
+    roughPoly(ctx,[[715,78],[1130,90],[1115,540],[700,530]],rand,'rgba(255,250,240,.72)',4,5);
+    handText(ctx,'make the choice visible',915,115,31,'700');
+    sticky(ctx,770,175,108,67,PINK,'A',rand,-.045);
+    sticky(ctx,900,165,108,67,YELLOW,'B',rand,.035);
+    sticky(ctx,1025,183,108,67,BLUE,'C',rand,-.03);
+    roughEllipse(ctx,958,205,145,120,rand,5,3);
+    sticky(ctx,845,320,215,120,BLUE,'DECISION',rand,-.015);
+    roughLine(ctx,[[865,454],[892,485],[938,438]],rand,7,2,2.5);
+    handText(ctx,'owner\nnext step',995,468,27,'500');
+    bust(ctx,720,400,.62,rand,1);
+
+    // Wobbly pencil cue between room and wall.
+    roughLine(ctx,[[585,372],[625,365],[655,387],[690,350],[720,353]],rand,3,2,3.5);
+    roughLine(ctx,[[707,339],[724,353],[709,367]],rand,3,1,2);
+    handText(ctx,'decision = choice + ownership',890,575,29,'700');
+  }
+
+  // Keep the approved refined sprite for every untouched card.
+  document.querySelectorAll('.gl-img').forEach((el)=>{
+    if(el.classList.contains('art-glimpse-01')) return;
+    el.style.setProperty('background-image','url("assets/dmt/glimpses-refined.avif?v=20260813d")','important');
+  });
+  document.querySelectorAll('.pr-img').forEach((el)=>{
+    if(el.classList.contains('art-problem-03')) return;
+    el.style.setProperty('background-image','url("assets/dmt/problems-refined.avif?v=20260813d")','important');
+  });
+
+  function render(){
+    const priorities=document.querySelector('.art-glimpse-01');
+    const decision=document.querySelector('.art-problem-03');
+    if(priorities) drawPriorities(priorities);
+    if(decision) drawDecision(decision);
+  }
+
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(render);
+  } else {
+    window.addEventListener('load',render,{once:true});
+  }
 })();
