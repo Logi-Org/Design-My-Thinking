@@ -25,17 +25,18 @@ jobs:
           cat .asset-transfer/ai-small-*.txt | tr -d '\n\r\t ' | base64 -d > assets/dmt/ai-levels-handdrawn.webp
           file assets/dmt/ai-levels-handdrawn.webp
           test "$(stat -c%s assets/dmt/ai-levels-handdrawn.webp)" -gt 15000
+          sed -i 's/home-ai-levels.js?v=20260817b/home-ai-levels.js?v=20260818a/g' index.html
 
-      - name: Commit binary asset
+      - name: Commit homepage artwork and cache bust
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
-          git config user.email '4189825+github-actions[bot]@users.noreply.github.com'
-          git add assets/dmt/ai-levels-handdrawn.webp
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/dmt/ai-levels-handdrawn.webp index.html
           if git diff --cached --quiet; then
-            echo 'Asset already current.'
+            echo 'Homepage AI artwork already current.'
             exit 0
           fi
-          git commit -m 'Add approved homepage AI artwork'
+          git commit -m 'Deploy hand-drawn homepage AI artwork'
           git push
