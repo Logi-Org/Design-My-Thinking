@@ -1,0 +1,11 @@
+/* Homepage image-background cleanup — 2026-08-17.
+   Let the two new decision sketches sit directly on the surrounding paper/card surface. */
+.art-glimpse-01,
+.art-problem-03{
+  background-color:transparent!important;
+}
+.art-glimpse-01 .handdrawn-canvas,
+.art-problem-03 .handdrawn-canvas{
+  background:transparent!important;
+  mix-blend-mode:normal!important;
+}
