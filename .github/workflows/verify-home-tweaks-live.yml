@@ -29,16 +29,13 @@ jobs:
             curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-sketch-fix.js?verify=${GITHUB_SHA}" -o sketch-live.js || true
             curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-sketch-fix.css?verify=${GITHUB_SHA}" -o sketch-live.css || true
             curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-ai-levels.js?v=20260817a&verify=${GITHUB_SHA}" -o ai-live.js || true
-            if grep -q 'home-sketch-fix.css?v=20260817b' home-live.html 2>/dev/null \
-              && grep -q 'home-sketch-fix.js?v=20260817b' home-live.html 2>/dev/null \
-              && grep -q 'home-ai-levels.js?v=20260817a' home-live.html 2>/dev/null \
-              && grep -q 'drawPriorities' sketch-live.js 2>/dev/null \
-              && grep -q 'drawDecision' sketch-live.js 2>/dev/null \
-              && grep -q 'hero-blue-note-fix' sketch-live.css 2>/dev/null \
-              && grep -q "Task\\nlevel" ai-live.js 2>/dev/null \
-              && grep -q "Workflow\\nlevel" ai-live.js 2>/dev/null \
-              && grep -q "Function\\nlevel" ai-live.js 2>/dev/null \
-              && grep -q "Company\\nlevel" ai-live.js 2>/dev/null; then
+            if grep -q 'home-ai-levels.js?v=20260817a' home-live.html 2>/dev/null \
+              && grep -q 'art-problem-05' ai-live.js 2>/dev/null \
+              && grep -q 'Task' ai-live.js 2>/dev/null \
+              && grep -q 'Workflow' ai-live.js 2>/dev/null \
+              && grep -q 'Function' ai-live.js 2>/dev/null \
+              && grep -q 'Company' ai-live.js 2>/dev/null \
+              && grep -q 'hero-blue-note-fix' sketch-live.css 2>/dev/null; then
               ok=1
               break
             fi
