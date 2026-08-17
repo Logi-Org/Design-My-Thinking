@@ -7,7 +7,6 @@ on:
       - 'index.html'
       - 'home-refined-art.css'
       - 'home-refined-art.js'
-      - 'assets/dmt/hero-blue-note-handdrawn.webp'
       - '.github/workflows/verify-home-tweaks-live.yml'
 
 permissions:
@@ -24,56 +23,57 @@ jobs:
           set -euo pipefail
           url="https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}"
           ok=0
-          for attempt in $(seq 1 12); do
-            echo "Live check attempt ${attempt}/12"
+          for attempt in $(seq 1 15); do
+            echo "Live check attempt ${attempt}/15"
             curl -fsSL -H 'Cache-Control: no-cache' "$url" -o home-live.html || true
-            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-refined-art.js?v=20260816c&verify=${GITHUB_SHA}" -o refined-live.js || true
-            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/hero-blue-note-handdrawn.webp?verify=${GITHUB_SHA}" -o blue-note.webp || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-refined-art.js?v=20260817a&verify=${GITHUB_SHA}" -o refined-live.js || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-refined-art.css?v=20260817a&verify=${GITHUB_SHA}" -o refined-live.css || true
             html_ok=0
             js_ok=0
-            asset_ok=0
-            if grep -q 'Reimagining professional services with AI' home-live.html 2>/dev/null \
-              && grep -q 'home-refined-art.css?v=20260816b' home-live.html 2>/dev/null \
-              && grep -q 'home-refined-art.js?v=20260816c' home-live.html 2>/dev/null; then
+            css_ok=0
+            if grep -q 'home-refined-art.css?v=20260817a' home-live.html 2>/dev/null \
+              && grep -q 'home-refined-art.js?v=20260817a' home-live.html 2>/dev/null; then
               html_ok=1
             fi
-            if grep -q "competing priorities to one decision" refined-live.js 2>/dev/null \
-              && grep -q "decision not just discussion" refined-live.js 2>/dev/null \
-              && grep -q "Caveat, cursive" refined-live.js 2>/dev/null; then
+            if grep -q 'drawPriorities' refined-live.js 2>/dev/null \
+              && grep -q 'drawDecision' refined-live.js 2>/dev/null \
+              && grep -q 'handdrawn-canvas' refined-live.js 2>/dev/null; then
               js_ok=1
             fi
-            if cmp -s assets/dmt/hero-blue-note-handdrawn.webp blue-note.webp; then
-              asset_ok=1
+            if grep -q 'hero-blue-note-fix' refined-live.css 2>/dev/null \
+              && grep -q 'choose\\A what\\A matters' refined-live.css 2>/dev/null \
+              && grep -q 'handdrawn-canvas' refined-live.css 2>/dev/null; then
+              css_ok=1
             fi
-            if [ "$html_ok" -eq 1 ] && [ "$js_ok" -eq 1 ] && [ "$asset_ok" -eq 1 ]; then
+            if [ "$html_ok" -eq 1 ] && [ "$js_ok" -eq 1 ] && [ "$css_ok" -eq 1 ]; then
               ok=1
               break
             fi
             sleep 10
           done
           if [ "$ok" -ne 1 ]; then
-            echo 'Expected hand-drawn homepage revision was not visible after retries.'
-            grep -E 'Reimagining professional services|home-refined-art\.(css|js)' home-live.html || true
-            grep -E 'competing priorities|decision not just discussion|Caveat' refined-live.js || true
+            echo 'Expected mobile hand-drawn homepage revision was not visible after retries.'
+            grep -E 'home-refined-art\.(css|js)' home-live.html || true
             exit 1
           fi
-      - name: Capture live homepage views
+      - name: Capture live desktop and mobile homepage views
         shell: bash
         run: |
           set -euo pipefail
           google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
-            --window-size=1440,900 \
-            --screenshot=home-hero-live.png \
+            --window-size=1440,3600 \
+            --screenshot=home-desktop-live.png \
             "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}"
           google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
-            --window-size=1440,3600 \
-            --screenshot=home-full-live.png \
+            --window-size=412,3000 \
+            --force-device-scale-factor=1 \
+            --screenshot=home-mobile-live.png \
             "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}"
-          test -s home-hero-live.png
-          test -s home-full-live.png
+          test -s home-desktop-live.png
+          test -s home-mobile-live.png
       - name: Upload live screenshots
         uses: actions/upload-artifact@v4
         with:
-          name: homepage-tweaks-live-verification
+          name: homepage-mobile-fix-live-verification
           path: 'home-*-live.png'
           retention-days: 7
