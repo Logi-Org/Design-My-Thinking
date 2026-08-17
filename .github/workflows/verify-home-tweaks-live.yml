@@ -6,7 +6,7 @@ on:
     paths:
       - 'index.html'
       - 'home-ai-levels.js'
-      - 'assets/dmt/ai-levels-handdrawn.webp'
+      - 'assets/dmt/ai-levels-handdrawn-transparent.webp'
       - '.github/workflows/verify-home-tweaks-live.yml'
 
 permissions:
@@ -22,35 +22,42 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          python -m pip install --quiet pillow
           ok=0
           for attempt in $(seq 1 24); do
             echo "Live verification attempt ${attempt}/24"
             rm -f home-live.html ai-live.js ai-live.webp
             if curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}&attempt=${attempt}" -o home-live.html \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-ai-levels.js?v=20260818b&verify=${GITHUB_SHA}&attempt=${attempt}" -o ai-live.js \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/ai-levels-handdrawn.webp?v=20260818b&verify=${GITHUB_SHA}&attempt=${attempt}" -o ai-live.webp \
-              && grep -q 'home-ai-levels.js?v=20260818b' home-live.html \
-              && grep -q 'ai-levels-handdrawn.webp?v=20260818b' ai-live.js \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-ai-levels.js?v=20260818c&verify=${GITHUB_SHA}&attempt=${attempt}" -o ai-live.js \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/ai-levels-handdrawn-transparent.webp?v=20260818c&verify=${GITHUB_SHA}&attempt=${attempt}" -o ai-live.webp \
+              && grep -q 'home-ai-levels.js?v=20260818c' home-live.html \
+              && grep -q 'ai-levels-handdrawn-transparent.webp?v=20260818c' ai-live.js \
               && grep -q 'art-problem-05' ai-live.js \
               && test "$(stat -c%s ai-live.webp)" -gt 10000; then
-              file ai-live.webp
-              ok=1
-              break
+              if python - <<'PY'
+          from PIL import Image
+          try:
+              im=Image.open('ai-live.webp')
+              im.load()
+              assert im.mode == 'RGBA', f'Expected RGBA transparency, got {im.mode}'
+              alpha=im.getchannel('A')
+              lo,hi=alpha.getextrema()
+              assert lo == 0, f'Expected fully transparent background pixels, alpha min={lo}'
+              assert hi > 200, f'Artwork unexpectedly faint, alpha max={hi}'
+              print('Transparent artwork verified:', im.size, im.mode, (lo,hi))
+          except Exception as exc:
+              print('Artwork not ready yet:', exc)
+              raise SystemExit(1)
+          PY
+              then
+                file ai-live.webp
+                ok=1
+                break
+              fi
             fi
             sleep 15
           done
           test "$ok" -eq 1
-          python -m pip install --quiet pillow
-          python - <<'PY'
-          from PIL import Image
-          im=Image.open('ai-live.webp')
-          assert im.mode == 'RGBA', f'Expected RGBA transparency, got {im.mode}'
-          alpha=im.getchannel('A')
-          lo,hi=alpha.getextrema()
-          assert lo == 0, f'Expected fully transparent background pixels, alpha min={lo}'
-          assert hi > 200, f'Artwork unexpectedly faint, alpha max={hi}'
-          print('Transparent artwork verified:', im.size, im.mode, (lo,hi))
-          PY
 
       - name: Capture live desktop and mobile card through real slider navigation
         shell: bash
@@ -64,7 +71,7 @@ jobs:
           from selenium.webdriver.chrome.options import Options
           from selenium.webdriver.support.ui import WebDriverWait
 
-          URL = 'https://designmythinking.xyz/index.html?visual-check=20260818b#problems'
+          URL = 'https://designmythinking.xyz/index.html?visual-check=20260818c#problems'
 
           def capture(width, height, clicks, expected_counter, path):
               opts = Options()
@@ -89,7 +96,7 @@ jobs:
                   img = section.find_element(By.CSS_SELECTOR, '.art-problem-05 img.ai-levels-handdrawn')
                   wait.until(lambda d: d.execute_script('return arguments[0].complete && arguments[0].naturalWidth > 0', img))
                   assert img.is_displayed(), 'AI artwork image is not displayed'
-                  assert 'ai-levels-handdrawn.webp?v=20260818b' in img.get_attribute('src')
+                  assert 'ai-levels-handdrawn-transparent.webp?v=20260818c' in img.get_attribute('src')
                   driver.execute_script("arguments[0].scrollIntoView({block:'center', inline:'nearest'});", section)
                   time.sleep(0.8)
                   section.screenshot(path)
