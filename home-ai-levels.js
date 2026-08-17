@@ -1,7 +1,7 @@
 /* Homepage AI transformation sketch — approved supplied artwork, 2026-08-18.
    Replaces the generated straight-line canvas treatment with the hand-drawn image. */
 (function(){
-  const ART_URL='assets/dmt/ai-levels-handdrawn.webp?v=20260818a';
+  const ART_URL='assets/dmt/ai-levels-handdrawn.webp?v=20260818b';
 
   function renderAI(host){
     host.style.setProperty('background-image','none','important');
