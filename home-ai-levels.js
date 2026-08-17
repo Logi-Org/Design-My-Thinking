@@ -110,20 +110,27 @@
   function renderAI(host){
     const canvas=setup(host),ctx=canvas.getContext('2d'),rand=rng(92017);
 
-    // Bottom: task level
     drawStep(ctx,rand,[[80,520],[1010,520],[1085,500],[1085,648],[80,648]],'Task\nlevel',YELLOW,65,545,'Automate\na single task',520,584,(c,x,y,r)=>robot(c,x,y,r));
     sticky(ctx,765,555,100,67,PINK,'draft',rand,-.03);arrow(ctx,870,590,900,590,rand);sticky(ctx,905,555,120,67,YELLOW,'summarise',rand,.02);arrow(ctx,1030,590,1052,590,rand);sticky(ctx,1058,555,115,67,BLUE,'translate',rand,-.02);
 
-    // Workflow level
     drawStep(ctx,rand,[[190,365],[1040,365],[1110,342],[1110,515],[190,515]],'Workflow\nlevel',PINK,170,385,'Connect\nmultiple steps',710,445,(c,x,y,r)=>workflowIcon(c,x,y,r));
-
-    // Function level
     drawStep(ctx,rand,[[315,210],[1065,210],[1135,188],[1135,360],[315,360]],'Function\nlevel',BLUE,292,230,'Redesign how\nthe team works',780,286,(c,x,y,r)=>teamIcon(c,x,y,r));
-
-    // Company level
     drawStep(ctx,rand,[[470,60],[1090,60],[1160,38],[1160,205],[470,205]],'Company\nlevel',YELLOW,447,78,'Transform\nthe business',875,132,(c,x,y,r)=>companyIcon(c,x,y,r));
   }
 
-  function boot(){const host=document.querySelector('.art-problem-05');if(host)renderAI(host);}
+  function showAIForVerification(){
+    if(new URLSearchParams(location.search).get('verify-ai')!=='1') return;
+    const section=document.querySelector('#problems');
+    const next=section&&section.querySelector('.dmt-slider__button--next');
+    if(!next) return;
+    let guard=0;
+    while(!next.disabled&&guard<10){next.click();guard+=1;}
+  }
+
+  function boot(){
+    const host=document.querySelector('.art-problem-05');
+    if(host) renderAI(host);
+    showAIForVerification();
+  }
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(boot);else window.addEventListener('load',boot,{once:true});
 })();
