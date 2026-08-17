@@ -1,0 +1,30 @@
+name: Debug live homepage
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/debug-live-home.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect live files
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL -H 'Cache-Control: no-cache' 'https://designmythinking.xyz/index.html?debug=live-home' -o home-live.html
+          curl -fsSL -H 'Cache-Control: no-cache' 'https://designmythinking.xyz/home-ai-levels.js?v=20260817a&debug=live-home' -o ai-a.js || true
+          curl -fsSL -H 'Cache-Control: no-cache' 'https://designmythinking.xyz/home-ai-levels.js?v=20260817b&debug=live-home' -o ai-b.js || true
+          echo '--- script refs in live index ---'
+          grep -o 'home-ai-levels.js[^"<]*' home-live.html || true
+          echo '--- verify-ai in live A ---'
+          grep -n 'verify-ai' ai-a.js || true
+          echo '--- verify-ai in live B ---'
+          grep -n 'verify-ai' ai-b.js || true
+          echo '--- file sizes ---'
+          wc -c home-live.html ai-a.js ai-b.js || true
