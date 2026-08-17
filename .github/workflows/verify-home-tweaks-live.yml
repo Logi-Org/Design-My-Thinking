@@ -28,9 +28,10 @@ jobs:
             curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}" -o home-live.html || true
             curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-sketch-fix.js?verify=${GITHUB_SHA}" -o sketch-live.js || true
             curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-sketch-fix.css?verify=${GITHUB_SHA}" -o sketch-live.css || true
-            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-ai-levels.js?v=20260817a&verify=${GITHUB_SHA}" -o ai-live.js || true
-            if grep -q 'home-ai-levels.js?v=20260817a' home-live.html 2>/dev/null \
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-ai-levels.js?v=20260817b&verify=${GITHUB_SHA}" -o ai-live.js || true
+            if grep -q 'home-ai-levels.js?v=20260817b' home-live.html 2>/dev/null \
               && grep -q 'art-problem-05' ai-live.js 2>/dev/null \
+              && grep -q 'verify-ai' ai-live.js 2>/dev/null \
               && grep -q 'Task' ai-live.js 2>/dev/null \
               && grep -q 'Workflow' ai-live.js 2>/dev/null \
               && grep -q 'Function' ai-live.js 2>/dev/null \
@@ -42,19 +43,21 @@ jobs:
             sleep 10
           done
           [ "$ok" -eq 1 ] || { echo 'Homepage AI transformation sketch did not reach live site.'; exit 1; }
-      - name: Capture live desktop and mobile homepage views
+      - name: Capture live desktop and mobile AI problem card
         shell: bash
         run: |
           set -euo pipefail
           google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
-            --window-size=1440,5200 \
+            --window-size=1440,3600 \
+            --virtual-time-budget=3000 \
             --screenshot=home-desktop-live.png \
-            "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}"
+            "https://designmythinking.xyz/index.html?verify-ai=1&verify=${GITHUB_SHA}#problems"
           google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
-            --window-size=412,5200 \
+            --window-size=412,4200 \
             --force-device-scale-factor=1 \
+            --virtual-time-budget=3000 \
             --screenshot=home-mobile-live.png \
-            "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}"
+            "https://designmythinking.xyz/index.html?verify-ai=1&verify=${GITHUB_SHA}#problems"
           test -s home-desktop-live.png
           test -s home-mobile-live.png
       - name: Upload live screenshots
