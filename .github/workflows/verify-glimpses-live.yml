@@ -9,7 +9,7 @@ on:
       - '.github/workflows/verify-glimpses-live.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify:
@@ -95,3 +95,15 @@ jobs:
           name: simplified-glimpses-live-verification
           path: 'glimpse-mobile-*.png'
           retention-days: 7
+
+      - name: Record verification run id
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p verification
+          printf '%s\n' "$GITHUB_RUN_ID" > verification/glimpses-live-run.txt
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add verification/glimpses-live-run.txt
+          git commit -m "Record glimpse verification run ${GITHUB_RUN_ID}" || exit 0
+          git push
