@@ -1,0 +1,97 @@
+name: Verify simplified glimpses live
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'home-glimpses-simple.js'
+      - '.github/workflows/verify-glimpses-live.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for live deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          ok=0
+          for attempt in $(seq 1 30); do
+            echo "Live verification attempt ${attempt}/30"
+            rm -f home-live.html glimpses-live.js
+            if curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}&attempt=${attempt}" -o home-live.html \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-glimpses-simple.js?v=20260818a&verify=${GITHUB_SHA}&attempt=${attempt}" -o glimpses-live.js \
+              && grep -q 'home-glimpses-simple.js?v=20260818a' home-live.html \
+              && grep -q 'Simplified hand-drawn homepage glimpse artwork' glimpses-live.js \
+              && grep -q 'art-glimpse-06' glimpses-live.js; then
+              ok=1
+              break
+            fi
+            sleep 12
+          done
+          test "$ok" -eq 1
+
+      - name: Capture all six live mobile glimpse cards
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet selenium
+          python - <<'PY'
+          import time
+          from selenium import webdriver
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.support.ui import WebDriverWait
+
+          URL='https://designmythinking.xyz/index.html?visual-check=20260818a#glimpses'
+          opts=Options()
+          opts.add_argument('--headless=new')
+          opts.add_argument('--no-sandbox')
+          opts.add_argument('--disable-gpu')
+          opts.add_argument('--hide-scrollbars')
+          opts.add_argument('--window-size=412,1050')
+          driver=webdriver.Chrome(options=opts)
+          try:
+              driver.set_window_size(412,1050)
+              driver.get(URL)
+              wait=WebDriverWait(driver,25)
+              section=wait.until(lambda d:d.find_element(By.ID,'glimpses'))
+              next_button=section.find_element(By.CSS_SELECTOR,'.dmt-slider__button--next')
+              counter=section.find_element(By.CSS_SELECTOR,'.dmt-slider__counter')
+              for i in range(1,7):
+                  expected=f'{i} / 6'
+                  wait.until(lambda d:counter.text.strip()==expected)
+                  slide=section.find_elements(By.CSS_SELECTOR,'.glimpse-card')[i-1]
+                  canvas=slide.find_element(By.CSS_SELECTOR,'.glimpse-simple-canvas')
+                  wait.until(lambda d:canvas.size['width']>100 and canvas.size['height']>80)
+                  nonempty=driver.execute_script('''
+                    const c=arguments[0],ctx=c.getContext('2d');
+                    const d=ctx.getImageData(0,0,c.width,c.height).data;
+                    let hits=0; for(let j=3;j<d.length;j+=400){ if(d[j]>0) hits++; }
+                    return hits;
+                  ''',canvas)
+                  assert nonempty>20, f'Canvas {i} looks empty: {nonempty}'
+                  driver.execute_script("arguments[0].scrollIntoView({block:'center'});",section)
+                  time.sleep(.5)
+                  section.screenshot(f'glimpse-mobile-{i}.png')
+                  print(expected, canvas.size, nonempty)
+                  if i<6:
+                      driver.execute_script('arguments[0].click()',next_button)
+                      time.sleep(.65)
+          finally:
+              driver.quit()
+          PY
+          ls -lh glimpse-mobile-*.png
+
+      - name: Upload live screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: simplified-glimpses-live-verification
+          path: 'glimpse-mobile-*.png'
+          retention-days: 7
