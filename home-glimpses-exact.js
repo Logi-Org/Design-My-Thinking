@@ -2,12 +2,12 @@
    These are the actual image-generation outputs approved in chat. */
 (function(){
   const sources=[
-    'assets/dmt/glimpse-exact/g1.webp?v=20260818exact2',
+    'assets/dmt/glimpse-exact/g1.webp?v=20260818exact3',
     window.DMT_G2 ? 'data:image/webp;base64,'+window.DMT_G2 : '',
     window.DMT_G3 ? 'data:image/webp;base64,'+window.DMT_G3 : '',
     window.DMT_G4 ? 'data:image/webp;base64,'+window.DMT_G4 : '',
-    window.DMT_G5 ? 'data:image/webp;base64,'+window.DMT_G5 : '',
-    window.DMT_G6 ? 'data:image/webp;base64,'+window.DMT_G6 : ''
+    'assets/dmt/glimpse-exact/g5.webp?v=20260818exact3',
+    'assets/dmt/glimpse-exact/g6.webp?v=20260818exact3'
   ];
   const labels=[
     'Competing priorities converging through a trade-off knot into one clear choice',
