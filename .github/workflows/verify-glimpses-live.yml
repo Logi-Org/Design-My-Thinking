@@ -1,11 +1,12 @@
-name: Verify simplified glimpses live
+name: Verify exact approved glimpses live
 
 on:
   push:
     branches: [main]
     paths:
       - 'index.html'
-      - 'home-glimpses-simple.js'
+      - 'home-glimpses-exact.js'
+      - 'assets/dmt/glimpse-exact/**'
       - '.github/workflows/verify-glimpses-live.yml'
 
 permissions:
@@ -17,19 +18,35 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Wait for live deployment
+      - name: Record verification run id
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p verification
+          printf '%s\n' "$GITHUB_RUN_ID" > verification/exact-glimpses-live-run.txt
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add verification/exact-glimpses-live-run.txt
+          git commit -m "Record exact glimpse verification run ${GITHUB_RUN_ID}" || exit 0
+          git push
+
+      - name: Wait for exact approved images on live deployment
         shell: bash
         run: |
           set -euo pipefail
           ok=0
-          for attempt in $(seq 1 30); do
-            echo "Live verification attempt ${attempt}/30"
-            rm -f home-live.html glimpses-live.js
+          for attempt in $(seq 1 35); do
+            echo "Live verification attempt ${attempt}/35"
+            rm -f home-live.html exact-live.js g1-live.js g6-live.js
             if curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}&attempt=${attempt}" -o home-live.html \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-glimpses-simple.js?v=20260818a&verify=${GITHUB_SHA}&attempt=${attempt}" -o glimpses-live.js \
-              && grep -q 'home-glimpses-simple.js?v=20260818a' home-live.html \
-              && grep -q 'Simplified hand-drawn homepage glimpse artwork' glimpses-live.js \
-              && grep -q 'art-glimpse-06' glimpses-live.js; then
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-glimpses-exact.js?v=20260818exact1&verify=${GITHUB_SHA}&attempt=${attempt}" -o exact-live.js \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/glimpse-exact/g1-1.js?v=20260818exact1&verify=${GITHUB_SHA}&attempt=${attempt}" -o g1-live.js \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/glimpse-exact/g6.js?v=20260818exact1&verify=${GITHUB_SHA}&attempt=${attempt}" -o g6-live.js \
+              && grep -q 'home-glimpses-exact.js?v=20260818exact1' home-live.html \
+              && ! grep -q 'home-glimpses-simple.js' home-live.html \
+              && grep -q 'actual image-generation outputs approved in chat' exact-live.js \
+              && grep -q 'window.DMT_G1' g1-live.js \
+              && grep -q 'window.DMT_G6' g6-live.js; then
               ok=1
               break
             fi
@@ -37,7 +54,7 @@ jobs:
           done
           test "$ok" -eq 1
 
-      - name: Capture all six live mobile glimpse cards
+      - name: Verify and capture all six exact live mobile cards
         shell: bash
         run: |
           set -euo pipefail
@@ -49,7 +66,7 @@ jobs:
           from selenium.webdriver.chrome.options import Options
           from selenium.webdriver.support.ui import WebDriverWait
 
-          URL='https://designmythinking.xyz/index.html?visual-check=20260818a#glimpses'
+          URL='https://designmythinking.xyz/index.html?visual-check=20260818exact1#glimpses'
           opts=Options()
           opts.add_argument('--headless=new')
           opts.add_argument('--no-sandbox')
@@ -60,50 +77,72 @@ jobs:
           try:
               driver.set_window_size(412,1050)
               driver.get(URL)
-              wait=WebDriverWait(driver,25)
+              wait=WebDriverWait(driver,30)
               section=wait.until(lambda d:d.find_element(By.ID,'glimpses'))
               next_button=section.find_element(By.CSS_SELECTOR,'.dmt-slider__button--next')
               counter=section.find_element(By.CSS_SELECTOR,'.dmt-slider__counter')
+              cards=section.find_elements(By.CSS_SELECTOR,'.glimpse-card')
+              assert len(cards)==6, len(cards)
+
               for i in range(1,7):
-                  expected=f'{i} / 6'
-                  wait.until(lambda d:counter.text.strip()==expected)
-                  slide=section.find_elements(By.CSS_SELECTOR,'.glimpse-card')[i-1]
-                  canvas=slide.find_element(By.CSS_SELECTOR,'.glimpse-simple-canvas')
-                  wait.until(lambda d:canvas.size['width']>100 and canvas.size['height']>80)
-                  nonempty=driver.execute_script('''
-                    const c=arguments[0],ctx=c.getContext('2d');
-                    const d=ctx.getImageData(0,0,c.width,c.height).data;
-                    let hits=0; for(let j=3;j<d.length;j+=400){ if(d[j]>0) hits++; }
-                    return hits;
-                  ''',canvas)
-                  assert nonempty>20, f'Canvas {i} looks empty: {nonempty}'
+                  expected_counter=f'{i} / 6'
+                  wait.until(lambda d:counter.text.strip()==expected_counter)
+                  slide=cards[i-1]
+                  img=wait.until(lambda d:slide.find_element(By.CSS_SELECTOR,'img.glimpse-exact-image'))
+                  wait.until(lambda d:d.execute_script('return arguments[0].complete && arguments[0].naturalWidth > 100 && arguments[0].naturalHeight > 80',img))
+                  actual=img.get_attribute('src')
+                  expected=driver.execute_script("return 'data:image/webp;base64,' + window['DMT_G' + arguments[0]];",i)
+                  assert actual==expected, f'Card {i} is not the exact approved image payload'
+                  exact_id=img.get_attribute('data-glimpse-exact')
+                  assert exact_id==str(i), (i, exact_id)
+                  assert slide.find_elements(By.CSS_SELECTOR,'.glimpse-simple-canvas')==[], f'Old canvas still present on card {i}'
+
                   driver.execute_script("arguments[0].scrollIntoView({block:'center'});",section)
                   time.sleep(.5)
-                  section.screenshot(f'glimpse-mobile-{i}.png')
-                  print(expected, canvas.size, nonempty)
+                  section.screenshot(f'exact-glimpse-mobile-{i}.png')
+                  print(expected_counter, img.get_attribute('naturalWidth'), img.get_attribute('naturalHeight'), len(actual))
                   if i<6:
                       driver.execute_script('arguments[0].click()',next_button)
-                      time.sleep(.65)
+                      time.sleep(.7)
           finally:
               driver.quit()
           PY
-          ls -lh glimpse-mobile-*.png
+          ls -lh exact-glimpse-mobile-*.png
+
+      - name: Capture live desktop carousel
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import time
+          from selenium import webdriver
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.support.ui import WebDriverWait
+          opts=Options()
+          opts.add_argument('--headless=new')
+          opts.add_argument('--no-sandbox')
+          opts.add_argument('--disable-gpu')
+          opts.add_argument('--hide-scrollbars')
+          opts.add_argument('--window-size=1440,1000')
+          d=webdriver.Chrome(options=opts)
+          try:
+              d.set_window_size(1440,1000)
+              d.get('https://designmythinking.xyz/index.html?visual-check=20260818exact1#glimpses')
+              section=WebDriverWait(d,30).until(lambda x:x.find_element(By.ID,'glimpses'))
+              WebDriverWait(d,30).until(lambda x:len(section.find_elements(By.CSS_SELECTOR,'img.glimpse-exact-image'))==6)
+              d.execute_script("arguments[0].scrollIntoView({block:'center'});",section)
+              time.sleep(.8)
+              section.screenshot('exact-glimpses-desktop.png')
+          finally:
+              d.quit()
+          PY
 
       - name: Upload live screenshots
         uses: actions/upload-artifact@v4
         with:
-          name: simplified-glimpses-live-verification
-          path: 'glimpse-mobile-*.png'
+          name: exact-approved-glimpses-live-verification
+          path: |
+            exact-glimpse-mobile-*.png
+            exact-glimpses-desktop.png
           retention-days: 7
-
-      - name: Record verification run id
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p verification
-          printf '%s\n' "$GITHUB_RUN_ID" > verification/glimpses-live-run.txt
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add verification/glimpses-live-run.txt
-          git commit -m "Record glimpse verification run ${GITHUB_RUN_ID}" || exit 0
-          git push
