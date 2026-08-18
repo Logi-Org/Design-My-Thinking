@@ -37,16 +37,18 @@ jobs:
           ok=0
           for attempt in $(seq 1 35); do
             echo "Live verification attempt ${attempt}/35"
-            rm -f home-live.html exact-live.js g1.webp g6-live.js
+            rm -f home-live.html exact-live.js g1.webp g5.webp g6.webp
             if curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}&attempt=${attempt}" -o home-live.html \
               && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-glimpses-exact.js?v=20260818exact1&verify=${GITHUB_SHA}&attempt=${attempt}" -o exact-live.js \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/glimpse-exact/g1.webp?v=20260818exact2&verify=${GITHUB_SHA}&attempt=${attempt}" -o g1.webp \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/glimpse-exact/g6.js?v=20260818exact1&verify=${GITHUB_SHA}&attempt=${attempt}" -o g6-live.js \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/glimpse-exact/g1.webp?v=20260818exact3&verify=${GITHUB_SHA}&attempt=${attempt}" -o g1.webp \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/glimpse-exact/g5.webp?v=20260818exact3&verify=${GITHUB_SHA}&attempt=${attempt}" -o g5.webp \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/glimpse-exact/g6.webp?v=20260818exact3&verify=${GITHUB_SHA}&attempt=${attempt}" -o g6.webp \
               && grep -q 'home-glimpses-exact.js?v=20260818exact1' home-live.html \
               && ! grep -q 'home-glimpses-simple.js' home-live.html \
               && grep -q 'actual image-generation outputs approved in chat' exact-live.js \
               && test "$(wc -c < g1.webp)" -gt 10000 \
-              && grep -q 'window.DMT_G6' g6-live.js; then
+              && test "$(wc -c < g5.webp)" -gt 5000 \
+              && test "$(wc -c < g6.webp)" -gt 5000; then
               ok=1
               break
             fi
@@ -66,7 +68,7 @@ jobs:
           from selenium.webdriver.chrome.options import Options
           from selenium.webdriver.support.ui import WebDriverWait
 
-          URL='https://designmythinking.xyz/index.html?visual-check=20260818exact2#glimpses'
+          URL='https://designmythinking.xyz/index.html?visual-check=20260818exact3#glimpses'
           opts=Options()
           opts.add_argument('--headless=new')
           opts.add_argument('--no-sandbox')
@@ -84,6 +86,7 @@ jobs:
               cards=section.find_elements(By.CSS_SELECTOR,'.glimpse-card')
               assert len(cards)==6, len(cards)
 
+              binary={1:'g1.webp',5:'g5.webp',6:'g6.webp'}
               for i in range(1,7):
                   expected_counter=f'{i} / 6'
                   wait.until(lambda d:counter.text.strip()==expected_counter)
@@ -91,8 +94,8 @@ jobs:
                   img=wait.until(lambda d:slide.find_element(By.CSS_SELECTOR,'img.glimpse-exact-image'))
                   wait.until(lambda d:d.execute_script('return arguments[0].complete && arguments[0].naturalWidth > 100 && arguments[0].naturalHeight > 80',img))
                   actual=img.get_attribute('src')
-                  if i==1:
-                      assert 'assets/dmt/glimpse-exact/g1.webp?v=20260818exact2' in actual, actual
+                  if i in binary:
+                      assert f'assets/dmt/glimpse-exact/{binary[i]}?v=20260818exact3' in actual, actual
                   else:
                       expected=driver.execute_script("return 'data:image/webp;base64,' + window['DMT_G' + arguments[0]];",i)
                       assert actual==expected, f'Card {i} is not the exact approved image payload'
@@ -131,7 +134,7 @@ jobs:
           d=webdriver.Chrome(options=opts)
           try:
               d.set_window_size(1440,1000)
-              d.get('https://designmythinking.xyz/index.html?visual-check=20260818exact2#glimpses')
+              d.get('https://designmythinking.xyz/index.html?visual-check=20260818exact3#glimpses')
               section=WebDriverWait(d,30).until(lambda x:x.find_element(By.ID,'glimpses'))
               WebDriverWait(d,30).until(lambda x:len(section.find_elements(By.CSS_SELECTOR,'img.glimpse-exact-image'))==6)
               d.execute_script("arguments[0].scrollIntoView({block:'center'});",section)
