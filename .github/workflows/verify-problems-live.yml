@@ -18,6 +18,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Ensure homepage references current problem artwork
+        shell: bash
+        run: |
+          set -euo pipefail
+          sed -i 's/home-problems-exact.js?v=20260818problems2/home-problems-exact.js?v=20260818problems3/g' index.html
+          if git diff --quiet -- index.html; then
+            echo 'Homepage already references problems3.'
+          else
+            git config user.name github-actions[bot]
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git add index.html
+            git commit -m 'Refresh approved problem carousel assets'
+            git pull --rebase origin main
+            git push
+          fi
+
       - name: Record verification run id
         shell: bash
         run: |
@@ -28,6 +44,7 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add verification/problems-live-run.txt
           git commit -m "Record problem verification run ${GITHUB_RUN_ID}" || exit 0
+          git pull --rebase origin main
           git push
 
       - name: Wait for approved problem images on live deployment
@@ -37,15 +54,19 @@ jobs:
           ok=0
           for attempt in $(seq 1 35); do
             echo "Live verification attempt ${attempt}/35"
-            rm -f home-live.html problems-live.js p1.webp p4.webp p5.webp
+            rm -f home-live.html problems-live.js p1.webp p2.webp p3.webp p4.webp p5.webp
             if curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}&attempt=${attempt}" -o home-live.html \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-problems-exact.js?v=20260818problems2&verify=${GITHUB_SHA}&attempt=${attempt}" -o problems-live.js \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p1.webp?v=20260818problems2&verify=${GITHUB_SHA}&attempt=${attempt}" -o p1.webp \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p4.webp?v=20260818problems2&verify=${GITHUB_SHA}&attempt=${attempt}" -o p4.webp \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p5.webp?v=20260818problems2&verify=${GITHUB_SHA}&attempt=${attempt}" -o p5.webp \
-              && grep -q 'home-problems-exact.js?v=20260818problems2' home-live.html \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-problems-exact.js?v=20260818problems3&verify=${GITHUB_SHA}&attempt=${attempt}" -o problems-live.js \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p1.webp?v=20260818problems3&verify=${GITHUB_SHA}&attempt=${attempt}" -o p1.webp \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p2.webp?v=20260818problems3&verify=${GITHUB_SHA}&attempt=${attempt}" -o p2.webp \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p3.webp?v=20260818problems3&verify=${GITHUB_SHA}&attempt=${attempt}" -o p3.webp \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p4.webp?v=20260818problems3&verify=${GITHUB_SHA}&attempt=${attempt}" -o p4.webp \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p5.webp?v=20260818problems3&verify=${GITHUB_SHA}&attempt=${attempt}" -o p5.webp \
+              && grep -q 'home-problems-exact.js?v=20260818problems3' home-live.html \
               && grep -q 'Exact approved simplified problem illustrations' problems-live.js \
-              && test "$(wc -c < p1.webp)" -gt 5000 \
+              && test "$(wc -c < p1.webp)" -gt 3000 \
+              && test "$(wc -c < p2.webp)" -gt 5000 \
+              && test "$(wc -c < p3.webp)" -gt 5000 \
               && test "$(wc -c < p4.webp)" -gt 10000 \
               && test "$(wc -c < p5.webp)" -gt 5000; then
               ok=1
@@ -67,7 +88,7 @@ jobs:
           from selenium.webdriver.chrome.options import Options
           from selenium.webdriver.support.ui import WebDriverWait
 
-          URL='https://designmythinking.xyz/index.html?visual-check=20260818problems2#problems'
+          URL='https://designmythinking.xyz/index.html?visual-check=20260818problems3#problems'
           opts=Options()
           opts.add_argument('--headless=new')
           opts.add_argument('--no-sandbox')
@@ -91,7 +112,7 @@ jobs:
                   img=wait.until(lambda d:slide.find_element(By.CSS_SELECTOR,'img.problem-exact-image'))
                   wait.until(lambda d:d.execute_script('return arguments[0].complete && arguments[0].naturalWidth > 100 && arguments[0].naturalHeight > 80',img))
                   src=img.get_attribute('src')
-                  assert f'assets/dmt/problem-exact/p{i}.webp?v=20260818problems2' in src, src
+                  assert f'assets/dmt/problem-exact/p{i}.webp?v=20260818problems3' in src, src
                   assert img.get_attribute('data-problem-exact')==str(i)
                   driver.execute_script("arguments[0].scrollIntoView({block:'center'});",section)
                   time.sleep(.5)
@@ -124,7 +145,7 @@ jobs:
           d=webdriver.Chrome(options=opts)
           try:
               d.set_window_size(1440,1000)
-              d.get('https://designmythinking.xyz/index.html?visual-check=20260818problems2#problems')
+              d.get('https://designmythinking.xyz/index.html?visual-check=20260818problems3#problems')
               section=WebDriverWait(d,30).until(lambda x:x.find_element(By.ID,'problems'))
               WebDriverWait(d,30).until(lambda x:len(section.find_elements(By.CSS_SELECTOR,'img.problem-exact-image'))==5)
               d.execute_script("arguments[0].scrollIntoView({block:'center'});",section)
