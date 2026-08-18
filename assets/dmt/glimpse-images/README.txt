@@ -1,0 +1,1 @@
+This folder contains the exact simplified hand-drawn glimpse illustrations approved in ChatGPT on 2026-08-18. Binary image assets are committed separately.
