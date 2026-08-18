@@ -9,11 +9,26 @@ on:
       - 'assets/dmt/problem-exact/**'
       - '.github/workflows/verify-problems-live.yml'
 
+permissions:
+  contents: write
+
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Record verification run id
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p verification
+          printf '%s\n' "$GITHUB_RUN_ID" > verification/problems-live-run.txt
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add verification/problems-live-run.txt
+          git commit -m "Record problem verification run ${GITHUB_RUN_ID}" || exit 0
+          git push
 
       - name: Wait for approved problem images on live deployment
         shell: bash
