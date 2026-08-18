@@ -1,11 +1,11 @@
 /* Exact approved simplified problem illustrations — 2026-08-18. */
 (function(){
   const sources=[
-    'assets/dmt/problem-exact/p1.webp?v=20260818problems2',
-    'assets/dmt/problem-exact/p2.webp?v=20260818problems2',
-    'assets/dmt/problem-exact/p3.webp?v=20260818problems2',
-    'assets/dmt/problem-exact/p4.webp?v=20260818problems2',
-    'assets/dmt/problem-exact/p5.webp?v=20260818problems2'
+    'assets/dmt/problem-exact/p1.webp?v=20260818problems3',
+    'assets/dmt/problem-exact/p2.webp?v=20260818problems3',
+    'assets/dmt/problem-exact/p3.webp?v=20260818problems3',
+    'assets/dmt/problem-exact/p4.webp?v=20260818problems3',
+    'assets/dmt/problem-exact/p5.webp?v=20260818problems3'
   ];
   const labels=[
     'A repeating loop of the same conversation',
