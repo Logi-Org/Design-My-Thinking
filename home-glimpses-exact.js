@@ -1,8 +1,14 @@
 /* Exact approved simplified glimpse illustrations — 2026-08-18.
-   These are the actual image-generation outputs approved in chat, embedded as
-   small transparent WebP assets so they cannot fall back to older sprite/canvas art. */
+   These are the actual image-generation outputs approved in chat. */
 (function(){
-  const sources=[window.DMT_G1,window.DMT_G2,window.DMT_G3,window.DMT_G4,window.DMT_G5,window.DMT_G6];
+  const sources=[
+    'assets/dmt/glimpse-exact/g1.webp?v=20260818exact2',
+    window.DMT_G2 ? 'data:image/webp;base64,'+window.DMT_G2 : '',
+    window.DMT_G3 ? 'data:image/webp;base64,'+window.DMT_G3 : '',
+    window.DMT_G4 ? 'data:image/webp;base64,'+window.DMT_G4 : '',
+    window.DMT_G5 ? 'data:image/webp;base64,'+window.DMT_G5 : '',
+    window.DMT_G6 ? 'data:image/webp;base64,'+window.DMT_G6 : ''
+  ];
   const labels=[
     'Competing priorities converging through a trade-off knot into one clear choice',
     'Plan A crossed out, pivoting to Plan B and a working group',
@@ -13,9 +19,10 @@
   ];
 
   function install(host,index){
-    const data=sources[index];
-    if(!host||!data) return;
-    if(host.querySelector('img.glimpse-exact-image')?.dataset.glimpseExact===String(index+1)) return;
+    const src=sources[index];
+    if(!host||!src) return;
+    const existing=host.querySelector('img.glimpse-exact-image');
+    if(existing?.dataset.glimpseExact===String(index+1) && existing.getAttribute('src')===src) return;
     host.style.setProperty('background-image','none','important');
     host.style.setProperty('background-color','transparent','important');
     host.style.setProperty('display','flex','important');
@@ -26,7 +33,7 @@
     const img=document.createElement('img');
     img.className='glimpse-exact-image';
     img.dataset.glimpseExact=String(index+1);
-    img.src='data:image/webp;base64,'+data;
+    img.src=src;
     img.alt=labels[index];
     img.decoding='async';
     img.draggable=false;
