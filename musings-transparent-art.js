@@ -1,14 +1,12 @@
 /* Musings transparent artwork pass — 2026-08-18.
    Removes the baked cream paper from the approved illustrations at runtime
-   so the sketches sit directly on the musing-card / field-note paper surface.
-   Also adds the Leadership Principles interactive musing entry. */
+   so the sketches sit directly on the musing-card / field-note paper surface. */
 (function(){
   const ART = [
     {cls:'musing-thumb--scenarios', url:'assets/dmt/musings-approved-scenarios.webp?v=20260816b'},
     {cls:'musing-thumb--questions', url:'assets/dmt/musings-approved-seed.webp?v=20260816b'},
     {cls:'musing-thumb--canvas', url:'assets/dmt/musings-approved-canvas.webp?v=20260816b'},
     {cls:'musing-thumb--html', url:'assets/dmt/musings-approved-wallpaper.webp?v=20260816b'},
-    {cls:'musing-thumb--leadership', url:'assets/dmt/musings-approved-canvas.webp?v=20260816b'},
     {cls:'field-note-sketch--scenarios', url:'assets/dmt/musings-approved-scenarios.webp?v=20260816b'},
     {cls:'field-note-sketch--questions', url:'assets/dmt/musings-approved-seed.webp?v=20260816b'},
     {cls:'field-note-sketch--canvas', url:'assets/dmt/musings-approved-canvas.webp?v=20260816b'},
@@ -16,20 +14,6 @@
   ];
 
   const cache = new Map();
-
-  function ensureLeadershipCard(){
-    const grid=document.querySelector('.musing-grid');
-    if(!grid || grid.querySelector('[data-musing="leadership-principles"]')) return;
-    const card=document.createElement('a');
-    card.className='musing-card';
-    card.href='leadership-principles.html';
-    card.dataset.musing='leadership-principles';
-    card.setAttribute('aria-label','Open Leadership Principles');
-    card.style.textDecoration='none';
-    card.style.color='inherit';
-    card.innerHTML='<span class="hand">Musing 05</span><div class="musing-thumb musing-thumb--leadership" role="img" aria-label="Hand-drawn workshop canvas representing leadership principles"></div><h3 style="display:inline;background:linear-gradient(transparent 64%,rgba(239,164,187,.7) 64% 88%,transparent 88%)">Leadership Principles</h3><p>An interactive Leadership Principles Balance Designer. The supporting musing will be added later.</p><span class="musing-open">Open Leadership Principles →</span>';
-    grid.appendChild(card);
-  }
 
   function averageBackground(data,w,h){
     const samples=[];
@@ -133,7 +117,6 @@
   }
 
   function start(){
-    ensureLeadershipCard();
     renderAll();
     const observer=new MutationObserver(muts=>{
       for(const m of muts){
