@@ -21,16 +21,38 @@
 .belief-note--pink{background:#efa4bb;transform:rotate(-1deg)}
 .belief-arrow{font-family:"Caveat",cursive;font-size:2.4rem;font-weight:700}
 
-.how-work-diagram{position:relative;min-height:230px;margin-top:4px}
-.how-circle{position:absolute;width:185px;height:185px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;font-family:"Caveat",cursive;font-size:1.35rem;font-weight:700;line-height:1.05;border:2px solid rgba(40,34,29,.62);mix-blend-mode:multiply}
+.how-work-diagram{position:relative;min-height:315px;margin-top:4px;overflow:visible}
+.how-circle{position:absolute;width:185px;height:185px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;font-family:"Caveat",cursive;font-size:1.35rem;font-weight:700;line-height:1.05;border:2px solid rgba(40,34,29,.62);mix-blend-mode:multiply;z-index:1}
 .how-circle--one{left:50%;top:0;transform:translateX(-50%);background:rgba(245,215,72,.42)}
-.how-circle--two{left:18%;top:76px;background:rgba(159,210,222,.45)}
-.how-circle--three{right:18%;top:76px;background:rgba(239,164,187,.36)}
-.how-heart{position:absolute;left:50%;top:145px;transform:translate(-50%,-50%);font-family:"Caveat",cursive;font-size:2rem;color:#d24d78;z-index:3}
+.how-circle--two{left:50%;top:124px;transform:translateX(-94%);background:rgba(159,210,222,.45)}
+.how-circle--three{left:50%;top:124px;transform:translateX(-6%);background:rgba(239,164,187,.36)}
+.how-heart{position:absolute;left:50%;top:179px;transform:translate(-50%,-50%);font-family:"Caveat",cursive;font-size:1.45rem;color:#d24d78;z-index:4;line-height:1}
+.how-work-diagram::after{content:"The\A Sweet Spot";white-space:pre;position:absolute;right:1%;top:72px;font-family:"Caveat",cursive;font-size:1.6rem;font-weight:700;line-height:.9;color:#2f251d;transform:rotate(2deg);z-index:5}
+.how-work-diagram::before{content:"";position:absolute;left:50%;top:101px;width:clamp(145px,28vw,185px);height:88px;background-repeat:no-repeat;background-size:100% 100%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 80'%3E%3Cpath d='M171 9 C139 21 108 35 79 49 C57 59 38 67 17 71' fill='none' stroke='%232f251d' stroke-width='2.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M170 11 C137 23 109 36 80 50' fill='none' stroke='%232f251d' stroke-opacity='.42' stroke-width='1.1' stroke-linecap='round'/%3E%3Cpath d='M18 71 L34 57 M18 71 L38 75' fill='none' stroke='%232f251d' stroke-width='2.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");z-index:3;pointer-events:none}
 
 .about-page .beliefs.narrow{max-width:920px;display:grid;grid-template-columns:1fr 1fr;gap:14px 22px}
 .about-page .beliefs.narrow li{background:#fff8e9;border:1px solid rgba(47,37,29,.10);padding:15px 18px;box-shadow:3px 5px 9px rgba(47,37,29,.06)}
 .about-page .experience-list span{font-family:"Caveat",cursive;font-size:1.22rem;background:#fff8e9;border:1px solid rgba(47,37,29,.11);transform:rotate(-.5deg)}
 
-@media(max-width:900px){.about-concept-grid{grid-template-columns:1fr}.about-concept-card:nth-child(2){margin-top:0}.about-page .beliefs.narrow{grid-template-columns:1fr}.how-circle--two{left:23%}.how-circle--three{right:23%}}
-@media(max-width:620px){.belief-sequence{gap:7px}.belief-note{width:29vw;max-width:110px;font-size:1.35rem;padding:10px}.belief-arrow{font-size:1.6rem}.how-work-diagram{min-height:300px}.how-circle{width:155px;height:155px;font-size:1.12rem}.how-circle--one{top:0}.how-circle--two{left:3%;top:115px}.how-circle--three{right:3%;top:115px}.how-heart{top:180px}}
+@media(max-width:900px){.about-concept-grid{grid-template-columns:1fr}.about-concept-card:nth-child(2){margin-top:0}.about-page .beliefs.narrow{grid-template-columns:1fr}}
+@media(max-width:620px){
+  .belief-sequence{gap:7px}
+  .belief-note{width:29vw;max-width:110px;font-size:1.35rem;padding:10px}
+  .belief-arrow{font-size:1.6rem}
+  .how-work-diagram{min-height:278px}
+  .how-circle{width:155px;height:155px;font-size:1.12rem;padding:22px}
+  .how-circle--one{top:0}
+  .how-circle--two{left:50%;top:104px;transform:translateX(-94%)}
+  .how-circle--three{left:50%;right:auto;top:104px;transform:translateX(-6%)}
+  .how-heart{top:150px;font-size:1.2rem}
+  .how-work-diagram::after{right:0;top:47px;font-size:1.18rem;line-height:.92}
+  .how-work-diagram::before{left:50%;top:73px;width:122px;height:76px}
+}
+@media(max-width:410px){
+  .how-circle{width:145px;height:145px;font-size:1.05rem;padding:20px}
+  .how-circle--two,.how-circle--three{top:98px}
+  .how-heart{top:141px;font-size:1.12rem}
+  .how-work-diagram{min-height:264px}
+  .how-work-diagram::after{top:42px;font-size:1.08rem}
+  .how-work-diagram::before{top:67px;width:112px;height:70px}
+}
