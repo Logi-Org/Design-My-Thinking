@@ -1,0 +1,9 @@
+status=success
+verified_at=2026-08-21T04:47:54Z
+source_sha=084a39b806f30fff4e2c575229c938b0c764cc17
+hero_tiered_mockup=present
+after_work_tiered_mockup=present
+after_work_small_text=removed
+protected_three_boxes=unchanged
+desktop_screenshot=approach-desktop-live.png
+mobile_screenshot=approach-mobile-live.png
