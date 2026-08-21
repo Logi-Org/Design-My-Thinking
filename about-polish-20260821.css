@@ -1,0 +1,24 @@
+/* Small About-page polish requested 2026-08-21. */
+.about-page .about-photo-wrap::after{
+  content:"actual human"!important;
+  right:18px!important;
+  bottom:18px!important;
+  left:auto!important;
+  font-family:"Caveat",cursive!important;
+  font-size:1.9rem!important;
+  font-weight:700!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+  transform:rotate(-5deg)!important;
+  z-index:5!important;
+  color:#2f251d!important;
+  text-shadow:0 1px 0 rgba(255,248,233,.8)!important;
+}
+
+@media(max-width:620px){
+  .about-page .about-photo-wrap::after{
+    right:16px!important;
+    bottom:16px!important;
+    font-size:1.8rem!important;
+  }
+}
