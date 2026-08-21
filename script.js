@@ -62,7 +62,7 @@
   nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
 })();
 
-/* Reusable content modal. */
+/* Reusable content modal + clean Musings URLs. */
 (function () {
   const modal = document.getElementById('serviceModal');
   if (!modal) return;
@@ -73,6 +73,42 @@
   const modalImg = modal.querySelector('#serviceModalImg');
   const modalPdf = modal.querySelector('#serviceModalPdf');
   let lastFocusedEl = null;
+
+  const musingRoutes = {
+    'musing-scenarios': { slug: 'scenarios-stretch-thinking', label: 'Scenarios stretch thinking' },
+    'musing-questions': { slug: 'seed-the-question-not-the-answer', label: 'Seed the question, not the answer' },
+    'musing-canvas': { slug: 'the-value-of-a-canvas', label: 'The value of a canvas' },
+    'musing-html': { slug: 'when-post-its-become-wallpaper', label: 'When Post-its become wallpaper' }
+  };
+
+  function isMusingsLocation() {
+    const pathname = window.location.pathname.toLowerCase();
+    return pathname === '/musings.html' || pathname === '/musings' || pathname.startsWith('/musings/');
+  }
+
+  function templateForCurrentRoute() {
+    const match = window.location.pathname.match(/^\/musings\/([^/]+)\/?$/i);
+    if (!match) return null;
+    const slug = decodeURIComponent(match[1]).toLowerCase();
+    return Object.keys(musingRoutes).find((templateId) => musingRoutes[templateId].slug === slug) || null;
+  }
+
+  function setMusingUrl(templateId) {
+    if (!isMusingsLocation() || !window.history || !window.history.pushState) return;
+    const route = musingRoutes[templateId];
+    if (!route) return;
+    const nextPath = '/musings/' + route.slug + '/';
+    if (window.location.pathname !== nextPath) {
+      window.history.pushState({ musing: route.slug }, '', nextPath);
+    }
+  }
+
+  function setMusingIndexUrl() {
+    if (!isMusingsLocation() || !window.history || !window.history.replaceState) return;
+    if (window.location.pathname !== '/musings/') {
+      window.history.replaceState({}, '', '/musings/');
+    }
+  }
 
   function setOpenState(isOpen) {
     modal.classList.toggle('is-open', isOpen);
@@ -94,7 +130,7 @@
     }
   }
 
-  function openTemplate(templateId, label) {
+  function openTemplate(templateId, label, syncRoute) {
     const template = document.getElementById(templateId);
     if (!template || !host) return;
     lastFocusedEl = document.activeElement;
@@ -102,6 +138,8 @@
     host.appendChild(template.content.cloneNode(true));
     if (panel && label) panel.setAttribute('aria-label', label);
     setOpenState(true);
+    if (syncRoute) setMusingUrl(templateId);
+    if (musingRoutes[templateId]) document.title = musingRoutes[templateId].label + ' — Design My Thinking';
     if (closeBtn) closeBtn.focus();
   }
 
@@ -126,9 +164,11 @@
     if (closeBtn) closeBtn.focus();
   }
 
-  function closeModal() {
+  function closeModal(syncRoute) {
     setOpenState(false);
     resetContent();
+    if (syncRoute && templateForCurrentRoute()) setMusingIndexUrl();
+    if (isMusingsLocation()) document.title = 'Musings — Design My Thinking';
     if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') lastFocusedEl.focus();
   }
 
@@ -147,7 +187,7 @@
       if (el.tagName.toLowerCase() === 'a') e.preventDefault();
       const templateId = el.getAttribute('data-modal-template');
       const label = el.getAttribute('data-modal-label') || el.textContent.trim();
-      if (templateId) openTemplate(templateId, label);
+      if (templateId) openTemplate(templateId, label, true);
     });
   });
 
@@ -167,19 +207,35 @@
     });
   });
 
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (closeBtn) closeBtn.addEventListener('click', () => closeModal(true));
   modal.addEventListener('click', (e) => {
-    if (panel && !panel.contains(e.target)) closeModal();
+    if (panel && !panel.contains(e.target)) closeModal(true);
   });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(true);
   });
+
+  if (isMusingsLocation()) {
+    const routeTemplate = templateForCurrentRoute();
+    if (routeTemplate) openTemplate(routeTemplate, musingRoutes[routeTemplate].label, false);
+
+    window.addEventListener('popstate', () => {
+      const templateId = templateForCurrentRoute();
+      if (templateId) {
+        openTemplate(templateId, musingRoutes[templateId].label, false);
+      } else if (window.location.pathname === '/musings/' || window.location.pathname === '/musings') {
+        if (modal.classList.contains('is-open')) closeModal(false);
+      }
+    });
+  }
 })();
 
 /* Keep the public site language and approved illustrated visual system consistent across inner pages. */
 (function () {
-  const path = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
-  const isHome = path === '' || path === 'index.html';
+  const pathname = window.location.pathname.toLowerCase();
+  const path = (pathname.split('/').pop() || '').toLowerCase();
+  const isHome = pathname === '/' || pathname === '/index.html';
+  const isMusings = pathname === '/musings.html' || pathname === '/musings' || pathname.startsWith('/musings/');
 
   function loadCss(href) {
     const base = href.split('?')[0];
@@ -190,33 +246,33 @@
     document.head.appendChild(link);
   }
 
-  if (!isHome) loadCss('illustrated-site.css?v=20260815a');
+  if (!isHome) loadCss('/illustrated-site.css?v=20260815a');
 
   /* These files contain the approved high-resolution raster illustrations as data URIs.
      Loading them explicitly means Musings never falls back to the rejected SVG artwork. */
-  if (path === 'musings.html' || path === 'approach.html') {
-    loadCss('inner-art-scenarios.css?v=20260815a');
-    loadCss('inner-art-question.css?v=20260815a');
-    loadCss('inner-art-canvas.css?v=20260815a');
-    loadCss('inner-art-wallpaper.css?v=20260815a');
+  if (isMusings || path === 'approach.html') {
+    loadCss('/inner-art-scenarios.css?v=20260815a');
+    loadCss('/inner-art-question.css?v=20260815a');
+    loadCss('/inner-art-canvas.css?v=20260815a');
+    loadCss('/inner-art-wallpaper.css?v=20260815a');
   }
-  if (path === 'musings.html') loadCss('musings-refined.css?v=20260815a');
-  if (path === 'about.html') loadCss('about-refined.css?v=20260815a');
-  if (path === 'contact.html') loadCss('contact-refined.css?v=20260815a');
+  if (isMusings) loadCss('/musings-refined.css?v=20260815a');
+  if (path === 'about.html') loadCss('/about-refined.css?v=20260815a');
+  if (path === 'contact.html') loadCss('/contact-refined.css?v=20260815a');
   if (path === 'thank-you.html') {
-    loadCss('inner-art-thanks.css?v=20260815a');
-    loadCss('thank-you-refined.css?v=20260815a');
+    loadCss('/inner-art-thanks.css?v=20260815a');
+    loadCss('/thank-you-refined.css?v=20260815a');
   }
 
   const nav = document.getElementById('site-nav');
   if (nav && !isHome) {
-    const current = path === 'approach.html' ? 'approach' : path === 'musings.html' ? 'musings' : path === 'about.html' ? 'about' : path === 'contact.html' ? 'contact' : '';
+    const current = path === 'approach.html' ? 'approach' : isMusings ? 'musings' : path === 'about.html' ? 'about' : path === 'contact.html' ? 'contact' : '';
     nav.innerHTML = [
-      '<a href="index.html#glimpses">Work</a>',
-      '<a href="approach.html"' + (current === 'approach' ? ' aria-current="page"' : '') + '>Approach</a>',
-      '<a href="musings.html"' + (current === 'musings' ? ' aria-current="page"' : '') + '>Musings</a>',
-      '<a href="about.html"' + (current === 'about' ? ' aria-current="page"' : '') + '>About</a>',
-      '<a href="contact.html"' + (current === 'contact' ? ' aria-current="page"' : '') + '>Contact</a>'
+      '<a href="/index.html#glimpses">Work</a>',
+      '<a href="/approach.html"' + (current === 'approach' ? ' aria-current="page"' : '') + '>Approach</a>',
+      '<a href="/musings/"' + (current === 'musings' ? ' aria-current="page"' : '') + '>Musings</a>',
+      '<a href="/about.html"' + (current === 'about' ? ' aria-current="page"' : '') + '>About</a>',
+      '<a href="/contact.html"' + (current === 'contact' ? ' aria-current="page"' : '') + '>Contact</a>'
     ].join('');
     const toggle = document.querySelector('.nav-toggle');
     nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
@@ -225,14 +281,15 @@
     }));
   }
 
-  document.querySelectorAll('a[href="how-we-work.html"]').forEach((a) => { a.href = 'approach.html'; a.textContent = 'Approach'; });
+  document.querySelectorAll('a[href="how-we-work.html"]').forEach((a) => { a.href = '/approach.html'; a.textContent = 'Approach'; });
+  document.querySelectorAll('a[href="musings.html"]').forEach((a) => { a.href = '/musings/'; });
   document.querySelectorAll('.footer h5').forEach((h) => {
     if (h.textContent.trim().toLowerCase() !== 'explore') return;
     const ul = h.parentElement && h.parentElement.querySelector('ul');
-    if (ul) ul.innerHTML = '<li><a href="index.html#glimpses">Work</a></li><li><a href="approach.html">Approach</a></li><li><a href="musings.html">Musings</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>';
+    if (ul) ul.innerHTML = '<li><a href="/index.html#glimpses">Work</a></li><li><a href="/approach.html">Approach</a></li><li><a href="/musings/">Musings</a></li><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li>';
   });
 
-  if (path === 'musings.html') {
+  if (isMusings) {
     ['scenarios','questions','canvas','html'].forEach((name, i) => {
       const thumb = document.querySelectorAll('.musing-thumb')[i];
       if (thumb) thumb.classList.add('musing-thumb--' + name);
