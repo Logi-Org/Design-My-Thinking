@@ -12,7 +12,7 @@ on:
       - '.github/workflows/verify-approach-live.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify:
@@ -64,3 +64,24 @@ jobs:
           name: approach-selected-sections-live
           path: 'approach-*-live.png'
           retention-days: 7
+      - name: Record successful live verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p verification
+          cat > verification/approach-selected-status.txt <<EOF
+          status=success
+          verified_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          source_sha=${GITHUB_SHA}
+          hero_selected_mockup=present
+          after_work_selected_mockup=present
+          after_work_numbered_notes=present
+          protected_three_boxes=unchanged
+          desktop_screenshot=approach-desktop-live.png
+          mobile_screenshot=approach-mobile-live.png
+          EOF
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add verification/approach-selected-status.txt
+          git commit -m 'Record Approach selected-sections live verification' || exit 0
+          git push
