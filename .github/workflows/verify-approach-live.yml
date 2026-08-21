@@ -7,6 +7,8 @@ on:
       - 'approach.html'
       - 'approach-approved.css'
       - 'approach-approved-art.js'
+      - 'approach-layout-fix-20260821b.css'
+      - 'approach-hero-clean-20260821b.js'
       - '.github/workflows/verify-approach-live.yml'
 
 permissions:
@@ -22,25 +24,23 @@ jobs:
         run: |
           set -euo pipefail
           ok=0
-          for attempt in $(seq 1 18); do
-            echo "Live check attempt ${attempt}/18"
+          for attempt in $(seq 1 24); do
+            echo "Live check attempt ${attempt}/24"
             curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach.html?verify=${GITHUB_SHA}" -o approach-live.html || true
-            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach-approved.css?v=20260817a&verify=${GITHUB_SHA}" -o approach-live.css || true
-            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach-approved-art.js?v=20260817a&verify=${GITHUB_SHA}" -o approach-live.js || true
-            if grep -q 'approach-approved.css?v=20260817a' approach-live.html 2>/dev/null \
-              && grep -q 'approach-approved-art.js?v=20260817a' approach-live.html 2>/dev/null \
-              && grep -q 'approved Workshop Table illustration pass' approach-live.css 2>/dev/null \
-              && grep -q 'function hero(host)' approach-live.js 2>/dev/null \
-              && grep -q 'function before(host)' approach-live.js 2>/dev/null \
-              && grep -q 'function during(host)' approach-live.js 2>/dev/null \
-              && grep -q 'function after(host)' approach-live.js 2>/dev/null; then
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach-layout-fix-20260821b.css?v=20260821c&verify=${GITHUB_SHA}" -o approach-live-fix.css || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach-hero-clean-20260821b.js?v=20260821c&verify=${GITHUB_SHA}" -o approach-live-selected.js || true
+            if grep -q 'approach-layout-fix-20260821b.css?v=20260821c' approach-live.html 2>/dev/null \
+              && grep -q 'approach-hero-clean-20260821b.js?v=20260821c' approach-live.html 2>/dev/null \
+              && grep -q 'selected mock-up implementation' approach-live-fix.css 2>/dev/null \
+              && grep -q 'function drawHero(host)' approach-live-selected.js 2>/dev/null \
+              && grep -q 'function drawAfter(host)' approach-live-selected.js 2>/dev/null; then
               ok=1
               break
             fi
             sleep 10
           done
           if [ "$ok" -ne 1 ]; then
-            echo 'Approved Approach revision did not reach live domain in time.'
+            echo 'Selected Approach revision did not reach live domain in time.'
             exit 1
           fi
       - name: Capture live desktop and mobile Approach views
@@ -61,6 +61,6 @@ jobs:
       - name: Upload live screenshots
         uses: actions/upload-artifact@v4
         with:
-          name: approach-approved-live-verification
+          name: approach-selected-sections-live
           path: 'approach-*-live.png'
           retention-days: 7
