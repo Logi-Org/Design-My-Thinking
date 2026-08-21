@@ -1,0 +1,36 @@
+/* Approach page alignment + mobile copy fix, 2026-08-21. */
+
+/* Keep the two Before-the-workshop content cards aligned on both top and bottom edges. */
+.approach-page .work-grid{
+  align-items:stretch!important;
+  grid-auto-rows:1fr!important;
+}
+.approach-page .work-grid > .artifact,
+.approach-page .work-grid > .artifact:nth-child(1),
+.approach-page .work-grid > .artifact:nth-child(2){
+  margin-top:0!important;
+  margin-bottom:0!important;
+  height:100%!important;
+  min-height:100%!important;
+  align-self:stretch!important;
+}
+
+/* Keep the After-the-workshop copy comfortably inside the mobile viewport. */
+@media(max-width:700px){
+  .approach-page .after-work-grid .article-stack{
+    box-sizing:border-box!important;
+    width:100%!important;
+    padding-left:30px!important;
+    padding-right:20px!important;
+    margin-left:0!important;
+    overflow:visible!important;
+  }
+  .approach-page .after-work-grid .article-note{
+    width:100%!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    padding-left:0!important;
+    padding-right:0!important;
+    overflow:visible!important;
+  }
+}
