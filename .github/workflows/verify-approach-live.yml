@@ -8,7 +8,8 @@ on:
       - 'approach-approved.css'
       - 'approach-approved-art.js'
       - 'approach-layout-fix-20260821b.css'
-      - 'approach-hero-clean-20260821b.js'
+      - 'approach-tiered-20260821.css'
+      - 'approach-tiered-20260821.js'
       - '.github/workflows/verify-approach-live.yml'
 
 permissions:
@@ -27,20 +28,22 @@ jobs:
           for attempt in $(seq 1 24); do
             echo "Live check attempt ${attempt}/24"
             curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach.html?verify=${GITHUB_SHA}" -o approach-live.html || true
-            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach-layout-fix-20260821b.css?v=20260821c&verify=${GITHUB_SHA}" -o approach-live-fix.css || true
-            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach-hero-clean-20260821b.js?v=20260821c&verify=${GITHUB_SHA}" -o approach-live-selected.js || true
-            if grep -q 'approach-layout-fix-20260821b.css?v=20260821c' approach-live.html 2>/dev/null \
-              && grep -q 'approach-hero-clean-20260821b.js?v=20260821c' approach-live.html 2>/dev/null \
-              && grep -q 'selected mock-up implementation' approach-live-fix.css 2>/dev/null \
-              && grep -q 'function drawHero(host)' approach-live-selected.js 2>/dev/null \
-              && grep -q 'function drawAfter(host)' approach-live-selected.js 2>/dev/null; then
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach-tiered-20260821.css?v=20260821d&verify=${GITHUB_SHA}" -o approach-live-tiered.css || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach-tiered-20260821.js?v=20260821d&verify=${GITHUB_SHA}" -o approach-live-tiered.js || true
+            if grep -q 'approach-tiered-20260821.css?v=20260821d' approach-live.html 2>/dev/null \
+              && grep -q 'approach-tiered-20260821.js?v=20260821d' approach-live.html 2>/dev/null \
+              && grep -q 'Approved tiered Approach illustration sizing' approach-live-tiered.css 2>/dev/null \
+              && grep -q 'function drawHero(host)' approach-live-tiered.js 2>/dev/null \
+              && grep -q 'function drawAfter(host)' approach-live-tiered.js 2>/dev/null \
+              && grep -q 'CAPTURE WHAT MATTERS' approach-live-tiered.js 2>/dev/null \
+              && grep -q 'STAY INTERESTED IN' approach-live-tiered.js 2>/dev/null; then
               ok=1
               break
             fi
             sleep 10
           done
           if [ "$ok" -ne 1 ]; then
-            echo 'Selected Approach revision did not reach live domain in time.'
+            echo 'Tiered Approach revision did not reach live domain in time.'
             exit 1
           fi
       - name: Capture live desktop and mobile Approach views
@@ -61,7 +64,7 @@ jobs:
       - name: Upload live screenshots
         uses: actions/upload-artifact@v4
         with:
-          name: approach-selected-sections-live
+          name: approach-tiered-live
           path: 'approach-*-live.png'
           retention-days: 7
       - name: Record successful live verification
@@ -69,19 +72,19 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p verification
-          cat > verification/approach-selected-status.txt <<EOF
+          cat > verification/approach-tiered-status.txt <<EOF
           status=success
           verified_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           source_sha=${GITHUB_SHA}
-          hero_selected_mockup=present
-          after_work_selected_mockup=present
-          after_work_numbered_notes=present
+          hero_tiered_mockup=present
+          after_work_tiered_mockup=present
+          after_work_small_text=removed
           protected_three_boxes=unchanged
           desktop_screenshot=approach-desktop-live.png
           mobile_screenshot=approach-mobile-live.png
           EOF
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add verification/approach-selected-status.txt
-          git commit -m 'Record Approach selected-sections live verification' || exit 0
+          git add verification/approach-tiered-status.txt
+          git commit -m 'Record tiered Approach live verification' || exit 0
           git push
