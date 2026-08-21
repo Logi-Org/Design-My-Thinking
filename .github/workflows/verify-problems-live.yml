@@ -10,7 +10,7 @@ on:
       - '.github/workflows/verify-problems-live.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   verify:
@@ -22,32 +22,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sed -i 's/home-problems-exact.js?v=20260818problems2/home-problems-exact.js?v=20260818problems3/g' index.html
-          if git diff --quiet -- index.html; then
-            echo 'Homepage already references problems3.'
-          else
-            git config user.name github-actions[bot]
-            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-            git add index.html
-            git commit -m 'Refresh approved problem carousel assets'
-            git pull --rebase origin main
-            git push
-          fi
+          grep -q 'home-problems-exact.js?v=20260821problems4' index.html
+          grep -q "VERSION='20260821problems4'" home-problems-exact.js
+          grep -q 'remove its faint baked-in paper colour' home-problems-exact.js
 
-      - name: Record verification run id
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p verification
-          printf '%s\n' "$GITHUB_RUN_ID" > verification/problems-live-run.txt
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add verification/problems-live-run.txt
-          git commit -m "Record problem verification run ${GITHUB_RUN_ID}" || exit 0
-          git pull --rebase origin main
-          git push
-
-      - name: Wait for approved problem images on live deployment
+      - name: Wait for current problem treatment on live deployment
         shell: bash
         run: |
           set -euo pipefail
@@ -56,14 +35,15 @@ jobs:
             echo "Live verification attempt ${attempt}/35"
             rm -f home-live.html problems-live.js p1.webp p2.webp p3.webp p4.webp p5.webp
             if curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}&attempt=${attempt}" -o home-live.html \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-problems-exact.js?v=20260818problems3&verify=${GITHUB_SHA}&attempt=${attempt}" -o problems-live.js \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p1.webp?v=20260818problems3&verify=${GITHUB_SHA}&attempt=${attempt}" -o p1.webp \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p2.webp?v=20260818problems3&verify=${GITHUB_SHA}&attempt=${attempt}" -o p2.webp \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p3.webp?v=20260818problems3&verify=${GITHUB_SHA}&attempt=${attempt}" -o p3.webp \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p4.webp?v=20260818problems3&verify=${GITHUB_SHA}&attempt=${attempt}" -o p4.webp \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p5.webp?v=20260818problems3&verify=${GITHUB_SHA}&attempt=${attempt}" -o p5.webp \
-              && grep -q 'home-problems-exact.js?v=20260818problems3' home-live.html \
-              && grep -q 'Exact approved simplified problem illustrations' problems-live.js \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-problems-exact.js?v=20260821problems4&verify=${GITHUB_SHA}&attempt=${attempt}" -o problems-live.js \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p1.webp?v=20260821problems4&verify=${GITHUB_SHA}&attempt=${attempt}" -o p1.webp \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p2.webp?v=20260821problems4&verify=${GITHUB_SHA}&attempt=${attempt}" -o p2.webp \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p3.webp?v=20260821problems4&verify=${GITHUB_SHA}&attempt=${attempt}" -o p3.webp \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p4.webp?v=20260821problems4&verify=${GITHUB_SHA}&attempt=${attempt}" -o p4.webp \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/problem-exact/p5.webp?v=20260821problems4&verify=${GITHUB_SHA}&attempt=${attempt}" -o p5.webp \
+              && grep -q 'home-problems-exact.js?v=20260821problems4' home-live.html \
+              && grep -q "VERSION='20260821problems4'" problems-live.js \
+              && grep -q 'problem-exact-canvas' problems-live.js \
               && test "$(wc -c < p1.webp)" -gt 3000 \
               && test "$(wc -c < p2.webp)" -gt 5000 \
               && test "$(wc -c < p3.webp)" -gt 5000 \
@@ -88,7 +68,7 @@ jobs:
           from selenium.webdriver.chrome.options import Options
           from selenium.webdriver.support.ui import WebDriverWait
 
-          URL='https://designmythinking.xyz/index.html?visual-check=20260818problems3#problems'
+          URL='https://designmythinking.xyz/index.html?visual-check=20260821problems4#problems'
           opts=Options()
           opts.add_argument('--headless=new')
           opts.add_argument('--no-sandbox')
@@ -109,15 +89,18 @@ jobs:
                   expected=f'{i} / 5'
                   wait.until(lambda d:counter.text.strip()==expected)
                   slide=cards[i-1]
-                  img=wait.until(lambda d:slide.find_element(By.CSS_SELECTOR,'img.problem-exact-image'))
-                  wait.until(lambda d:d.execute_script('return arguments[0].complete && arguments[0].naturalWidth > 100 && arguments[0].naturalHeight > 80',img))
-                  src=img.get_attribute('src')
-                  assert f'assets/dmt/problem-exact/p{i}.webp?v=20260818problems3' in src, src
-                  assert img.get_attribute('data-problem-exact')==str(i)
+                  canvas=wait.until(lambda d:slide.find_element(By.CSS_SELECTOR,'canvas.problem-exact-canvas'))
+                  wait.until(lambda d:d.execute_script('return arguments[0].width > 100 && arguments[0].height > 80',canvas))
+                  assert canvas.get_attribute('data-problem-exact')==str(i)
+                  assert canvas.get_attribute('data-problem-version')=='20260821problems4'
+                  alpha=driver.execute_script("return arguments[0].getContext('2d').getImageData(0,0,1,1).data[3]",canvas)
+                  assert alpha < 40, alpha
+                  host=slide.find_element(By.CSS_SELECTOR,'.problem-art')
+                  assert float(host.value_of_css_property('height').replace('px','')) >= 190
                   driver.execute_script("arguments[0].scrollIntoView({block:'center'});",section)
                   time.sleep(.5)
                   section.screenshot(f'problem-mobile-{i}.png')
-                  print(expected, img.get_attribute('naturalWidth'), img.get_attribute('naturalHeight'))
+                  print(expected, canvas.get_attribute('width'), canvas.get_attribute('height'), 'corner-alpha', alpha)
                   if i<5:
                       driver.execute_script('arguments[0].click()',next_button)
                       time.sleep(.7)
@@ -145,9 +128,9 @@ jobs:
           d=webdriver.Chrome(options=opts)
           try:
               d.set_window_size(1440,1000)
-              d.get('https://designmythinking.xyz/index.html?visual-check=20260818problems3#problems')
+              d.get('https://designmythinking.xyz/index.html?visual-check=20260821problems4#problems')
               section=WebDriverWait(d,30).until(lambda x:x.find_element(By.ID,'problems'))
-              WebDriverWait(d,30).until(lambda x:len(section.find_elements(By.CSS_SELECTOR,'img.problem-exact-image'))==5)
+              WebDriverWait(d,30).until(lambda x:len(section.find_elements(By.CSS_SELECTOR,'canvas.problem-exact-canvas'))==5)
               d.execute_script("arguments[0].scrollIntoView({block:'center'});",section)
               time.sleep(.8)
               section.screenshot('problems-desktop.png')
