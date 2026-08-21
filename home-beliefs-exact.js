@@ -1,4 +1,4 @@
-/* Exact approved Things I believe illustrations — 2026-08-19. */
+/* Exact approved Things I believe illustrations — enlarged 2026-08-21. */
 (function(){
   const sources=[
     'assets/dmt/belief-exact/belief-01.webp?v=20260819beliefs1',
@@ -18,9 +18,9 @@
     const style=document.createElement('style');
     style.id='belief-exact-styles';
     style.textContent=`
-      .belief-icon{flex:0 0 104px!important;height:104px!important;background:none!important;mix-blend-mode:normal!important;overflow:visible!important}
+      .belief-icon{flex:0 0 126px!important;height:126px!important;background:none!important;mix-blend-mode:normal!important;overflow:visible!important}
       .belief-exact-image{width:100%;height:100%;object-fit:contain;display:block;mix-blend-mode:normal}
-      @media(max-width:700px){.belief-icon{flex-basis:96px!important;height:96px!important}}
+      @media(max-width:700px){.belief-icon{flex-basis:112px!important;height:112px!important}}
     `;
     document.head.appendChild(style);
   }
