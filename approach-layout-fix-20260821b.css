@@ -1,4 +1,4 @@
-/* Approach page alignment + mobile copy fix, 2026-08-21. */
+/* Approach page alignment + selected mock-up implementation, 2026-08-21. */
 
 /* Keep the two Before-the-workshop content cards aligned on both top and bottom edges. */
 .approach-page .work-grid{
@@ -15,22 +15,99 @@
   align-self:stretch!important;
 }
 
-/* Keep the After-the-workshop copy comfortably inside the mobile viewport. */
+/* Selected After-the-workshop treatment: compact numbered notes + clean illustration. */
+.approach-page .after-work-art::before,
+.approach-page .after-work-art::after,
+.approach-page .after-work-grid::after{
+  content:none!important;
+  display:none!important;
+}
+.approach-page .after-work-art .art-caption{display:none!important}
+
+.approach-page .after-work-grid .article-stack{
+  counter-reset:after-step;
+  width:100%!important;
+  min-width:0!important;
+  padding:0!important;
+  margin:0!important;
+  overflow:visible!important;
+}
+.approach-page .after-work-grid .article-note{
+  counter-increment:after-step;
+  position:relative!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:14px 0 18px 74px!important;
+  border:0!important;
+  border-bottom:1px dashed rgba(43,36,31,.18)!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  transform:none!important;
+}
+.approach-page .after-work-grid .article-note:last-child{border-bottom:0!important}
+.approach-page .after-work-grid .article-note::before{
+  content:counter(after-step);
+  position:absolute;
+  left:0;
+  top:15px;
+  width:48px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  font-family:"Caveat",cursive;
+  font-size:1.8rem;
+  font-weight:700;
+  line-height:1;
+  color:#2b241f;
+  border:1px solid rgba(43,36,31,.28);
+  box-shadow:3px 4px 7px rgba(43,36,31,.10);
+  transform:rotate(-2deg);
+}
+.approach-page .after-work-grid .article-note:nth-child(1)::before{background:#ee9db4}
+.approach-page .after-work-grid .article-note:nth-child(2)::before{background:#f4d452;transform:rotate(2deg)}
+.approach-page .after-work-grid .article-note:nth-child(3)::before{background:#9ecfda;transform:rotate(-1deg)}
+.approach-page .after-work-grid .article-note h3{
+  margin:0 0 5px!important;
+  font-family:"Caveat",cursive!important;
+  font-size:clamp(1.65rem,2vw,2rem)!important;
+  line-height:1!important;
+}
+.approach-page .after-work-grid .article-note p{
+  margin:0!important;
+  max-width:38rem!important;
+  font-size:.98rem!important;
+  line-height:1.48!important;
+}
+
+/* The selected artwork is intentionally wider/shorter, like a workshop sketch strip. */
+.approach-page .approach-hero-art .approach-art-canvas{max-height:390px!important}
+.approach-page .after-work-art .approach-art-canvas{max-height:390px!important}
+
+/* Mobile: keep every first letter comfortably inside the viewport. */
 @media(max-width:700px){
   .approach-page .after-work-grid .article-stack{
     box-sizing:border-box!important;
     width:100%!important;
-    padding-left:30px!important;
-    padding-right:20px!important;
-    margin-left:0!important;
-    overflow:visible!important;
+    padding-left:22px!important;
+    padding-right:16px!important;
   }
   .approach-page .after-work-grid .article-note{
-    width:100%!important;
-    margin-left:0!important;
-    margin-right:0!important;
-    padding-left:0!important;
+    padding-left:62px!important;
     padding-right:0!important;
-    overflow:visible!important;
+  }
+  .approach-page .after-work-grid .article-note::before{
+    width:42px;
+    height:40px;
+    left:0;
+  }
+  .approach-page .after-work-grid .article-note p{
+    font-size:1rem!important;
+    line-height:1.5!important;
+  }
+  .approach-page .after-work-art .approach-art-canvas,
+  .approach-page .approach-hero-art .approach-art-canvas{
+    max-height:none!important;
   }
 }
