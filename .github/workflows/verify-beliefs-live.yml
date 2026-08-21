@@ -28,9 +28,10 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add verification/beliefs-live-run.txt
           git commit -m "Record beliefs verification run ${GITHUB_RUN_ID}" || exit 0
+          git pull --rebase origin main
           git push
 
-      - name: Wait for approved belief artwork on live deployment
+      - name: Wait for enlarged belief artwork on live deployment
         shell: bash
         run: |
           set -euo pipefail
@@ -39,11 +40,12 @@ jobs:
             echo "Live verification attempt ${attempt}/40"
             rm -f home-live.html beliefs-live.js b1.webp b4.webp
             if curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/index.html?verify=${GITHUB_SHA}&attempt=${attempt}" -o home-live.html \
-              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-beliefs-exact.js?v=20260819beliefs1&verify=${GITHUB_SHA}&attempt=${attempt}" -o beliefs-live.js \
+              && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/home-beliefs-exact.js?v=20260821beliefs2&verify=${GITHUB_SHA}&attempt=${attempt}" -o beliefs-live.js \
               && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/belief-exact/belief-01.webp?v=20260819beliefs1&verify=${GITHUB_SHA}&attempt=${attempt}" -o b1.webp \
               && curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/belief-exact/belief-04.webp?v=20260819beliefs1&verify=${GITHUB_SHA}&attempt=${attempt}" -o b4.webp \
-              && grep -q 'home-beliefs-exact.js?v=20260819beliefs1' home-live.html \
-              && grep -q 'Exact approved Things I believe illustrations' beliefs-live.js \
+              && grep -q 'home-beliefs-exact.js?v=20260821beliefs2' home-live.html \
+              && grep -q 'enlarged 2026-08-21' beliefs-live.js \
+              && grep -q '126px' beliefs-live.js \
               && test "$(wc -c < b1.webp)" -gt 4000 \
               && test "$(wc -c < b4.webp)" -gt 4000; then
               ok=1
@@ -74,7 +76,7 @@ jobs:
           d=webdriver.Chrome(options=opts)
           try:
               d.set_window_size(412,1200)
-              d.get('https://designmythinking.xyz/index.html?visual-check=20260819beliefs1')
+              d.get('https://designmythinking.xyz/index.html?visual-check=20260821beliefs2')
               wait=WebDriverWait(d,30)
               section=wait.until(lambda x:x.find_element(By.CSS_SELECTOR,'.beliefs-strip'))
               imgs=wait.until(lambda x:section.find_elements(By.CSS_SELECTOR,'img.belief-exact-image') if len(section.find_elements(By.CSS_SELECTOR,'img.belief-exact-image'))==4 else False)
@@ -82,10 +84,13 @@ jobs:
                   wait.until(lambda x, el=img:x.execute_script('return arguments[0].complete && arguments[0].naturalWidth > 100 && arguments[0].naturalHeight > 100',el))
                   assert img.get_attribute('data-belief-exact') == str(i)
                   assert f'belief-0{i}.webp?v=20260819beliefs1' in img.get_attribute('src')
+              hosts=section.find_elements(By.CSS_SELECTOR,'.belief-icon')
+              widths=[d.execute_script('return arguments[0].getBoundingClientRect().width',h) for h in hosts]
+              assert all(w >= 111 for w in widths), widths
               d.execute_script("arguments[0].scrollIntoView({block:'center'});",section)
               time.sleep(1.0)
               section.screenshot('beliefs-mobile.png')
-              print('mobile verified', [(x.get_attribute('naturalWidth'),x.get_attribute('naturalHeight')) for x in imgs])
+              print('mobile verified', widths)
           finally:
               d.quit()
           PY
@@ -110,16 +115,19 @@ jobs:
           d=webdriver.Chrome(options=opts)
           try:
               d.set_window_size(1440,1000)
-              d.get('https://designmythinking.xyz/index.html?visual-check=20260819beliefs1')
+              d.get('https://designmythinking.xyz/index.html?visual-check=20260821beliefs2')
               wait=WebDriverWait(d,30)
               section=wait.until(lambda x:x.find_element(By.CSS_SELECTOR,'.beliefs-strip'))
               imgs=wait.until(lambda x:section.find_elements(By.CSS_SELECTOR,'img.belief-exact-image') if len(section.find_elements(By.CSS_SELECTOR,'img.belief-exact-image'))==4 else False)
               for img in imgs:
                   wait.until(lambda x, el=img:x.execute_script('return arguments[0].complete && arguments[0].naturalWidth > 100 && arguments[0].naturalHeight > 100',el))
+              hosts=section.find_elements(By.CSS_SELECTOR,'.belief-icon')
+              widths=[d.execute_script('return arguments[0].getBoundingClientRect().width',h) for h in hosts]
+              assert all(w >= 125 for w in widths), widths
               d.execute_script("arguments[0].scrollIntoView({block:'center'});",section)
               time.sleep(1.0)
               section.screenshot('beliefs-desktop.png')
-              print('desktop verified')
+              print('desktop verified', widths)
           finally:
               d.quit()
           PY
