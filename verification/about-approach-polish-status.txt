@@ -1,0 +1,8 @@
+status=success
+verified_at=2026-08-21T03:49:45Z
+about_css=20260821a
+about_actual_human=present
+approach_css=20260821a
+approach_cards_equal_height=present
+approach_after_art_large_captions=present
+approach_mobile_copy_nudge=present
