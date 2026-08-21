@@ -1,0 +1,64 @@
+name: Verify About and Approach polish live
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'about.html'
+      - 'about-refined.css'
+      - 'approach.html'
+      - 'approach-approved.css'
+      - '.github/workflows/verify-about-approach-polish.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for live About and Approach polish
+        shell: bash
+        run: |
+          set -euo pipefail
+          ok=0
+          for attempt in $(seq 1 30); do
+            echo "Live check attempt ${attempt}/30"
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/about.html?verify=${GITHUB_SHA}" -o about-live.html || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach.html?verify=${GITHUB_SHA}" -o approach-live.html || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/about-refined.css?v=20260821a&verify=${GITHUB_SHA}" -o about-live.css || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/approach-approved.css?v=20260821a&verify=${GITHUB_SHA}" -o approach-live.css || true
+            if grep -q 'about-refined.css?v=20260821a' about-live.html 2>/dev/null \
+              && grep -q 'content:"actual human"' about-live.css 2>/dev/null \
+              && grep -q 'approach-approved.css?v=20260821a' approach-live.html 2>/dev/null \
+              && grep -q 'grid-auto-rows:1fr' approach-live.css 2>/dev/null \
+              && grep -q 'after-work-grid::after' approach-live.css 2>/dev/null; then
+              ok=1
+              break
+            fi
+            sleep 10
+          done
+          [ "$ok" -eq 1 ] || { echo 'About/Approach polish did not reach live site.'; exit 1; }
+      - name: Capture live desktop and mobile views
+        shell: bash
+        run: |
+          set -euo pipefail
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --window-size=1440,5200 \
+            --screenshot=about-desktop-live.png "https://designmythinking.xyz/about.html?verify=${GITHUB_SHA}"
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --window-size=412,5200 --force-device-scale-factor=1 \
+            --screenshot=about-mobile-live.png "https://designmythinking.xyz/about.html?verify=${GITHUB_SHA}"
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --window-size=1440,7600 \
+            --screenshot=approach-desktop-live.png "https://designmythinking.xyz/approach.html?verify=${GITHUB_SHA}"
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --window-size=412,7600 --force-device-scale-factor=1 \
+            --screenshot=approach-mobile-live.png "https://designmythinking.xyz/approach.html?verify=${GITHUB_SHA}"
+          test -s about-desktop-live.png
+          test -s about-mobile-live.png
+          test -s approach-desktop-live.png
+          test -s approach-mobile-live.png
+      - name: Upload live screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: about-approach-polish-live-verification
+          path: '*-live.png'
+          retention-days: 7
