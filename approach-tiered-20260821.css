@@ -1,0 +1,42 @@
+/* Approved tiered Approach illustration sizing, 2026-08-21. */
+
+/* Only the two illustration hosts are affected. The content cards remain unchanged. */
+.approach-page .approach-hero-art,
+.approach-page .after-work-art{
+  overflow:visible!important;
+  min-height:0!important;
+}
+
+.approach-page .approach-hero-art .tiered-art-canvas,
+.approach-page .after-work-art .tiered-art-canvas{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  mix-blend-mode:multiply;
+}
+
+/* Let the tiered compositions use more vertical space than the former horizontal strips. */
+.approach-page .approach-hero-art .tiered-art-canvas{max-width:100%!important}
+.approach-page .after-work-art .tiered-art-canvas{max-width:100%!important}
+
+/* The approved artwork now contains its own clear stage labels, so suppress legacy captions/overlays. */
+.approach-page .after-work-art .art-caption,
+.approach-page .approach-hero-art .art-caption,
+.approach-page .after-work-art::before,
+.approach-page .after-work-art::after,
+.approach-page .after-work-grid::after{
+  display:none!important;
+  content:none!important;
+}
+
+@media(min-width:981px){
+  .approach-page .page-hero .container{align-items:center!important}
+  .approach-page .approach-hero-art{align-self:center!important}
+  .approach-page .after-work-grid{align-items:center!important}
+}
+
+@media(max-width:980px){
+  .approach-page .approach-hero-art,
+  .approach-page .after-work-art{width:100%!important}
+}
