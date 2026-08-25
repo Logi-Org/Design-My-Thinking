@@ -1,0 +1,63 @@
+name: Rebuild Musing 06 image
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/rebuild-musing06-image.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct approved Musing 06 JPG
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat \
+            assets/dmt/m06-b64/00a.txt \
+            assets/dmt/m06-b64/00b.txt \
+            assets/dmt/m06-b64/01.txt \
+            assets/dmt/m06-b64/02a.txt \
+            assets/dmt/m06-b64/02b.txt \
+            assets/dmt/m06-b64/03.txt \
+            assets/dmt/m06-b64/04a.txt \
+            assets/dmt/m06-b64/04b.txt \
+            assets/dmt/m06-b64/05.txt \
+            assets/dmt/m06-b64/06.txt \
+            assets/dmt/m06-b64/07.txt \
+            assets/dmt/m06-b64/08.txt \
+            | tr -d '\n\r' \
+            | base64 --decode \
+            > assets/dmt/musing-06-let-the-workshop-remember.jpg
+
+          file assets/dmt/musing-06-let-the-workshop-remember.jpg | grep -qi 'JPEG image data'
+          test "$(wc -c < assets/dmt/musing-06-let-the-workshop-remember.jpg)" -gt 40000
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('assets/dmt/musing-06-let-the-workshop-remember.jpg')
+          b = p.read_bytes()
+          assert b[:2] == b'\xff\xd8', 'missing JPEG SOI'
+          assert b[-2:] == b'\xff\xd9', 'missing JPEG EOI'
+          print('validated JPEG bytes:', len(b))
+          PY
+
+      - name: Commit reconstructed image
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/dmt/musing-06-let-the-workshop-remember.jpg
+          if git diff --cached --quiet; then
+            echo "Image already matches reconstructed source."
+            exit 0
+          fi
+          git commit -m "Rebuild Musing 06 artwork from approved source"
+          git push
