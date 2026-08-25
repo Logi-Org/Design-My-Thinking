@@ -1,20 +1,19 @@
 /* Musings transparent artwork pass — 2026-08-25.
-   Removes baked cream paper from approved illustrations at runtime and adds Musing 06. */
+   Removes baked cream paper from approved illustrations at runtime. Musing 06
+   is rendered directly from its approved image asset for maximum browser compatibility. */
 (function(){
-  const M06_ART='assets/dmt/musing-06-let-the-workshop-remember.webp?v=20260825b';
+  const M06_ART='/assets/dmt/musing-06-let-the-workshop-remember.webp?v=20260825c';
   const ART = [
     {cls:'musing-thumb--scenarios', url:'assets/dmt/musings-approved-scenarios.webp?v=20260816b'},
     {cls:'musing-thumb--questions', url:'assets/dmt/musings-approved-seed.webp?v=20260816b'},
     {cls:'musing-thumb--canvas', url:'assets/dmt/musings-approved-canvas.webp?v=20260816b'},
     {cls:'musing-thumb--html', url:'assets/dmt/musings-approved-wallpaper.webp?v=20260816b'},
     {cls:'musing-thumb--reverse-flow', url:'assets/dmt/musing-05-start-big-then-go-deep.webp?v=20260825d'},
-    {cls:'musing-thumb--workshop-memory', url:M06_ART},
     {cls:'field-note-sketch--scenarios', url:'assets/dmt/musings-approved-scenarios.webp?v=20260816b'},
     {cls:'field-note-sketch--questions', url:'assets/dmt/musings-approved-seed.webp?v=20260816b'},
     {cls:'field-note-sketch--canvas', url:'assets/dmt/musings-approved-canvas.webp?v=20260816b'},
     {cls:'field-note-sketch--html', url:'assets/dmt/musings-approved-wallpaper.webp?v=20260816b'},
-    {cls:'field-note-sketch--reverse-flow', url:'assets/dmt/musing-05-start-big-then-go-deep.webp?v=20260825d'},
-    {cls:'field-note-sketch--workshop-memory', url:M06_ART}
+    {cls:'field-note-sketch--reverse-flow', url:'assets/dmt/musing-05-start-big-then-go-deep.webp?v=20260825d'}
   ];
 
   const cache = new Map();
@@ -110,7 +109,9 @@
       card.dataset.modalTemplate=M06_TEMPLATE;
       card.dataset.modalLabel='Let the workshop remember';
       card.innerHTML='<span class="hand">Musing 06</span>'+ 
-        '<div class="musing-thumb musing-thumb--workshop-memory" role="img" aria-label="Hand-drawn workshop flow moving from selective recording to AI summary and a visible wall of the day\'s story"></div>'+ 
+        '<div class="musing-thumb musing-thumb--workshop-memory" role="img" aria-label="Hand-drawn workshop flow moving from selective recording to AI summary and a visible wall of the day\'s story">'+
+          '<img class="musing-m06-art" src="'+M06_ART+'" alt="" aria-hidden="true" />'+
+        '</div>'+ 
         '<h3>Let the workshop remember</h3>'+ 
         '<p>Selective recording and quick AI summaries can preserve more than the final output — they can make the journey of the workshop visible.</p>'+ 
         '<span class="musing-open">Open the field note →</span>';
@@ -127,7 +128,7 @@
             <h2 class="field-note-title">Let the workshop <span class="marker">remember.</span></h2>
             <p class="field-note-lede">Most workshop outputs capture where the room landed. In a recent face-to-face session, selective recording and fast AI summaries created a visible memory of how the thinking developed.</p>
           </div>
-          <div class="field-note-sketch field-note-sketch--workshop-memory" role="img" aria-label="Hand-drawn flow showing plenary recording, breakouts off-record, sharebacks, an AI summary and the story building on the workshop wall"></div>
+          <div class="field-note-sketch field-note-sketch--workshop-memory" role="img" aria-label="Hand-drawn flow showing plenary recording, breakouts off-record, sharebacks, an AI summary and the story building on the workshop wall"><img class="musing-m06-art" src="${M06_ART}" alt="" aria-hidden="true" /></div>
         </div>
         <div class="field-note-body">
           <section class="field-note-section"><h3>The thought</h3><p>A lot of useful workshop thinking disappears almost as quickly as it happens. We remember the Post-its and the final decisions, but the thread connecting one conversation to the next is harder to hold onto.</p><p>With the group's permission, we selectively recorded plenary conversations, activity instructions and participant sharebacks. We switched recording off for breakout discussions. After each recorded section, we used the transcript to create a short AI summary, printed it, and added it to the wall.</p><p>Over the day, the wall became a visible memory of the workshop — not a verbatim transcript, but a trace of how the thinking developed.</p></section>
