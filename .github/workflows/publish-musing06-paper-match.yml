@@ -1,0 +1,93 @@
+name: Publish Musing 06 paper match
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'publish-musing06-paper-match.trigger'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add Musing 06 paper-match script to Musings
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('musings.html')
+          text=p.read_text()
+          tag='<script src="musing06-card-paper-match.js?v=20260826a"></script>'
+          if tag not in text:
+              anchor='<script src="musings-transparent-art.js?v=20260826e"></script>'
+              if anchor not in text:
+                  raise SystemExit('Could not find Musings artwork script anchor')
+              text=text.replace(anchor, anchor+'\n'+tag)
+              p.write_text(text)
+          PY
+          grep -q 'musing06-card-paper-match.js?v=20260826a' musings.html
+
+      - name: Commit Musings paper-match loader
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add musings.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Blend Musing 06 artwork into card paper"
+            git push
+          fi
+
+      - name: Wait for live paper-match revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          found=0
+          for i in $(seq 1 28); do
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/musings.html?paper-match=${GITHUB_RUN_ID}-${i}" -o live-musings.html || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/musing06-card-paper-match.js?v=20260826a&paper-match=${GITHUB_RUN_ID}-${i}" -o live-paper-match.js || true
+            if grep -q 'musing06-card-paper-match.js?v=20260826a' live-musings.html 2>/dev/null && \
+               grep -q 'edgeConnectedPaperMask' live-paper-match.js 2>/dev/null; then
+              found=1
+              break
+            fi
+            sleep 15
+          done
+          test "$found" = "1"
+
+      - name: Capture live desktop and mobile Musings views
+        shell: bash
+        run: |
+          set -euo pipefail
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --window-size=1440,1800 \
+            --virtual-time-budget=7000 \
+            --screenshot=musing06-paper-match-desktop.png \
+            "https://designmythinking.xyz/musings.html?paper-match=${GITHUB_RUN_ID}"
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --window-size=412,4200 \
+            --force-device-scale-factor=1 \
+            --virtual-time-budget=7000 \
+            --screenshot=musing06-paper-match-mobile.png \
+            "https://designmythinking.xyz/musings.html?paper-match=${GITHUB_RUN_ID}"
+          test -s musing06-paper-match-desktop.png
+          test -s musing06-paper-match-mobile.png
+
+      - name: Upload live visual verification
+        uses: actions/upload-artifact@v4
+        with:
+          name: musing06-paper-match-live
+          path: |
+            musing06-paper-match-desktop.png
+            musing06-paper-match-mobile.png
+            live-musings.html
+            live-paper-match.js
+          retention-days: 7
