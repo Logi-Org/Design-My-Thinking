@@ -21,6 +21,22 @@
 .musings-page .field-note-sketch .musing-transparent-art{
   max-height:320px;
 }
+
+/* Musing 05: use a real raster asset directly. The earlier SVG wrapper was not
+   rendering reliably on GitHub Pages, so hide that fallback <img> and paint the
+   approved sketch as the host background instead. */
+.musings-page .musing-thumb--reverse-flow,
+.musings-page .field-note-sketch--reverse-flow{
+  background-image:url('/assets/dmt/musing-05-start-big-then-go-deep.webp?v=20260825b')!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:contain!important;
+}
+.musings-page .musing-thumb--reverse-flow > .musing-transparent-art,
+.musings-page .field-note-sketch--reverse-flow > .musing-transparent-art{
+  display:none!important;
+}
+
 @media(max-width:820px){
   .musings-page .field-note-sketch .musing-transparent-art{max-height:270px}
 }
