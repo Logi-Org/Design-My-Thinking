@@ -22,19 +22,16 @@
   max-height:320px;
 }
 
-/* Musing 05: use a real raster asset directly. The earlier SVG wrapper was not
-   rendering reliably on GitHub Pages, so hide that fallback <img> and paint the
-   approved sketch as the host background instead. */
-.musings-page .musing-thumb--reverse-flow,
-.musings-page .field-note-sketch--reverse-flow{
-  background-image:url('/assets/dmt/musing-05-start-big-then-go-deep.webp?v=20260825b')!important;
-  background-repeat:no-repeat!important;
-  background-position:center!important;
-  background-size:contain!important;
-}
-.musings-page .musing-thumb--reverse-flow > .musing-transparent-art,
-.musings-page .field-note-sketch--reverse-flow > .musing-transparent-art{
+/* Musing 05: hide the old SVG fallback only. The runtime transparency pass
+   replaces it with the approved WebP sketch on a transparent canvas, so the
+   card's own #fff8e9 paper colour shows through seamlessly. */
+.musings-page .musing-thumb--reverse-flow > img[src*="musing-05-start-big-then-go-deep.svg"],
+.musings-page .field-note-sketch--reverse-flow > img[src*="musing-05-start-big-then-go-deep.svg"]{
   display:none!important;
+}
+.musings-page .musing-thumb--reverse-flow > .musing-runtime-art,
+.musings-page .field-note-sketch--reverse-flow > .musing-runtime-art{
+  display:block!important;
 }
 
 @media(max-width:820px){
