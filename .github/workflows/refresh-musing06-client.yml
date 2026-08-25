@@ -1,0 +1,38 @@
+name: Refresh Musing 06 client asset
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-musing06-client.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bust cached Musings artwork JavaScript
+        shell: bash
+        run: |
+          set -euo pipefail
+          sed -i 's/musings-transparent-art\.js?v=20260817a/musings-transparent-art.js?v=20260826c/g' musings.html
+          grep -q 'musings-transparent-art.js?v=20260826c' musings.html
+
+      - name: Commit cache-bust
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add musings.html
+          if git diff --cached --quiet; then
+            echo "Musings client asset already cache-busted."
+            exit 0
+          fi
+          git commit -m "Refresh Musing 06 artwork client asset"
+          git push
