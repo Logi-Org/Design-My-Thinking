@@ -2,7 +2,7 @@
    Removes baked cream paper from approved illustrations at runtime. Musing 06
    is rendered directly from its approved JPG image asset for maximum browser compatibility. */
 (function(){
-  const M06_ART='/assets/dmt/musing-06-let-the-workshop-remember.jpg?v=20260826b';
+  const M06_ART='/assets/dmt/musing-06-workshop-memory-v2.jpg?v=20260826e';
   const ART = [
     {cls:'musing-thumb--scenarios', url:'assets/dmt/musings-approved-scenarios.webp?v=20260816b'},
     {cls:'musing-thumb--questions', url:'assets/dmt/musings-approved-seed.webp?v=20260816b'},
