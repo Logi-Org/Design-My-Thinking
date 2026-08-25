@@ -78,7 +78,8 @@
     'musing-scenarios': { slug: 'scenarios-stretch-thinking', label: 'Scenarios stretch thinking' },
     'musing-questions': { slug: 'seed-the-question-not-the-answer', label: 'Seed the question, not the answer' },
     'musing-canvas': { slug: 'the-value-of-a-canvas', label: 'The value of a canvas' },
-    'musing-html': { slug: 'when-post-its-become-wallpaper', label: 'When Post-its become wallpaper' }
+    'musing-html': { slug: 'when-post-its-become-wallpaper', label: 'When Post-its become wallpaper' },
+    'musing-reverse-flow': { slug: 'sometimes-the-quiet-should-come-last', label: 'Sometimes the quiet should come last' }
   };
 
   function isMusingsLocation() {
@@ -290,7 +291,7 @@
   });
 
   if (isMusings) {
-    ['scenarios','questions','canvas','html'].forEach((name, i) => {
+    ['scenarios','questions','canvas','html','reverse-flow'].forEach((name, i) => {
       const thumb = document.querySelectorAll('.musing-thumb')[i];
       if (thumb) thumb.classList.add('musing-thumb--' + name);
       const sketch = document.querySelectorAll('.field-note-sketch')[i];
