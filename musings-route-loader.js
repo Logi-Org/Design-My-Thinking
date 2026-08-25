@@ -14,7 +14,7 @@
   }
 
   try {
-    const response = await fetch('/musings.html?v=20260825-musing06-direct-image', { cache: 'no-cache' });
+    const response = await fetch('/musings.html?v=20260825-musing06-jpg', { cache: 'no-cache' });
     if (!response.ok) throw new Error('Unable to load Musings source: ' + response.status);
 
     const html = await response.text();
@@ -26,6 +26,7 @@
 
     await loadScript('/script.js?v=20260825a');
     await loadScript('/musings-transparent-art.js?v=20260825c');
+    await loadScript('/musing06-jpg-fix.js?v=20260825d');
   } catch (error) {
     console.error(error);
     if (loader) {
