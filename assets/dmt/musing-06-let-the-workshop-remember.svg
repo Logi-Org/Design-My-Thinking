@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t d">
+  <title id="t">Record with intention. Build the story together.</title>
+  <desc id="d">Hand-drawn workshop sequence showing plenary recording on, breakout recording off, sharebacks recording on, an AI summary, and a wall building the day's story.</desc>
+  <rect width="1280" height="720" fill="#fff8e9"/>
+  <g fill="none" stroke="#24211d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M355 169 Q500 153 650 164" opacity=".45"/>
+    <path d="M470 175 Q598 185 721 169" opacity=".35"/>
+  </g>
+  <g font-family="Comic Sans MS, Bradley Hand, cursive" fill="#211e1a">
+    <text x="640" y="76" text-anchor="middle" font-size="50" font-weight="700">Record with intention.</text>
+    <text x="640" y="133" text-anchor="middle" font-size="49" font-weight="700">Build the story together.</text>
+  </g>
+  <path d="M454 145 Q640 166 826 145" stroke="#24211d" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+  <!-- plenary -->
+  <g transform="translate(55 200)">
+    <rect x="8" y="0" width="120" height="38" rx="9" fill="#fff8e9" stroke="#24211d" stroke-width="4"/>
+    <circle cx="25" cy="19" r="8" fill="#ef5753" stroke="#24211d" stroke-width="2"/>
+    <text x="41" y="26" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#24211d">REC ON</text>
+    <g stroke="#24211d" stroke-width="4" fill="none" stroke-linecap="round">
+      <circle cx="82" cy="104" r="22"/><path d="M52 165 Q82 125 112 165"/><path d="M61 168 L58 228 M103 168 L107 228"/>
+      <path d="M113 147 Q145 136 163 116"/>
+      <rect x="155" y="80" width="90" height="115" rx="3"/>
+      <path d="M166 100 H220 M166 118 H210 M166 142 H230" stroke-width="3"/>
+      <circle cx="33" cy="218" r="18"/><circle cx="86" cy="222" r="18"/><circle cx="138" cy="220" r="18"/>
+      <path d="M12 267 Q33 235 54 267 M65 271 Q86 239 107 271 M117 269 Q138 237 159 269"/>
+    </g>
+    <rect x="176" y="154" width="16" height="16" fill="#f5cf45" transform="rotate(-4 184 162)"/><rect x="199" y="150" width="16" height="16" fill="#f29bb8" transform="rotate(5 207 158)"/>
+    <text x="120" y="324" text-anchor="middle" font-family="Comic Sans MS, Bradley Hand, cursive" font-size="29" fill="#24211d">plenary</text>
+    <path d="M72 335 Q120 344 168 334" stroke="#ef7d88" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- breakout -->
+  <g transform="translate(310 200)">
+    <rect x="35" y="0" width="128" height="38" rx="9" fill="#fff8e9" stroke="#24211d" stroke-width="4"/>
+    <circle cx="54" cy="19" r="8" fill="#24211d"/>
+    <text x="69" y="26" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#24211d">REC OFF</text>
+    <g stroke="#24211d" stroke-width="4" fill="none" stroke-linecap="round">
+      <ellipse cx="100" cy="205" rx="82" ry="35"/>
+      <circle cx="55" cy="130" r="18"/><circle cx="96" cy="118" r="18"/><circle cx="145" cy="132" r="18"/><circle cx="106" cy="166" r="18"/>
+      <path d="M37 175 Q55 145 73 175 M78 163 Q96 135 114 163 M127 177 Q145 148 163 177 M88 209 Q106 181 124 209"/>
+    </g>
+    <rect x="80" y="192" width="17" height="15" fill="#8ecae6" transform="rotate(-6 88 199)"/><rect x="112" y="204" width="17" height="15" fill="#f5cf45" transform="rotate(4 120 211)"/>
+    <text x="100" y="324" text-anchor="middle" font-family="Comic Sans MS, Bradley Hand, cursive" font-size="29" fill="#24211d">breakouts</text>
+    <path d="M45 335 Q100 345 158 334" stroke="#78b7e5" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- sharebacks -->
+  <g transform="translate(575 200)">
+    <rect x="30" y="0" width="120" height="38" rx="9" fill="#fff8e9" stroke="#24211d" stroke-width="4"/>
+    <circle cx="48" cy="19" r="8" fill="#ef5753" stroke="#24211d" stroke-width="2"/>
+    <text x="64" y="26" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#24211d">REC ON</text>
+    <g stroke="#24211d" stroke-width="4" fill="none" stroke-linecap="round">
+      <circle cx="90" cy="112" r="22"/><path d="M58 172 Q90 131 122 172"/><path d="M67 174 L64 231 M113 174 L117 231"/>
+      <path d="M122 153 Q154 144 174 124"/>
+      <rect x="150" y="86" width="92" height="118" rx="3"/>
+      <path d="M162 105 H218 M162 125 H230 M162 150 H220" stroke-width="3"/>
+      <circle cx="28" cy="225" r="17"/><circle cx="75" cy="235" r="17"/><circle cx="126" cy="229" r="17"/><circle cx="175" cy="232" r="17"/>
+      <path d="M8 270 Q28 241 48 270 M55 280 Q75 251 95 280 M106 275 Q126 246 146 275 M155 278 Q175 249 195 278"/>
+    </g>
+    <rect x="167" y="157" width="18" height="17" fill="#f5cf45" transform="rotate(-5 176 165)"/>
+    <text x="110" y="324" text-anchor="middle" font-family="Comic Sans MS, Bradley Hand, cursive" font-size="29" fill="#24211d">sharebacks</text>
+    <path d="M45 335 Q110 345 180 334" stroke="#ef7d88" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- AI summary -->
+  <g transform="translate(835 255)">
+    <path d="M10 0 H177 V225 H10 Z" fill="#fffdf6" stroke="#24211d" stroke-width="4"/>
+    <path d="M150 0 L177 27 H150 Z" fill="#f3ead7" stroke="#24211d" stroke-width="3"/>
+    <text x="94" y="42" text-anchor="middle" font-family="Comic Sans MS, Bradley Hand, cursive" font-size="26" font-weight="700" fill="#24211d">AI SUMMARY</text>
+    <g stroke="#24211d" stroke-width="3" stroke-linecap="round"><path d="M50 82 H142 M50 112 H150 M50 142 H132 M50 172 H145"/></g>
+    <rect x="23" y="69" width="18" height="18" fill="#8ecae6"/><rect x="23" y="99" width="18" height="18" fill="#f29bb8"/><rect x="23" y="129" width="18" height="18" fill="#f5cf45"/><rect x="23" y="159" width="18" height="18" fill="#a9d3a0"/>
+    <text x="94" y="270" text-anchor="middle" font-family="Comic Sans MS, Bradley Hand, cursive" font-size="29" fill="#24211d">AI summary</text>
+    <path d="M35 281 Q94 289 155 280" stroke="#78b7e5" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- story wall -->
+  <g transform="translate(1040 205)">
+    <path d="M5 20 L212 8 L226 278 L15 290 Z" fill="#fbf4e4" stroke="#24211d" stroke-width="4"/>
+    <g fill="#fffdf6" stroke="#24211d" stroke-width="2">
+      <rect x="28" y="42" width="55" height="69" transform="rotate(-3 55 76)"/><rect x="95" y="35" width="55" height="70" transform="rotate(4 122 70)"/><rect x="158" y="54" width="48" height="63" transform="rotate(-2 182 85)"/>
+      <rect x="36" y="134" width="55" height="70" transform="rotate(2 63 169)"/><rect x="104" y="126" width="55" height="70" transform="rotate(-4 131 161)"/><rect x="163" y="146" width="48" height="63" transform="rotate(3 187 177)"/>
+    </g>
+    <g stroke="#66605a" stroke-width="2"><path d="M40 58 H71 M40 70 H67 M108 52 H139 M108 64 H136 M170 70 H196 M48 151 H78 M48 164 H76 M116 142 H146 M116 155 H144 M173 160 H199"/></g>
+    <rect x="78" y="101" width="24" height="22" fill="#f5cf45" transform="rotate(5 90 112)"/><rect x="146" y="112" width="24" height="22" fill="#8ecae6" transform="rotate(-4 158 123)"/><rect x="86" y="210" width="24" height="22" fill="#f29bb8" transform="rotate(3 98 221)"/>
+    <text x="115" y="330" text-anchor="middle" font-family="Comic Sans MS, Bradley Hand, cursive" font-size="28" fill="#24211d">building the</text>
+    <text x="115" y="364" text-anchor="middle" font-family="Comic Sans MS, Bradley Hand, cursive" font-size="28" fill="#24211d">day's story</text>
+    <path d="M53 376 Q115 385 180 374" stroke="#f0b52d" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- arrows -->
+  <g stroke="#24211d" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M270 430 H304 M294 420 L306 430 L294 440"/>
+    <path d="M528 430 H567 M557 420 L569 430 L557 440"/>
+    <path d="M800 430 H830 M820 420 L832 430 L820 440"/>
+    <path d="M1018 430 H1038 M1028 420 L1040 430 L1028 440"/>
+  </g>
+</svg>
