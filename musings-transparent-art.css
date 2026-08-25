@@ -34,22 +34,31 @@
   display:block!important;
 }
 
-/* Musing 06: reliable browser-native fallback. The original raster upload was
-   not decoding consistently on the live site, so use the approved composition
-   as an SVG background on both the card and field note. */
+/* Musing 06: render the approved artwork directly. Do not route it through the
+   runtime canvas/transparency pass and do not use the previous SVG fallback,
+   which could display as a black rectangle on some mobile browsers. */
 .musings-page .musing-thumb--workshop-memory,
 .musings-page .field-note-sketch--workshop-memory{
-  background-image:url('/assets/dmt/musing-06-let-the-workshop-remember.svg?v=20260825b')!important;
-  background-repeat:no-repeat!important;
-  background-position:center!important;
-  background-size:contain!important;
-  min-height:220px;
+  background:none!important;
+  min-height:0!important;
+  overflow:hidden!important;
 }
-.musings-page .field-note-sketch--workshop-memory{
-  min-height:300px;
+.musings-page .musing-m06-art{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:16 / 9;
+  object-fit:contain!important;
+  object-position:center!important;
+  mix-blend-mode:normal!important;
+  filter:none!important;
+  background:#fff8e9;
+}
+.musings-page .field-note-sketch--workshop-memory .musing-m06-art{
+  max-height:320px;
 }
 
 @media(max-width:820px){
   .musings-page .field-note-sketch .musing-transparent-art{max-height:270px}
-  .musings-page .field-note-sketch--workshop-memory{min-height:240px}
+  .musings-page .field-note-sketch--workshop-memory .musing-m06-art{max-height:270px}
 }
