@@ -14,7 +14,7 @@
   }
 
   try {
-    const response = await fetch('/musings.html?v=20260821-routes', { cache: 'no-cache' });
+    const response = await fetch('/musings.html?v=20260825-musing05', { cache: 'no-cache' });
     if (!response.ok) throw new Error('Unable to load Musings source: ' + response.status);
 
     const html = await response.text();
@@ -24,7 +24,7 @@
     document.body.className = source.body.className || 'musings-page';
     document.body.innerHTML = source.body.innerHTML;
 
-    await loadScript('/script.js?v=20260821-routes');
+    await loadScript('/script.js?v=20260825a');
     await loadScript('/musings-transparent-art.js?v=20260817a');
   } catch (error) {
     console.error(error);
