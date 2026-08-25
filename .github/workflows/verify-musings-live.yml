@@ -60,7 +60,7 @@ jobs:
 
           cmp "assets/dmt/musing-06-let-the-workshop-remember.jpg" live-musing-06.jpg
           file live-musing-06.jpg | grep -qi 'JPEG image data'
-          test "$(wc -c < live-musing-06.jpg)" -gt 10000
+          test "$(wc -c < live-musing-06.jpg)" -gt 40000
 
       - name: Capture the actual live Musings page on desktop and mobile
         shell: bash
