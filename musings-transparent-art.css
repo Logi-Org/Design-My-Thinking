@@ -34,6 +34,22 @@
   display:block!important;
 }
 
+/* Musing 06: reliable browser-native fallback. The original raster upload was
+   not decoding consistently on the live site, so use the approved composition
+   as an SVG background on both the card and field note. */
+.musings-page .musing-thumb--workshop-memory,
+.musings-page .field-note-sketch--workshop-memory{
+  background-image:url('/assets/dmt/musing-06-let-the-workshop-remember.svg?v=20260825b')!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:contain!important;
+  min-height:220px;
+}
+.musings-page .field-note-sketch--workshop-memory{
+  min-height:300px;
+}
+
 @media(max-width:820px){
   .musings-page .field-note-sketch .musing-transparent-art{max-height:270px}
+  .musings-page .field-note-sketch--workshop-memory{min-height:240px}
 }
