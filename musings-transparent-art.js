@@ -1,4 +1,4 @@
-/* Musings transparent artwork pass — 2026-08-18.
+/* Musings transparent artwork pass — 2026-08-25.
    Removes the baked cream paper from the approved illustrations at runtime
    so the sketches sit directly on the musing-card / field-note paper surface. */
 (function(){
@@ -7,10 +7,12 @@
     {cls:'musing-thumb--questions', url:'assets/dmt/musings-approved-seed.webp?v=20260816b'},
     {cls:'musing-thumb--canvas', url:'assets/dmt/musings-approved-canvas.webp?v=20260816b'},
     {cls:'musing-thumb--html', url:'assets/dmt/musings-approved-wallpaper.webp?v=20260816b'},
+    {cls:'musing-thumb--reverse-flow', url:'assets/dmt/musing-05-start-big-then-go-deep.webp?v=20260825c'},
     {cls:'field-note-sketch--scenarios', url:'assets/dmt/musings-approved-scenarios.webp?v=20260816b'},
     {cls:'field-note-sketch--questions', url:'assets/dmt/musings-approved-seed.webp?v=20260816b'},
     {cls:'field-note-sketch--canvas', url:'assets/dmt/musings-approved-canvas.webp?v=20260816b'},
-    {cls:'field-note-sketch--html', url:'assets/dmt/musings-approved-wallpaper.webp?v=20260816b'}
+    {cls:'field-note-sketch--html', url:'assets/dmt/musings-approved-wallpaper.webp?v=20260816b'},
+    {cls:'field-note-sketch--reverse-flow', url:'assets/dmt/musing-05-start-big-then-go-deep.webp?v=20260825c'}
   ];
 
   const cache = new Map();
