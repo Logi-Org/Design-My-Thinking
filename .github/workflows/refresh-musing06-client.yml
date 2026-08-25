@@ -28,8 +28,25 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sed -i 's#musing-06-let-the-workshop-remember\.jpg?v=20260826b#musing-06-workshop-memory-v2.jpg?v=20260826e#g' musings-transparent-art.js
-          sed -i 's/musings-transparent-art\.js?v=20260817a/musings-transparent-art.js?v=20260826e/g' musings.html
+          python3 - <<'PY'
+          from pathlib import Path
+
+          js = Path('musings-transparent-art.js')
+          text = js.read_text()
+          old_image = 'musing-06-let-the-workshop-remember.jpg'
+          new_image = 'musing-06-workshop-memory-v2.jpg'
+          if old_image not in text and new_image not in text:
+              raise SystemExit('Could not find Musing 06 image reference in JavaScript')
+          js.write_text(text.replace(old_image, new_image).replace('v=20260826b', 'v=20260826e'))
+
+          html = Path('musings.html')
+          text = html.read_text()
+          old_script = 'musings-transparent-art.js?v=20260817a'
+          new_script = 'musings-transparent-art.js?v=20260826e'
+          if old_script not in text and new_script not in text:
+              raise SystemExit('Could not find Musings artwork JavaScript reference in HTML')
+          html.write_text(text.replace(old_script, new_script))
+          PY
           grep -q 'musing-06-workshop-memory-v2.jpg?v=20260826e' musings-transparent-art.js
           grep -q 'musings-transparent-art.js?v=20260826e' musings.html
 
