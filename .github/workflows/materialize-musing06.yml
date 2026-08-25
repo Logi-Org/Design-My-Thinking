@@ -1,0 +1,39 @@
+name: Materialize Musing 06 artwork
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.asset-transfer/m06-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Decode Musing 06 JPG
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/dmt
+          cat .asset-transfer/m06jpg-*.txt | tr -d '\n\r\t ' | base64 -d > assets/dmt/musing-06-let-the-workshop-remember.jpg
+          file assets/dmt/musing-06-let-the-workshop-remember.jpg
+          test "$(stat -c%s assets/dmt/musing-06-let-the-workshop-remember.jpg)" -gt 40000
+      - name: Commit artwork
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/dmt/musing-06-let-the-workshop-remember.jpg
+          if git diff --cached --quiet; then
+            echo 'Musing 06 artwork already current.'
+            exit 0
+          fi
+          git commit -m 'Deploy approved Musing 06 artwork'
+          git push
