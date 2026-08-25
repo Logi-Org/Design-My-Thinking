@@ -1,7 +1,7 @@
 /* Musings transparent artwork pass — 2026-08-25.
    Removes baked cream paper from approved illustrations at runtime and adds Musing 06. */
 (function(){
-  const M06_ART='assets/dmt/musing-06-let-the-workshop-remember.webp?v=20260825a';
+  const M06_ART='assets/dmt/musing-06-let-the-workshop-remember.webp?v=20260825b';
   const ART = [
     {cls:'musing-thumb--scenarios', url:'assets/dmt/musings-approved-scenarios.webp?v=20260816b'},
     {cls:'musing-thumb--questions', url:'assets/dmt/musings-approved-seed.webp?v=20260816b'},
