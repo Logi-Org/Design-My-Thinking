@@ -14,7 +14,7 @@
   }
 
   try {
-    const response = await fetch('/musings.html?v=20260825-musing05', { cache: 'no-cache' });
+    const response = await fetch('/musings.html?v=20260825-musing06-approved', { cache: 'no-cache' });
     if (!response.ok) throw new Error('Unable to load Musings source: ' + response.status);
 
     const html = await response.text();
@@ -25,7 +25,7 @@
     document.body.innerHTML = source.body.innerHTML;
 
     await loadScript('/script.js?v=20260825a');
-    await loadScript('/musings-transparent-art.js?v=20260817a');
+    await loadScript('/musings-transparent-art.js?v=20260825b');
   } catch (error) {
     console.error(error);
     if (loader) {
