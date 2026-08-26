@@ -3,6 +3,15 @@
 .musings-page .field-note-sketch--knowledge-podcast{
   min-height:0!important;
 }
+
+/* Musing 07 should sit flat on the page — remove the outer card/thumb shadows. */
+.musings-page .musing-card[data-modal-template="musing-knowledge-podcast"],
+.musings-page .musing-card[data-modal-template="musing-knowledge-podcast"]:hover,
+.musings-page .musing-thumb--knowledge-podcast,
+.musings-page .field-note-sketch--knowledge-podcast{
+  box-shadow:none!important;
+}
+
 .field-note--m07 .m07-demo-wrap--app .m07-demo-intro{
   display:block!important;
   align-items:initial!important;
