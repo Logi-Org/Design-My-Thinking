@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">Read less. Hear more.</title>
+<desc id="desc">Hand-drawn workshop preparation sketch showing source materials becoming a sourced multi-speaker podcast that can be listened to on the move.</desc>
+<defs>
+  <filter id="rough" x="-4%" y="-4%" width="108%" height="108%"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.035" numOctaves="2" seed="17" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="1.25" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <style>
+    .ink{fill:none;stroke:#29251f;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+    .fine{fill:none;stroke:#403b33;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .hand{font-family:'Segoe Print','Bradley Hand','Comic Sans MS',cursive;fill:#28231e}
+    .small{font-size:20px}.tiny{font-size:15px}.mid{font-size:28px;font-weight:700}.big{font-size:62px;font-weight:700}
+    .paper{fill:#fffdf6;stroke:#39342e;stroke-width:2.3}.yellow{fill:#f6d66a}.pink{fill:#efa6a7}.blue{fill:#a8d6df}
+  </style>
+</defs>
+<g filter="url(#rough)">
+  <text x="600" y="82" text-anchor="middle" class="hand big">Read less. Hear more.</text>
+  <path d="M637 99 C760 91 882 92 1001 101" stroke="#d98583" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <text x="600" y="129" text-anchor="middle" class="hand mid">Knowledge transfer for workshop prep.</text>
+
+  <!-- person with reading stack -->
+  <g transform="translate(30 172)">
+    <circle cx="82" cy="129" r="34" class="ink"/><path d="M57 113 q26-49 58-7 q-1 23-8 42" class="ink"/><path d="M69 128 q14 9 28 1" class="fine"/>
+    <path d="M56 161 q-26 28-31 91 l-9 91 M104 163 q30 34 37 93 l8 83" class="ink"/><path d="M41 205 q37 19 73 2" class="fine"/>
+    <path d="M20 339 q48-28 107-17 l52 30" class="ink"/><path d="M46 326 l112 38 l-16 55 l-112-39 z" class="paper"/>
+    <text x="79" y="355" class="hand tiny" transform="rotate(14 79 355)">WORKSHOP</text><text x="88" y="375" class="hand tiny" transform="rotate(14 88 375)">PLAN</text>
+    <path d="M1 76 q-8-33 23-42 q12-27 39-8 q24-20 42 5 q28-1 31 26 q21 19-4 38 q-19 23-43 10 q-30 12-43-8 q-33 1-45-21z" fill="#fffdf6" stroke="#38332c" stroke-width="2"/>
+    <text x="62" y="57" text-anchor="middle" class="hand small">So much</text><text x="62" y="80" text-anchor="middle" class="hand small">to read…</text>
+  </g>
+
+  <!-- sources -->
+  <g transform="translate(215 196)">
+    <text x="0" y="0" class="hand small">SOURCE MATERIALS</text>
+    <g transform="translate(0 20)"><rect width="150" height="104" rx="3" class="paper"/><rect x="10" y="10" width="42" height="24" class="pink"/><text x="18" y="29" class="hand tiny">PDF</text><text x="16" y="58" class="hand tiny">Research report</text><text x="16" y="80" class="hand tiny">450 pages</text><path d="M112 20 h24 v34 h-24 z M118 27 h12" class="fine"/></g>
+    <g transform="translate(0 138)"><rect width="150" height="93" rx="3" class="paper"/><rect x="10" y="10" width="58" height="23" class="yellow"/><text x="16" y="28" class="hand tiny">WEBSITE</text><path d="M14 43 h119 v37 h-119 z M25 70 l22-18 l19 14 l23-20 l29 24" class="fine"/></g>
+    <g transform="translate(0 245)"><rect width="150" height="100" rx="3" class="paper"/><rect x="10" y="10" width="45" height="23" class="blue"/><text x="17" y="28" class="hand tiny">DOC</text><text x="16" y="58" class="hand tiny">Strategy brief</text><text x="16" y="80" class="hand tiny">Internal notes</text></g>
+  </g>
+
+  <!-- arrow --> <path d="M380 371 C397 370 407 370 421 369 m-11-11 l13 11 l-13 12" class="ink"/>
+
+  <!-- upload laptop -->
+  <g transform="translate(430 245)">
+    <text x="77" y="0" text-anchor="middle" class="hand tiny">DRAG + DROP</text><text x="77" y="20" text-anchor="middle" class="hand tiny">OR UPLOAD</text>
+    <rect x="17" y="42" width="122" height="132" rx="6" class="paper"/><rect x="31" y="57" width="94" height="94" rx="4" fill="none" stroke="#4d473f" stroke-width="2" stroke-dasharray="7 6"/>
+    <path d="M78 83 v36 m-13-20 l13-16 l13 16" class="ink"/><text x="78" y="137" text-anchor="middle" class="hand tiny">UPLOAD</text><text x="78" y="154" text-anchor="middle" class="hand tiny">MATERIALS</text>
+    <path d="M0 178 h157 l24 19 h-203 z" class="paper"/>
+  </g>
+
+  <path d="M616 371 h31 m-12-11 l13 11 l-13 12" class="ink"/>
+
+  <!-- speakers -->
+  <g transform="translate(655 183)">
+    <text x="88" y="0" text-anchor="middle" class="hand small">AI PODCAST GENERATING…</text>
+    <g transform="translate(0 27)"><circle cx="43" cy="42" r="32" class="paper"/><path d="M22 42 q12-35 37-20 q18 8 15 30" class="ink"/><circle cx="43" cy="40" r="12" class="fine"/><rect x="77" y="12" width="157" height="66" rx="18" fill="#fffdf6" stroke="#39342e" stroke-width="2"/><text x="93" y="39" class="hand tiny">Let's unpack the</text><text x="93" y="59" class="hand tiny">key themes first.</text></g>
+    <g transform="translate(0 106)"><circle cx="43" cy="42" r="32" class="paper"/><path d="M19 34 q15-29 42-12 q17 14 10 35" class="ink"/><circle cx="43" cy="41" r="12" class="fine"/><rect x="77" y="8" width="170" height="72" rx="18" fill="#fffdf6" stroke="#39342e" stroke-width="2"/><text x="93" y="35" class="hand tiny">But that creates a</text><text x="93" y="55" class="hand tiny">tension worth testing…</text></g>
+    <g transform="translate(0 191)"><circle cx="43" cy="42" r="32" class="paper"/><path d="M17 42 q12-37 39-20 q16 11 15 34" class="ink"/><circle cx="43" cy="41" r="12" class="fine"/><rect x="77" y="8" width="170" height="72" rx="18" fill="#fffdf6" stroke="#39342e" stroke-width="2"/><text x="93" y="35" class="hand tiny">And where does the</text><text x="93" y="55" class="hand tiny">evidence actually sit?</text></g>
+    <rect x="7" y="285" width="232" height="42" rx="8" class="paper"/><circle cx="31" cy="306" r="11" class="fine"/><path d="M28 300 l9 6 l-9 6 z" fill="#29251f"/><path d="M51 306 q8-16 16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0" class="fine"/><text x="190" y="312" class="hand tiny">18:42</text>
+  </g>
+
+  <path d="M907 371 h27 m-11-11 l13 11 l-13 12" class="ink"/>
+
+  <!-- transcript -->
+  <g transform="translate(942 196)">
+    <rect x="0" y="0" width="218" height="324" rx="3" class="paper"/><text x="109" y="34" text-anchor="middle" class="hand small">PODCAST TRANSCRIPT</text><path d="M22 44 h174" class="fine"/>
+    <text x="20" y="76" class="hand tiny">00:32  Host A</text><text x="20" y="98" class="hand tiny">The strongest pattern is…</text><rect x="164" y="83" width="38" height="23" class="yellow"/><text x="171" y="100" class="hand tiny">p.12</text>
+    <text x="20" y="132" class="hand tiny">02:15  Host B</text><text x="20" y="154" class="hand tiny">Wait — the report also says…</text><rect x="164" y="139" width="38" height="23" class="blue"/><text x="168" y="156" class="hand tiny">p.227</text>
+    <text x="20" y="188" class="hand tiny">04:10  Host C</text><text x="20" y="210" class="hand tiny">Which changes the question…</text><rect x="164" y="195" width="38" height="23" class="pink"/><text x="168" y="212" class="hand tiny">p.401</text>
+    <path d="M20 234 h178" class="fine"/><text x="20" y="259" class="hand tiny">COVERAGE CHECK</text><path d="M20 278 h176" stroke="#d6c49b" stroke-width="12"/><path d="M22 278 h42 M83 278 h45 M147 278 h47" stroke="#7fbfca" stroke-width="12"/><text x="20" y="304" class="hand tiny">1</text><text x="92" y="304" class="hand tiny">225</text><text x="174" y="304" class="hand tiny">450</text>
+  </g>
+
+  <!-- bottom labels -->
+  <g transform="translate(84 610)">
+    <circle cx="55" cy="22" r="18" fill="#fff8e9" stroke="#29251f" stroke-width="2"/><text x="55" y="29" text-anchor="middle" class="hand small">1</text><rect x="0" y="49" width="110" height="60" rx="9" class="yellow" opacity=".8"/><text x="55" y="77" text-anchor="middle" class="hand small">upload</text><text x="55" y="100" text-anchor="middle" class="hand small">materials</text>
+    <path d="M132 79 h68 m-15-13 l17 13 l-17 13" class="ink"/>
+    <circle cx="244" cy="22" r="18" fill="#fff8e9" stroke="#29251f" stroke-width="2"/><text x="244" y="29" text-anchor="middle" class="hand small">2</text><rect x="190" y="49" width="110" height="60" rx="9" class="pink" opacity=".7"/><text x="245" y="77" text-anchor="middle" class="hand small">generate</text><text x="245" y="100" text-anchor="middle" class="hand small">voices</text>
+    <path d="M322 79 h68 m-15-13 l17 13 l-17 13" class="ink"/>
+    <circle cx="434" cy="22" r="18" fill="#fff8e9" stroke="#29251f" stroke-width="2"/><text x="434" y="29" text-anchor="middle" class="hand small">3</text><rect x="377" y="49" width="114" height="60" rx="9" class="blue" opacity=".75"/><text x="434" y="77" text-anchor="middle" class="hand small">tag the</text><text x="434" y="100" text-anchor="middle" class="hand small">sources</text>
+    <path d="M514 79 h68 m-15-13 l17 13 l-17 13" class="ink"/>
+    <circle cx="626" cy="22" r="18" fill="#fff8e9" stroke="#29251f" stroke-width="2"/><text x="626" y="29" text-anchor="middle" class="hand small">4</text><rect x="568" y="49" width="116" height="60" rx="9" class="yellow" opacity=".8"/><text x="626" y="77" text-anchor="middle" class="hand small">listen on</text><text x="626" y="100" text-anchor="middle" class="hand small">the go</text>
+  </g>
+</g>
+</svg>
