@@ -22,7 +22,7 @@
   }
 
   try {
-    const response = await fetch('/musings.html?v=20260826-musing07-papermatch', { cache: 'no-cache' });
+    const response = await fetch('/musings.html?v=20260826-musing07-paperblend', { cache: 'no-cache' });
     if (!response.ok) throw new Error('Unable to load Musings source: ' + response.status);
 
     const html = await response.text();
@@ -36,6 +36,7 @@
     loadStyle('/musing07-polish.css?v=20260826b');
     loadStyle('/musing07-polish-fix.css?v=20260826c');
     loadStyle('/musing07-visual-v2.css?v=20260826e');
+    loadStyle('/musing07-paper-match.css?v=20260826i');
     await loadScript('/script.js?v=20260825a');
     await loadScript('/musings-transparent-art.js?v=20260826e');
     await loadScript('/musing06-card-paper-match.js?v=20260826a');
