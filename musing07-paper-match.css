@@ -1,7 +1,15 @@
-/* Musing 07 — let the actual field-note paper show through the transparent sketch background. */
+/* Musing 07 — let the actual field-note paper show through the transparent sketch background and keep the card flat. */
 .musings-page .musing-thumb--knowledge-podcast,
 .musings-page .field-note-sketch--knowledge-podcast,
 .musings-page .musing-thumb--knowledge-podcast img,
 .musings-page .field-note-sketch--knowledge-podcast img{
   background:transparent!important;
+}
+
+/* Remove the visible drop shadow around the outside of Musing 07. */
+.musings-page .musing-card[data-modal-template="musing-knowledge-podcast"],
+.musings-page .musing-card[data-modal-template="musing-knowledge-podcast"]:hover,
+.musings-page .musing-thumb--knowledge-podcast,
+.musings-page .field-note-sketch--knowledge-podcast{
+  box-shadow:none!important;
 }
