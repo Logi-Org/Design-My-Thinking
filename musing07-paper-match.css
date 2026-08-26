@@ -1,0 +1,7 @@
+/* Musing 07 — let the actual field-note paper show through the transparent sketch background. */
+.musings-page .musing-thumb--knowledge-podcast,
+.musings-page .field-note-sketch--knowledge-podcast,
+.musings-page .musing-thumb--knowledge-podcast img,
+.musings-page .field-note-sketch--knowledge-podcast img{
+  background:transparent!important;
+}
