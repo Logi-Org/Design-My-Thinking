@@ -1,0 +1,24 @@
+/* Final cascade fixes for Musing 07 polished experience. */
+.musings-page .musing-thumb--knowledge-podcast,
+.musings-page .field-note-sketch--knowledge-podcast{
+  min-height:0!important;
+}
+.field-note--m07 .m07-demo-wrap--app .m07-demo-intro{
+  display:block!important;
+  align-items:initial!important;
+  justify-content:initial!important;
+}
+.field-note--m07 .m07-demo--app:before{display:none!important}
+.field-note--m07 .m07-demo--app .m07-progress-line{
+  position:relative!important;
+  left:auto!important;
+  right:auto!important;
+  top:auto!important;
+  width:100%!important;
+}
+.field-note--m07 .m07-demo--app .m07-stage-shell{
+  margin-top:0!important;
+}
+.field-note--m07 .m07-demo--app .m07-stage{
+  min-height:0!important;
+}
