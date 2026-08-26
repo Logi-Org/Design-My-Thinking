@@ -17,20 +17,26 @@ jobs:
         shell: bash
         run: |
           set -u
-          curl -sSL -D direct-headers.txt -H 'Cache-Control: no-cache' "https://designmythinking.xyz/musings/read-less-hear-more/?diag=${GITHUB_SHA}" -o direct-source.html
+          URL="https://designmythinking.xyz/musings/read-less-hear-more/?diag=${GITHUB_SHA}"
+          curl -sSL -D direct-headers.txt -H 'Cache-Control: no-cache' "$URL" -o direct-source.html
           google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
             --virtual-time-budget=20000 --dump-dom \
-            "https://designmythinking.xyz/musings/read-less-hear-more/?diag=${GITHUB_SHA}" > direct-rendered.html 2>chrome-stderr.txt || true
+            "$URL" > direct-rendered.html 2>chrome-stderr.txt || true
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --virtual-time-budget=20000 --window-size=1440,1400 \
+            --screenshot=direct-screenshot.png "$URL" >/tmp/m07-shot.out 2>/tmp/m07-shot.err || true
           echo '--- source status/size ---'
           wc -c direct-source.html || true
           head -30 direct-headers.txt || true
           echo '--- rendered size ---'
           wc -c direct-rendered.html || true
           echo '--- markers ---'
-          for marker in 'How the podcast works' 'roughly 450-page PDF' 'data-m07-demo' 'Read less. Hear more.' 'This page did not load as expected' 'musing07.js'; do
-            if grep -q "$marker" direct-rendered.html; then echo "FOUND: $marker"; else echo "MISSING: $marker"; fi
+          for marker in 'See what the tool is actually doing.' 'What is showing up?' 'Shape a conversation, not a spoken report.' 'Turn the gaps in the day into learning time.' 'musing-07-read-less-hear-more.webp' 'Read less. Hear more.' 'This page did not load as expected'; do
+            if grep -Fq "$marker" direct-rendered.html; then echo "FOUND: $marker"; else echo "MISSING: $marker"; fi
           done
-          grep -n -E 'Read less|podcast works|did not load|musing07|serviceModalContent' direct-rendered.html | head -80 || true
+          grep -n -E 'Read less|See what|What is showing|Shape a conversation|gaps in the day|musing07|serviceModalContent' direct-rendered.html | head -100 || true
+          echo '--- screenshot ---'
+          ls -lh direct-screenshot.png || true
       - name: Upload diagnostics
         uses: actions/upload-artifact@v4
         with:
@@ -39,5 +45,6 @@ jobs:
             direct-source.html
             direct-rendered.html
             direct-headers.txt
+            direct-screenshot.png
             chrome-stderr.txt
           retention-days: 2
