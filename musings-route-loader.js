@@ -34,9 +34,9 @@
 
     loadStyle('/musing07.css?v=20260826a');
     loadStyle('/musing07-polish.css?v=20260826b');
-    loadStyle('/musing07-polish-fix.css?v=20260826c');
+    loadStyle('/musing07-polish-fix.css?v=20260826d');
     loadStyle('/musing07-visual-v2.css?v=20260826e');
-    loadStyle('/musing07-paper-match.css?v=20260826i');
+    loadStyle('/musing07-paper-match.css?v=20260826j');
     await loadScript('/script.js?v=20260825a');
     await loadScript('/musings-transparent-art.js?v=20260826e');
     await loadScript('/musing06-card-paper-match.js?v=20260826a');
