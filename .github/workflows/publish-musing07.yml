@@ -1,0 +1,127 @@
+name: Publish Musing 07
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'publish-musing07.trigger'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wire Musing 07 into the Musings page
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('musings.html')
+          text=p.read_text()
+          css='  <link rel="stylesheet" href="musing07.css?v=20260826a" />\n'
+          js='<script src="musing07.js?v=20260826a"></script>\n'
+          if 'musing07.css?v=20260826a' not in text:
+              marker='  <link rel="stylesheet" href="musings-transparent-art.css?v=20260817a" />\n'
+              if marker not in text:
+                  raise SystemExit('Could not find Musings CSS insertion point')
+              text=text.replace(marker,marker+css)
+          if 'musing07.js?v=20260826a' not in text:
+              if '</body>' not in text:
+                  raise SystemExit('Could not find closing body tag')
+              text=text.replace('</body>',js+'</body>')
+          p.write_text(text)
+          PY
+          grep -q 'musing07.css?v=20260826a' musings.html
+          grep -q 'musing07.js?v=20260826a' musings.html
+
+      - name: Commit Musing 07 loader
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add musings.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish Musing 07 Read less Hear more"
+            git push
+          fi
+
+      - name: Wait for the Musing 07 revision to reach GitHub Pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          found=0
+          for i in $(seq 1 28); do
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/musings.html?m07=${GITHUB_SHA}-${i}" -o live-musings.html || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/musing07.js?v=20260826a&m07=${GITHUB_SHA}-${i}" -o live-musing07.js || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/musing07.css?v=20260826a&m07=${GITHUB_SHA}-${i}" -o live-musing07.css || true
+            curl -fsSL -H 'Cache-Control: no-cache' "https://designmythinking.xyz/assets/dmt/musing-07-read-less-hear-more.svg?v=20260826a&m07=${GITHUB_SHA}-${i}" -o live-musing07.svg || true
+            if grep -q 'musing07.css?v=20260826a' live-musings.html 2>/dev/null && \
+               grep -q 'musing07.js?v=20260826a' live-musings.html 2>/dev/null && \
+               grep -q 'Read less. Hear more.' live-musing07.js 2>/dev/null && \
+               grep -q 'm07-demo' live-musing07.css 2>/dev/null && \
+               grep -q 'Knowledge transfer for workshop prep' live-musing07.svg 2>/dev/null; then
+              found=1
+              break
+            fi
+            sleep 15
+          done
+          test "$found" = "1"
+
+      - name: Verify live rendered card and direct field note route
+        shell: bash
+        run: |
+          set -euo pipefail
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --virtual-time-budget=4000 \
+            --dump-dom \
+            "https://designmythinking.xyz/musings/?m07=${GITHUB_SHA}" > rendered-musings.html
+          grep -q 'Musing 07' rendered-musings.html
+          grep -q 'Read less. Hear more.' rendered-musings.html
+          grep -q 'musing-thumb--knowledge-podcast' rendered-musings.html
+
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --virtual-time-budget=5000 \
+            --dump-dom \
+            "https://designmythinking.xyz/musings/read-less-hear-more/?m07=${GITHUB_SHA}" > rendered-musing07-route.html
+          grep -q 'How the podcast works' rendered-musing07-route.html
+          grep -q 'roughly 450-page PDF' rendered-musing07-route.html
+          grep -q 'data-m07-demo' rendered-musing07-route.html
+
+      - name: Capture live desktop and mobile views
+        shell: bash
+        run: |
+          set -euo pipefail
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --window-size=1440,3000 --virtual-time-budget=5000 \
+            --screenshot=musing07-musings-desktop.png \
+            "https://designmythinking.xyz/musings/?m07=${GITHUB_SHA}"
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --window-size=412,5200 --force-device-scale-factor=1 --virtual-time-budget=5000 \
+            --screenshot=musing07-musings-mobile.png \
+            "https://designmythinking.xyz/musings/?m07=${GITHUB_SHA}"
+          google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars \
+            --window-size=1440,3600 --virtual-time-budget=5000 \
+            --screenshot=musing07-field-note.png \
+            "https://designmythinking.xyz/musings/read-less-hear-more/?m07=${GITHUB_SHA}"
+
+      - name: Upload Musing 07 live verification
+        uses: actions/upload-artifact@v4
+        with:
+          name: musing07-live-verification
+          path: |
+            musing07-musings-desktop.png
+            musing07-musings-mobile.png
+            musing07-field-note.png
+            rendered-musings.html
+            rendered-musing07-route.html
+            live-musing07.js
+            live-musing07.css
+            live-musing07.svg
+          retention-days: 7
