@@ -1,1 +1,1 @@
-2026-08-26-musing07-polish-visual
+2026-08-26-musing07-visual-v2
