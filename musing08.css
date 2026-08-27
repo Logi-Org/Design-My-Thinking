@@ -29,57 +29,26 @@
   isolation:isolate;
   aspect-ratio:1.43/1;
   transform:rotate(.35deg);
-  background:var(--paper)!important;
+  background:transparent!important;
 }
 .musings-page .field-note-sketch--digital-room img{object-fit:cover!important}
 
-/* The selected sketch contains a pale rectangular artefact in its top-left.
-   On the card it needs the card paper; inside the field note it needs the
-   modal paper. Keep the centre tape untouched and mask only that artefact. */
+/* The artwork now has transparent outer paper, so it inherits the exact card
+   or modal paper underneath. Remove the old colour-matching masks entirely. */
 .musing-card--m08 .musing-thumb--digital-room{
   position:relative;
   isolation:isolate;
-  background:#fff8e9!important;
+  background:transparent!important;
 }
 .musing-card--m08 .musing-thumb--digital-room::before,
-.musing-card--m08 .musing-thumb--digital-room::after{
-  content:"";
-  position:absolute;
-  z-index:3;
-  pointer-events:none;
-  background:#fff8e9;
-  transform:none;
-  box-shadow:none;
-}
-.musing-card--m08 .musing-thumb--digital-room::before{
-  left:0;
-  top:0;
-  width:27%;
-  height:12%;
-}
-.musing-card--m08 .musing-thumb--digital-room::after{
-  right:0;
-  top:0;
-  width:5.5%;
-  height:100%;
-}
+.musing-card--m08 .musing-thumb--digital-room::after,
 .field-note--m08 .field-note-sketch--digital-room::after{
-  content:"";
-  position:absolute;
-  z-index:3;
-  pointer-events:none;
-  left:0;
-  top:0;
-  width:27%;
-  height:12%;
-  background:var(--paper);
-  transform:none;
-  box-shadow:none;
+  content:none!important;
+  display:none!important;
 }
 
-/* Musing 08 is longer-form. The standard two-column grid creates large empty
-   rectangles whenever paired sections have different heights. Let the content
-   flow naturally down two balanced reading columns instead. */
+/* Musing 08 is longer-form. Let content flow naturally down two balanced
+   reading columns instead of creating large empty rectangles. */
 .field-note--m08 .field-note-body{
   display:block!important;
   max-width:900px!important;
