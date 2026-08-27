@@ -30,12 +30,12 @@
 }
 .musings-page .field-note-sketch--digital-room img{object-fit:cover!important}
 
-/* The selected sketch contains two pale edge artefacts. Mask those with the exact
-   field-note paper instead of introducing another near-match cream. */
+/* The selected sketch contains two pale edge artefacts. Mask those with the
+   actual field-note/card paper colour used on the rendered Musings card. */
 .musing-card--m08 .musing-thumb--digital-room{
   position:relative;
   isolation:isolate;
-  background:var(--white)!important;
+  background:#fff8e9!important;
 }
 .musing-card--m08 .musing-thumb--digital-room::before,
 .musing-card--m08 .musing-thumb--digital-room::after{
@@ -43,7 +43,7 @@
   position:absolute;
   z-index:3;
   pointer-events:none;
-  background:var(--white);
+  background:#fff8e9;
   transform:none;
   box-shadow:none;
 }
