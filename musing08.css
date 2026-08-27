@@ -25,13 +25,17 @@
   mix-blend-mode:normal!important;
 }
 .musings-page .field-note-sketch--digital-room{
+  position:relative;
+  isolation:isolate;
   aspect-ratio:1.43/1;
   transform:rotate(.35deg);
+  background:var(--paper)!important;
 }
 .musings-page .field-note-sketch--digital-room img{object-fit:cover!important}
 
-/* The selected sketch contains two pale edge artefacts. Mask those with the
-   actual field-note/card paper colour used on the rendered Musings card. */
+/* The selected sketch contains a pale rectangular artefact in its top-left.
+   On the card it needs the card paper; inside the field note it needs the
+   modal paper. Keep the centre tape untouched and mask only that artefact. */
 .musing-card--m08 .musing-thumb--digital-room{
   position:relative;
   isolation:isolate;
@@ -58,6 +62,19 @@
   top:0;
   width:5.5%;
   height:100%;
+}
+.field-note--m08 .field-note-sketch--digital-room::after{
+  content:"";
+  position:absolute;
+  z-index:3;
+  pointer-events:none;
+  left:0;
+  top:0;
+  width:27%;
+  height:12%;
+  background:var(--paper);
+  transform:none;
+  box-shadow:none;
 }
 
 /* Musing 08 is longer-form. The standard two-column grid creates large empty
