@@ -1,0 +1,62 @@
+/* Musing 08 — All in one room. All on one board. */
+.musings-page .musing-thumb--digital-room,
+.musings-page .field-note-sketch--digital-room{
+  background:transparent!important;
+  overflow:hidden!important;
+  min-height:0!important;
+  box-shadow:none!important;
+}
+.musings-page .musing-thumb--digital-room{
+  height:auto!important;
+  aspect-ratio:16/9;
+  margin:8px 0 18px;
+  border-top:0!important;
+  border-bottom:0!important;
+}
+.musings-page .musing-thumb--digital-room img,
+.musings-page .field-note-sketch--digital-room img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  background:transparent!important;
+  filter:none!important;
+  mix-blend-mode:normal!important;
+}
+.musings-page .field-note-sketch--digital-room{
+  aspect-ratio:1.43/1;
+  transform:rotate(.35deg);
+}
+.musings-page .field-note-sketch--digital-room img{object-fit:cover!important}
+
+.field-note--m08 .field-note-body{max-width:880px}
+.field-note--m08 .field-note-section p{font-size:1rem;line-height:1.72}
+.field-note--m08 .field-note-section ul{margin-top:14px}
+.field-note--m08 .field-note-section li{margin-bottom:10px;line-height:1.55}
+.field-note--m08 .m08-lesson{
+  margin:22px 0 24px;
+  padding:18px 20px 19px;
+  background:#fff1a9;
+  border:1px solid rgba(39,35,31,.14);
+  box-shadow:4px 5px 0 rgba(39,35,31,.06);
+  font-family:Inter,system-ui,sans-serif;
+  line-height:1.5;
+  transform:rotate(-.45deg);
+}
+.field-note--m08 .m08-lesson strong{font-weight:800}
+.field-note--m08 .field-note-callout{
+  margin-top:30px;
+  font-family:"Caveat",cursive;
+  font-size:clamp(1.7rem,3.5vw,2.35rem);
+  line-height:1.08;
+}
+.musing-card--m08{box-shadow:none!important}
+.musing-card--m08:hover{box-shadow:none!important}
+
+@media (max-width:760px){
+  .musings-page .musing-thumb--digital-room{aspect-ratio:16/9}
+  .musings-page .field-note-sketch--digital-room{aspect-ratio:1.43/1;margin-top:10px}
+  .field-note--m08 .field-note-section p{font-size:.98rem}
+  .field-note--m08 .m08-lesson{padding:16px 17px}
+}
