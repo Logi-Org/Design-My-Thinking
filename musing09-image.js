@@ -2,7 +2,7 @@
 (function(){
   const SELECTOR='.m09-art';
   const BASE='/assets/dmt/m09-b64-small/';
-  const FILES=['00.txt','01.txt','02.txt'];
+  const FILES=['00.txt','01a.txt','01b.txt','02.txt'];
   const EXPECTED_LENGTH=39672;
   let artSrc='';
 
@@ -18,7 +18,7 @@
 
   async function build(){
     const parts=await Promise.all(FILES.map(async(name)=>{
-      const response=await fetch(BASE+name+'?v=20260902a',{cache:'no-store'});
+      const response=await fetch(BASE+name+'?v=20260902b',{cache:'no-store'});
       if(!response.ok) throw new Error('Musing 09 artwork chunk failed: '+name+' '+response.status);
       return (await response.text()).replace(/\s+/g,'');
     }));
