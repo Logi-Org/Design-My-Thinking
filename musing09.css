@@ -1,0 +1,79 @@
+/* Musing 09 — Don't just photograph the wall. */
+.musings-page .musing-thumb--output-pack,
+.musings-page .field-note-sketch--output-pack{
+  background:#fcf4e3!important;
+  overflow:hidden!important;
+  min-height:0!important;
+  box-shadow:none!important;
+}
+.musings-page .musing-thumb--output-pack{
+  height:auto!important;
+  aspect-ratio:4/3;
+  margin:8px 0 18px;
+  border-top:0!important;
+  border-bottom:0!important;
+}
+.musings-page .musing-thumb--output-pack img,
+.musings-page .field-note-sketch--output-pack img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  background:#fcf4e3!important;
+  filter:none!important;
+}
+.musings-page .field-note-sketch--output-pack{
+  aspect-ratio:4/3;
+  transform:rotate(.25deg);
+}
+.field-note--m09 .field-note-body{
+  display:block!important;
+  max-width:930px!important;
+  column-count:2;
+  column-gap:44px;
+  column-fill:balance;
+}
+.field-note--m09 .field-note-section{
+  display:block!important;
+  margin:0 0 26px!important;
+  break-inside:auto;
+}
+.field-note--m09 .field-note-section h3{
+  break-after:avoid-column;
+  -webkit-column-break-after:avoid;
+}
+.field-note--m09 .field-note-section p{font-size:1rem;line-height:1.72}
+.field-note--m09 .field-note-section ul{margin-top:13px;padding-left:1.2rem}
+.field-note--m09 .field-note-section li{margin-bottom:9px;line-height:1.55}
+.field-note--m09 .m09-lesson{
+  break-inside:avoid;
+  margin:20px 0 23px;
+  padding:17px 19px 18px;
+  background:#fff1a9;
+  border:1px solid rgba(39,35,31,.14);
+  box-shadow:4px 5px 0 rgba(39,35,31,.06);
+  font-family:Inter,system-ui,sans-serif;
+  line-height:1.48;
+  transform:rotate(-.35deg);
+}
+.field-note--m09 .m09-lesson strong{font-weight:800}
+.field-note--m09 .field-note-callout{
+  column-span:all;
+  display:block;
+  margin-top:10px;
+  font-family:"Caveat",cursive;
+  font-size:clamp(1.75rem,3.5vw,2.4rem);
+  line-height:1.08;
+}
+.musing-card--m09{box-shadow:none!important}
+.musing-card--m09:hover{box-shadow:none!important}
+
+@media (max-width:760px){
+  .musings-page .musing-thumb--output-pack{aspect-ratio:4/3}
+  .musings-page .field-note-sketch--output-pack{aspect-ratio:4/3;margin-top:10px}
+  .field-note--m09 .field-note-body{column-count:1!important;max-width:100%!important}
+  .field-note--m09 .field-note-section{display:block;margin-bottom:24px!important}
+  .field-note--m09 .field-note-section p{font-size:.98rem}
+  .field-note--m09 .m09-lesson{padding:16px 17px}
+}
