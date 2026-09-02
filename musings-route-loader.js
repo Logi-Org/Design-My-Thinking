@@ -50,7 +50,7 @@
     await loadScript('/musing08.js?v=20260827a');
     await loadScript('/musing08-image.js?v=20260827d');
     await loadScript('/musing09.js?v=20260902a');
-    await loadScript('/musing09-image.js?v=20260902a');
+    await loadScript('/musing09-image.js?v=20260902b');
   } catch (error) {
     console.error(error);
     if (loader) {
