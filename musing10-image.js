@@ -1,9 +1,9 @@
 /* Musing 10 artwork loader — reconstruct the selected sketch from public base64 chunks. */
 (function(){
   const SELECTOR='.m10-art';
-  const BASE='/assets/dmt/m10-b64/';
-  const FILES=['00.txt','01.txt','02.txt','03.txt','04.txt','05.txt','06.txt','07.txt'];
-  const EXPECTED_LENGTH=155860;
+  const BASE='/assets/dmt/m10-b64-small/';
+  const FILES=['00.txt','01.txt','02.txt','03.txt','04.txt'];
+  const EXPECTED_LENGTH=85612;
   let artSrc='';
 
   function apply(root=document){
@@ -19,7 +19,7 @@
 
   async function build(){
     const parts=await Promise.all(FILES.map(async(name)=>{
-      const response=await fetch(BASE+name+'?v=20260916a',{cache:'no-store'});
+      const response=await fetch(BASE+name+'?v=20260916b',{cache:'no-store'});
       if(!response.ok) throw new Error('Musing 10 artwork chunk failed: '+name+' '+response.status);
       return (await response.text()).replace(/\s+/g,'');
     }));
