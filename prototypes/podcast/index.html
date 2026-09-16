@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Podcast — Prototype — Design My Thinking</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A public demonstration of the Podcast prototype: turn source material into a researched, cited conversation you can listen to." />
+  <link rel="canonical" href="https://designmythinking.xyz/prototypes/podcast/" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css?v=20260813b" />
+  <link rel="stylesheet" href="/illustrated-site.css?v=20260815a" />
+  <link rel="stylesheet" href="/prototypes.css?v=20260916c" />
+  <style>
+    .pod-demo{padding:48px 0 78px}.pod-shell{display:grid;grid-template-columns:330px minmax(0,1fr);background:#fbfaf7;border:1px solid rgba(40,34,29,.14);border-radius:18px;overflow:hidden;box-shadow:0 18px 55px rgba(48,38,28,.13);min-height:660px}.pod-list{padding:22px;background:#25211e;color:#fff}.pod-list h3{font-family:"Caveat",cursive;font-size:2rem;margin:0 0 4px}.pod-list>p{font-size:.8rem;color:#c6beb6;line-height:1.45;margin:0 0 18px}.pod-card{display:block;width:100%;text-align:left;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.045);color:#fff;border-radius:12px;padding:14px;margin:0 0 10px;font:inherit;cursor:pointer}.pod-card.active,.pod-card:hover{background:#3a342f;border-color:rgba(255,255,255,.25)}.pod-card strong{display:block;font-size:.94rem;line-height:1.35}.pod-card span{display:block;color:#bdb4ac;font-size:.72rem;margin-top:6px}.pod-workspace{padding:28px}.pod-header{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}.pod-header h2{font-family:Inter,sans-serif;font-size:1.75rem;line-height:1.18;margin:4px 0 8px}.pod-header p{margin:0;color:#6b625b;line-height:1.55;max-width:680px}.pod-badge{font-size:.72rem;font-weight:800;padding:7px 10px;border-radius:99px;background:#e5f2e7;color:#315b39;white-space:nowrap}.pod-player{margin:24px 0 18px;border:1px solid #ddd5cb;background:#fff;border-radius:14px;padding:18px}.pod-player-top{display:flex;align-items:center;gap:13px}.pod-play{width:48px;height:48px;border:0;border-radius:50%;background:#28221d;color:#fff;font-size:1.05rem;cursor:pointer}.pod-track{flex:1}.pod-track strong{font-size:.9rem}.pod-track span{display:block;font-size:.72rem;color:#817870;margin-top:4px}.pod-progress{height:6px;background:#eee8df;border-radius:99px;margin-top:12px;overflow:hidden}.pod-progress i{display:block;width:34%;height:100%;background:#f5d748}.pod-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.pod-panel{border:1px solid #ded7ce;background:#fff;border-radius:14px;padding:19px}.pod-panel h3{font-family:Inter,sans-serif;font-size:1rem;margin:0 0 11px}.pod-focus{font-size:.9rem;line-height:1.55;color:#554d46;background:#fff8e9;border-left:4px solid #f5d748;padding:12px 14px;margin-bottom:14px}.pod-transcript{display:grid;gap:11px}.pod-line{font-size:.88rem;line-height:1.55;color:#514a44}.pod-line b{color:#28221d}.pod-sources{display:grid;gap:8px}.pod-source{padding:10px 11px;border:1px solid #e1dbd3;border-radius:9px;background:#faf8f4}.pod-source strong{display:block;font-size:.82rem}.pod-source span{display:block;font-size:.72rem;color:#857b72;margin-top:3px}.pod-note{font-size:.78rem;line-height:1.5;color:#746b63;margin-top:11px}.pod-safe{display:flex;gap:12px;align-items:flex-start;padding:15px 17px;background:#e9f3f4;border:1px solid rgba(53,109,121,.22);border-radius:12px;margin-bottom:22px;line-height:1.45}.pod-safe strong{display:block}.pod-private{display:flex;justify-content:space-between;gap:22px;align-items:center;margin-top:28px;padding:22px 25px;border:1px dashed rgba(40,34,29,.25);background:rgba(255,248,233,.7)}.pod-private h3{font-family:"Caveat",cursive;font-size:2rem;margin:0 0 5px}.pod-private p{margin:0;line-height:1.5;color:#605850;max-width:700px}.pod-caption{font-size:.78rem;color:#716960;line-height:1.55;margin-top:14px}
+    @media(max-width:900px){.pod-shell{grid-template-columns:1fr}.pod-list{display:flex;gap:10px;overflow:auto}.pod-list h3,.pod-list>p{display:none}.pod-card{min-width:250px;margin:0}.pod-grid{grid-template-columns:1fr}}
+    @media(max-width:660px){.pod-workspace{padding:16px}.pod-header{flex-direction:column}.pod-badge{align-self:flex-start}.pod-private{align-items:flex-start;flex-direction:column}.pod-player-top{align-items:flex-start}.pod-track{min-width:0}}
+  </style>
+</head>
+<body class="prototype-page">
+<header class="site-header"><div class="container nav-inner">
+  <a class="brand" href="/index.html">Design My Thinking</a>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span></button>
+  <nav id="site-nav" class="site-nav" aria-label="Primary navigation"><a href="/index.html#glimpses">Work</a><a href="/approach.html">Approach</a><a href="/musings/">Musings</a><a href="/prototypes/" aria-current="page">Prototypes</a><a href="/about.html">About</a><a href="/contact.html">Contact</a></nav>
+</div></header>
+
+<main class="prototype-main">
+  <section class="prototype-hero"><div class="prototype-container prototype-hero-grid">
+    <div>
+      <span class="prototype-kicker">Prototype · Podcast</span>
+      <h1 class="prototype-title">Turn source material into a <span class="marker-pink">conversation worth listening to.</span></h1>
+      <p class="prototype-lead">Upload material, tell the tool what you want to understand, and let it research across the sources before shaping a cited multi-voice discussion. The goal is not a generic summary. It is a useful conversation you can listen to and inspect.</p>
+      <div class="prototype-actions"><a class="prototype-button" href="#demo">Try the public demo <span aria-hidden="true">↓</span></a><a class="prototype-button prototype-button--dark" href="https://podcast-ten-opal.vercel.app" rel="noopener">Private workspace <span aria-hidden="true">↗</span></a></div>
+      <div class="prototype-meta"><span class="prototype-pill">Next.js</span><span class="prototype-pill">Supabase</span><span class="prototype-pill">OpenAI</span><span class="prototype-pill">Source-aware</span></div>
+    </div>
+    <aside class="prototype-note">
+      <h2>From files to something you can hear.</h2>
+      <div class="prototype-flow">
+        <div class="prototype-flow-step"><b>1</b><span><strong>Add:</strong> bring in PDFs and build a persistent source library.</span></div>
+        <div class="prototype-flow-step"><b>2</b><span><strong>Ask:</strong> define what you are trying to understand, challenge or apply.</span></div>
+        <div class="prototype-flow-step"><b>3</b><span><strong>Research:</strong> compare the evidence, surface tensions and keep citations attached.</span></div>
+        <div class="prototype-flow-step"><b>4</b><span><strong>Listen:</strong> turn the result into a multi-speaker episode while keeping the underlying sources visible.</span></div>
+      </div>
+    </aside>
+  </div></section>
+
+  <section class="prototype-section prototype-section--wash"><div class="prototype-container">
+    <h2 class="prototype-section-heading">What I was testing</h2>
+    <p class="prototype-section-intro">There are plenty of tools that can summarise a document. This prototype asks a different question: can a set of sources become a conversation that is easier to absorb, still grounded in evidence, and useful enough to listen to away from a screen?</p>
+    <div class="prototype-grid">
+      <article class="prototype-card"><span class="prototype-card-badge">Source first</span><h3>Can episodes stay tied to their material?</h3><p>The source files are part of the episode identity, not hidden behind a generic prompt. You can see what an episode was built from and return to the evidence.</p></article>
+      <article class="prototype-card"><span class="prototype-card-badge">Conversation</span><h3>Can synthesis sound less like a report?</h3><p>Different speaker roles can extend, question and pressure-test the material rather than reading a sequence of polished summary paragraphs.</p></article>
+      <article class="prototype-card"><span class="prototype-card-badge">Listenability</span><h3>Would you actually keep listening?</h3><p>The quality bar is not whether audio was generated. It is whether the conversation has enough rhythm, challenge and clarity to be worth 20–45 minutes of attention.</p></article>
+    </div>
+  </div></section>
+
+  <section class="pod-demo" id="demo"><div class="prototype-container">
+    <h2 class="prototype-section-heading">Explore the workflow</h2>
+    <p class="prototype-section-intro">Choose a demonstration episode below. The examples and source names are synthetic. The page uses no private data, makes no model calls and does not connect to the private Podcast database.</p>
+    <div class="pod-safe"><span aria-hidden="true">✓</span><div><strong>Demonstration mode</strong> Everything below runs in the browser. The short “play” sample uses your browser's built-in speech capability where available; it does not call a paid voice API.</div></div>
+
+    <div class="pod-shell">
+      <aside class="pod-list">
+        <h3>Episode shelf</h3>
+        <p>What makes each episode distinct is the material behind it.</p>
+        <button class="pod-card active" data-id="ai"><strong>AI and professional services</strong><span>3 sources · Expert discussion · 18 min</span></button>
+        <button class="pod-card" data-id="workshops"><strong>Designing better strategy workshops</strong><span>4 sources · Deep dive · 24 min</span></button>
+        <button class="pod-card" data-id="decisions"><strong>Decision quality under uncertainty</strong><span>3 sources · Teach me · 16 min</span></button>
+      </aside>
+      <div class="pod-workspace">
+        <div class="pod-header"><div><span class="demo-eyebrow">Sample episode</span><h2 id="podTitle"></h2><p id="podSummary"></p></div><span class="pod-badge">Public demo · $0</span></div>
+        <div class="pod-player"><div class="pod-player-top"><button class="pod-play" id="podPlay" type="button" aria-label="Play browser audio sample">▶</button><div class="pod-track"><strong>Browser audio sample</strong><span id="podTime">~45 sec excerpt · no external call</span><div class="pod-progress"><i></i></div></div></div></div>
+        <div class="pod-focus" id="podFocus"></div>
+        <div class="pod-grid">
+          <section class="pod-panel"><h3>Conversation excerpt</h3><div class="pod-transcript" id="podTranscript"></div></section>
+          <aside class="pod-panel"><h3>Source material</h3><div class="pod-sources" id="podSources"></div><p class="pod-note">In the full app, episode history is searchable by source identity and the evidence/citations remain attached to the prepared discussion.</p></aside>
+        </div>
+      </div>
+    </div>
+
+    <div class="pod-private"><div><h3>The working application stays private.</h3><p>The full workspace contains the persistent PDF library, real generated episodes, audio, usage data and paid generation controls. Its URL can be known, but the application itself is protected by authentication before private content or APIs are available.</p></div><a class="prototype-button prototype-button--dark" href="https://podcast-ten-opal.vercel.app" rel="noopener">Open private workspace ↗</a></div>
+    <p class="pod-caption">The public demonstration is deliberately separated from the working application so a visitor cannot expose source files, trigger generation, consume API credits or reach private episode data.</p>
+  </div></section>
+
+  <section class="prototype-section prototype-section--wash"><div class="prototype-container"><div class="prototype-strip"><strong>Show the provenance.</strong><span>A useful episode should make it easy to understand not only what was asked, but what material the conversation was built from.</span></div></div></section>
+</main>
+
+<footer class="footer"><div class="container footer-inner"><div><a class="brand" href="/index.html">Design My Thinking</a><p>Human-centred thinking, rough edges included. :)</p></div><div><h5>Explore</h5><ul><li><a href="/index.html#glimpses">Work</a></li><li><a href="/approach.html">Approach</a></li><li><a href="/musings/">Musings</a></li><li><a href="/prototypes/">Prototypes</a></li><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li></ul></div></div></footer>
+<script>
+const episodes={
+ ai:{title:'AI and professional services',summary:'A discussion about where AI changes the work itself, where it mainly changes the operating model, and what organisations often underestimate during implementation.',focus:'Your focus: Help me understand where the biggest practical changes are likely to occur, what the strongest evidence says, and what leaders should do differently in the next 12 months.',sources:[['Industry AI outlook.pdf','Market signals and adoption patterns'],['AI implementation notes.pdf','Operating-model observations'],['Workshop synthesis.pdf','Themes, tensions and practical implications']],lines:[['Host','A lot of AI discussion starts with the technology. But if you look across these sources, the recurring issue seems to be work design rather than model capability.'],['Expert','Yes. The strongest common thread is that value appears when teams change decisions, hand-offs and responsibilities around the technology—not when they simply add a tool to the existing process.'],['Sceptic','But that also sounds convenient. Are we mistaking difficult organisational change for evidence that the technology is working?'],['Expert','That is exactly the tension the sources raise. Adoption metrics can look healthy while the underlying economics are still unproven, so the implementation measures need to go beyond usage.']]},
+ workshops:{title:'Designing better strategy workshops',summary:'A source-grounded conversation about moving workshops away from presentation-heavy agendas and towards deliberate moments of exploration, alignment and decision.',focus:'Your focus: Pull out the design choices that most affect whether a strategy workshop produces a real decision rather than a well-facilitated discussion.',sources:[['Facilitation field notes.pdf','Observed workshop patterns'],['Decision design guide.pdf','Decision framing principles'],['Strategy session retro.pdf','Sponsor and participant feedback'],['Workshop methods library.pdf','Exercise and sequencing options']],lines:[['Host','The material keeps returning to the same failure mode: too much content, too little decision architecture.'],['Practitioner','And that changes the facilitator’s job. The question is not “what activity should we run?” It is “what must be true by the end of this block that is not true now?”'],['Sceptic','Does that risk over-engineering the session? Sometimes people simply need to talk.'],['Practitioner','Absolutely. The useful distinction is whether open conversation is the method by design or just what happens because the decision has not been framed clearly enough.']]},
+ decisions:{title:'Decision quality under uncertainty',summary:'A teaching-style episode that connects decision principles across three sources and turns them into a simple mental model for acting without pretending uncertainty has disappeared.',focus:'Your focus: Teach me a practical way to make better decisions when the information is incomplete, without turning the episode into an academic lecture.',sources:[['Decision principles.pdf','Core concepts'],['Risk and uncertainty notes.pdf','Common cognitive traps'],['Leadership examples.pdf','Applied cases']],lines:[['Host','Let’s make this practical. What is the first mistake people make when uncertainty is high?'],['Expert','They wait for confidence that the situation cannot provide. A better move is to separate what must be known before acting from what can be learned through the action itself.'],['Host','So the decision can be reversible even if the environment is uncertain?'],['Expert','Exactly. The sources repeatedly distinguish decision quality from outcome quality. A sensible decision can still produce a bad outcome, which is why the learning loop matters.']]}
+};
+let current='ai';
+function render(id){current=id;const e=episodes[id];document.querySelectorAll('.pod-card').forEach(b=>b.classList.toggle('active',b.dataset.id===id));document.getElementById('podTitle').textContent=e.title;document.getElementById('podSummary').textContent=e.summary;document.getElementById('podFocus').textContent=e.focus;document.getElementById('podSources').innerHTML=e.sources.map(s=>`<div class="pod-source"><strong>${s[0]}</strong><span>${s[1]}</span></div>`).join('');document.getElementById('podTranscript').innerHTML=e.lines.map(l=>`<div class="pod-line"><b>${l[0]}:</b> ${l[1]}</div>`).join('');document.getElementById('podPlay').textContent='▶';}
+document.querySelectorAll('.pod-card').forEach(b=>b.addEventListener('click',()=>{speechSynthesis?.cancel();render(b.dataset.id)}));
+document.getElementById('podPlay').addEventListener('click',()=>{if(!('speechSynthesis' in window)){document.getElementById('podTime').textContent='Browser speech is not available on this device';return;}if(speechSynthesis.speaking){speechSynthesis.cancel();document.getElementById('podPlay').textContent='▶';return;}const text=episodes[current].lines.map(l=>`${l[0]}. ${l[1]}`).join(' ');const u=new SpeechSynthesisUtterance(text);u.rate=.98;u.onend=()=>document.getElementById('podPlay').textContent='▶';speechSynthesis.speak(u);document.getElementById('podPlay').textContent='■';});
+(function(){const toggle=document.querySelector('.nav-toggle');const nav=document.querySelector('#site-nav');if(toggle&&nav){function close(){nav.classList.remove('is-open');toggle.setAttribute('aria-expanded','false')}toggle.addEventListener('click',()=>{const open=nav.classList.toggle('is-open');toggle.setAttribute('aria-expanded',String(open))});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));document.addEventListener('keydown',e=>{if(e.key==='Escape')close()})}})();
+render('ai');
+</script>
+</body>
+</html>
