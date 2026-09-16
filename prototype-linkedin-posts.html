@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LinkedIn Conversation Engine — Prototype — Design My Thinking</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A public demonstration of the LinkedIn Conversation Engine prototype: find worthwhile conversations, shape a point of view and draft useful contributions." />
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=20260813b" />
+  <link rel="stylesheet" href="illustrated-site.css?v=20260815a" />
+  <link rel="stylesheet" href="prototypes.css?v=20260916a" />
+</head>
+<body class="prototype-page">
+<header class="site-header"><div class="container nav-inner">
+  <a class="brand" href="/index.html">Design My Thinking</a>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span></button>
+  <nav id="site-nav" class="site-nav" aria-label="Primary navigation"><a href="/index.html#glimpses">Work</a><a href="/approach.html">Approach</a><a href="/musings/">Musings</a><a href="/prototypes.html" aria-current="page">Prototypes</a><a href="/about.html">About</a><a href="/contact.html">Contact</a></nav>
+</div></header>
+
+<main class="prototype-main">
+  <section class="prototype-hero"><div class="prototype-container prototype-hero-grid">
+    <div>
+      <span class="prototype-kicker">Prototype 01 · LinkedIn Conversation Engine</span>
+      <h1 class="prototype-title">Find the conversations <span class="marker-pink">worth entering.</span></h1>
+      <p class="prototype-lead">A small experiment in making LinkedIn more deliberate. Rather than starting with “what should I post?”, the engine starts with your themes, finds conversations where you may genuinely have something to add, helps you form a point of view, then drafts in a voice you can edit.</p>
+      <div class="prototype-actions"><a class="prototype-button" href="#demo">Try the public demo <span aria-hidden="true">↓</span></a><a class="prototype-button prototype-button--dark" href="https://linkedin-conversation-engine.vercel.app" rel="noopener">Private workspace <span aria-hidden="true">↗</span></a></div>
+      <div class="prototype-meta"><span class="prototype-pill">Next.js</span><span class="prototype-pill">Supabase</span><span class="prototype-pill">OpenAI</span><span class="prototype-pill">Human-approved</span></div>
+    </div>
+    <aside class="prototype-note">
+      <h2>The idea in four moves.</h2>
+      <div class="prototype-flow">
+        <div class="prototype-flow-step"><b>1</b><span><strong>Sense:</strong> scan conversations against themes that matter to you.</span></div>
+        <div class="prototype-flow-step"><b>2</b><span><strong>Decide:</strong> rank where there is a genuine contribution to make.</span></div>
+        <div class="prototype-flow-step"><b>3</b><span><strong>Think:</strong> agree + extend, challenge, or reframe the conversation.</span></div>
+        <div class="prototype-flow-step"><b>4</b><span><strong>Draft:</strong> turn the point of view into editable language. You still decide what gets posted.</span></div>
+      </div>
+    </aside>
+  </div></section>
+
+  <section class="prototype-section prototype-section--wash"><div class="prototype-container">
+    <h2 class="prototype-section-heading">What I was testing</h2>
+    <p class="prototype-section-intro">Most AI writing tools make it easier to produce more content. I was more interested in whether a tool could help someone contribute less often, but with more relevance and a clearer point of view.</p>
+    <div class="prototype-grid">
+      <article class="prototype-card"><span class="prototype-card-badge">Signal</span><h3>What deserves attention?</h3><p>Use themes, freshness, conversation quality and contribution potential to filter down to a small number of worthwhile opportunities.</p></article>
+      <article class="prototype-card"><span class="prototype-card-badge">Thinking</span><h3>What do I actually think?</h3><p>Force a choice between extending, challenging or reframing before asking the model to write. Drafting comes after perspective.</p></article>
+      <article class="prototype-card"><span class="prototype-card-badge">Voice</span><h3>Does it sound like a person?</h3><p>Use source writing and editing history to learn patterns, while keeping every output editable and every LinkedIn action human-approved.</p></article>
+    </div>
+  </div></section>
+
+  <section class="demo-shell" id="demo"><div class="prototype-container">
+    <h2 class="prototype-section-heading">Try the workflow</h2>
+    <p class="prototype-section-intro">This is a deliberately safe public version. The examples are synthetic and the draft options are pre-written. Nothing below calls OpenAI, LinkedIn or the private database.</p>
+    <div class="demo-safety"><span aria-hidden="true">✓</span><div><strong>Demonstration mode</strong> No login, API calls, personal LinkedIn data or paid model usage. Choose an opportunity and explore how the thinking workflow changes the draft.</div></div>
+
+    <div class="demo-layout" aria-label="Interactive LinkedIn Conversation Engine demonstration">
+      <aside class="demo-sidebar">
+        <div class="demo-brand">Conversation<small>ENGINE · DEMO</small></div>
+        <div class="demo-nav"><button class="active" type="button">◉ Today</button><button type="button" disabled>↗ Analyse URL</button><button type="button" disabled>◎ LinkedIn Radar</button><button type="button" disabled>◇ People</button><button type="button" disabled>≈ Voice</button></div>
+        <div class="demo-sidebar-note">Public demo<br>Sample data only<br>No live AI calls</div>
+      </aside>
+      <div class="demo-workspace">
+        <div id="demoListView">
+          <div class="demo-topline"><div><span class="demo-eyebrow">Conversation briefing</span><h2>Three conversations worth a look.</h2><p>Selected from sample data against four demonstration themes.</p></div><span class="demo-status">Demo · $0.00</span></div>
+          <div class="theme-row"><span class="theme-chip">AI & implementation</span><span class="theme-chip">Strategy</span><span class="theme-chip">Collaboration</span><span class="theme-chip">Innovation</span></div>
+          <div class="opportunity-list" id="opportunityList"></div>
+        </div>
+
+        <div class="demo-detail" id="demoDetailView">
+          <button class="detail-back" id="detailBack" type="button">← Back to opportunities</button>
+          <div class="detail-card"><span class="demo-eyebrow">Selected conversation</span><h3 id="detailTitle"></h3><p id="detailSummary"></p></div>
+          <div class="detail-card"><h3>Why this may be worth entering</h3><ul id="detailWhy"></ul></div>
+          <div class="detail-card"><h3>Choose the thinking move</h3><p id="detailAngle"></p><div class="pov-row"><button class="pov-button active" data-mode="agree" type="button">Agree + extend</button><button class="pov-button" data-mode="challenge" type="button">Challenge</button><button class="pov-button" data-mode="reframe" type="button">Reframe</button></div></div>
+          <div class="detail-card"><h3>Draft</h3><div class="draft-box" id="demoDraft"></div><div class="draft-toolbar"><span>Mode: <strong id="draftModeLabel">Agree + extend</strong> · editable in the live workspace</span><button class="demo-reset" id="demoReset" type="button">Start again</button></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-locked"><div><h3>The live version stays private.</h3><p>Your workspace can use live discovery, your own themes and Voice DNA, LinkedIn notification signals and paid AI models. Authentication keeps that away from public visitors and protects API spend.</p></div><a class="prototype-button prototype-button--dark" href="https://linkedin-conversation-engine.vercel.app" rel="noopener">Sign in to private workspace ↗</a></div>
+    <p class="demo-footer-note">The prototype does not scrape LinkedIn or post automatically. LinkedIn-native activity remains human-approved. Public demonstration content on this page is illustrative rather than a representation of current LinkedIn posts.</p>
+  </div></section>
+
+  <section class="prototype-section prototype-section--wash"><div class="prototype-container"><div class="prototype-strip"><strong>Do less, better.</strong><span>The prototype is designed to prefer skipping a weak interaction over manufacturing a generic comment.</span></div></div></section>
+</main>
+
+<footer class="footer"><div class="container footer-inner"><div><a class="brand" href="/index.html">Design My Thinking</a><p>Human-centred thinking, rough edges included. :)</p></div><div><h5>Explore</h5><ul><li><a href="/index.html#glimpses">Work</a></li><li><a href="/approach.html">Approach</a></li><li><a href="/musings/">Musings</a></li><li><a href="/prototypes.html">Prototypes</a></li><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li></ul></div></div></footer>
+<script src="/linkedin-prototype-demo.js?v=20260916a"></script>
+<script>
+(function(){const toggle=document.querySelector('.nav-toggle');const nav=document.querySelector('#site-nav');if(!toggle||!nav)return;function close(){nav.classList.remove('is-open');toggle.setAttribute('aria-expanded','false')}toggle.addEventListener('click',()=>{const open=nav.classList.toggle('is-open');toggle.setAttribute('aria-expanded',String(open))});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));document.addEventListener('keydown',e=>{if(e.key==='Escape')close()})})();
+</script>
+</body>
+</html>
