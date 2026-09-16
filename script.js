@@ -237,6 +237,7 @@
   const path = (pathname.split('/').pop() || '').toLowerCase();
   const isHome = pathname === '/' || pathname === '/index.html';
   const isMusings = pathname === '/musings.html' || pathname === '/musings' || pathname.startsWith('/musings/');
+  const isPrototypes = path === 'prototypes.html' || path === 'prototype-linkedin-posts.html';
 
   function loadCss(href) {
     const base = href.split('?')[0];
@@ -267,11 +268,12 @@
 
   const nav = document.getElementById('site-nav');
   if (nav && !isHome) {
-    const current = path === 'approach.html' ? 'approach' : isMusings ? 'musings' : path === 'about.html' ? 'about' : path === 'contact.html' ? 'contact' : '';
+    const current = path === 'approach.html' ? 'approach' : isMusings ? 'musings' : isPrototypes ? 'prototypes' : path === 'about.html' ? 'about' : path === 'contact.html' ? 'contact' : '';
     nav.innerHTML = [
       '<a href="/index.html#glimpses">Work</a>',
       '<a href="/approach.html"' + (current === 'approach' ? ' aria-current="page"' : '') + '>Approach</a>',
       '<a href="/musings/"' + (current === 'musings' ? ' aria-current="page"' : '') + '>Musings</a>',
+      '<a href="/prototypes.html"' + (current === 'prototypes' ? ' aria-current="page"' : '') + '>Prototypes</a>',
       '<a href="/about.html"' + (current === 'about' ? ' aria-current="page"' : '') + '>About</a>',
       '<a href="/contact.html"' + (current === 'contact' ? ' aria-current="page"' : '') + '>Contact</a>'
     ].join('');
@@ -287,7 +289,7 @@
   document.querySelectorAll('.footer h5').forEach((h) => {
     if (h.textContent.trim().toLowerCase() !== 'explore') return;
     const ul = h.parentElement && h.parentElement.querySelector('ul');
-    if (ul) ul.innerHTML = '<li><a href="/index.html#glimpses">Work</a></li><li><a href="/approach.html">Approach</a></li><li><a href="/musings/">Musings</a></li><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li>';
+    if (ul) ul.innerHTML = '<li><a href="/index.html#glimpses">Work</a></li><li><a href="/approach.html">Approach</a></li><li><a href="/musings/">Musings</a></li><li><a href="/prototypes.html">Prototypes</a></li><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li>';
   });
 
   if (isMusings) {
