@@ -22,7 +22,7 @@
   }
 
   try {
-    const response = await fetch('/musings.html?v=20260902-musing09', { cache: 'no-cache' });
+    const response = await fetch('/musings.html?v=20260916-musing10', { cache: 'no-cache' });
     if (!response.ok) throw new Error('Unable to load Musings source: ' + response.status);
 
     const html = await response.text();
@@ -39,6 +39,7 @@
     loadStyle('/musing07-paper-match.css?v=20260826j');
     loadStyle('/musing08.css?v=20260827d');
     loadStyle('/musing09.css?v=20260902a');
+    loadStyle('/musing10.css?v=20260916a');
     await loadScript('/script.js?v=20260825a');
     await loadScript('/musings-transparent-art.js?v=20260826e');
     await loadScript('/musing06-card-paper-match.js?v=20260826a');
@@ -51,6 +52,8 @@
     await loadScript('/musing08-image.js?v=20260827d');
     await loadScript('/musing09.js?v=20260902a');
     await loadScript('/musing09-image.js?v=20260902b');
+    await loadScript('/musing10.js?v=20260916a');
+    await loadScript('/musing10-image.js?v=20260916b');
   } catch (error) {
     console.error(error);
     if (loader) {
