@@ -12,14 +12,41 @@
   <script>
     (async function(){
       try {
-        const response = await fetch('/prototype-workshop-designer.html?v=20260917-180min', { cache: 'no-cache' });
+        const response = await fetch('/prototype-workshop-designer.html?v=20260917-consistent-shell', { cache: 'no-cache' });
         if (!response.ok) throw new Error('Unable to load Workshop Designer: ' + response.status);
         let html = await response.text();
-        html = html.replace('>Try a worked example<', '>See a Worked Example<');
-        html = html.replace('<button class="button" id="blankBtn">Start from scratch</button>', '<button class="button" id="blankBtn" style="display:none" aria-hidden="true" tabindex="-1">Start from scratch</button>');
-        html = html.replace('function start(which){', "function start(which){which='example';");
-        html = html.replace("A('Commit the next moves','Owners + actions',25,", "A('Commit the next moves','Owners + actions',10,");
-        html = html.replace('</body>', '<script>const blankButton=document.getElementById("blankBtn");if(blankButton)blankButton.remove();<\/script></body>');
+
+        html = html.replace('</head>', `
+<link rel="stylesheet" href="/style.css?v=20260813b" />
+<link rel="stylesheet" href="/illustrated-site.css?v=20260815a" />
+<link rel="stylesheet" href="/prototypes.css?v=20260916c" />
+<style>
+.workshop-prototype{background:#f3ecde;color:#28221d}.workshop-prototype .shell{max-width:1160px;margin:auto;padding:76px 20px 78px}.workshop-prototype .topbar{display:none}.workshop-prototype .landing{grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);gap:54px;align-items:center}.workshop-prototype .landing>.hero{background:transparent;border:0;border-radius:0;box-shadow:none;padding:0}.workshop-prototype .hero .eyebrow{font-family:"Caveat",cursive;font-size:1.35rem;font-weight:700;letter-spacing:.01em;text-transform:none;color:#28221d;margin:0 0 4px}.workshop-prototype .hero h1{font-family:"Caveat",cursive;font-size:clamp(4.1rem,7.2vw,7.3rem);line-height:.86;letter-spacing:-.035em;margin:.08em 0 .22em}.workshop-prototype .lead{font-size:clamp(1.05rem,1.8vw,1.28rem);line-height:1.65;color:#4f4942}.workshop-prototype .marker{background:linear-gradient(transparent 63%,rgba(245,215,72,.88) 63% 89%,transparent 89%)}.workshop-prototype .actions{margin-top:28px}.workshop-prototype .button.primary{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 18px;border:1.5px solid #28221d;border-radius:3px;background:#f5d748;color:#28221d;font-weight:800;box-shadow:4px 5px 0 rgba(40,34,29,.12)}.workshop-prototype .aside{position:relative;background:#fff8e9;color:#28221d;border:1px solid rgba(40,34,29,.15);padding:30px;box-shadow:8px 12px 22px rgba(48,38,28,.12);transform:rotate(1.2deg);clip-path:polygon(1% 1%,99% 0,98.6% 98%,82% 99%,61% 98.3%,37% 100%,1% 98%)}.workshop-prototype .aside::before{content:"";position:absolute;top:-5px;left:38%;width:96px;height:25px;background:rgba(211,182,126,.6);transform:rotate(-4deg)}.workshop-prototype .aside .eyebrow{font-family:"Caveat",cursive;font-size:1.15rem;text-transform:none;letter-spacing:0;color:#28221d!important}.workshop-prototype .aside h2{font-family:"Caveat",cursive;font-size:2.35rem;line-height:1;margin:5px 0 18px}.workshop-prototype .aside p{color:#5c554e}.workshop-prototype .aside-flow div{border-top:0;padding-top:0;gap:13px}.workshop-prototype .aside-flow b{min-width:30px;height:30px;border:1.4px solid #28221d;background:#f5d748}.workshop-prototype .principles{gap:26px;margin-top:54px}.workshop-prototype .principles article{background:#fff8e9;border:1px solid rgba(40,34,29,.15);border-radius:0;box-shadow:6px 9px 16px rgba(48,38,28,.1);padding:24px;min-height:180px}.workshop-prototype .principles strong{display:block;font-family:"Caveat",cursive;font-size:2rem;line-height:1.02;margin-bottom:10px}.workshop-prototype .footer-note{margin:28px 0 0;color:#716960}.workshop-prototype #workspace{padding-top:0}.workshop-prototype .progress{border-radius:4px;background:#fff8e9;border-color:rgba(40,34,29,.15)}.workshop-prototype .progress button.active{background:#28221d}.workshop-prototype .card.step-card,.workshop-prototype .agenda-summary{border-radius:4px;background:#fff8e9;border-color:rgba(40,34,29,.15);box-shadow:6px 9px 16px rgba(48,38,28,.08)}.workshop-prototype .step-header h2,.workshop-prototype .review-hero h2{font-family:"Caveat",cursive;font-size:clamp(3rem,5vw,4.6rem);line-height:.92;letter-spacing:-.02em}.workshop-prototype .step-header .eyebrow{font-family:"Caveat",cursive;font-size:1.25rem;text-transform:none;letter-spacing:0;color:#28221d}.workshop-prototype .mode,.workshop-prototype .activity,.workshop-prototype .panel,.workshop-prototype .field input,.workshop-prototype .field textarea{border-radius:8px}.workshop-prototype .mode.active{border-color:#efa4bb;box-shadow:0 0 0 3px rgba(239,164,187,.16)}.workshop-prototype .review-hero{background:#28221d;border-radius:4px}.workshop-prototype .review-grid article,.workshop-prototype .review-row{border-radius:8px}.workshop-prototype .site-header{background:#f3ecde}
+@media(max-width:900px){.workshop-prototype .landing{grid-template-columns:1fr}.workshop-prototype .aside{max-width:680px}.workshop-prototype .shell{padding-top:48px}}
+@media(max-width:650px){.workshop-prototype .shell{padding-left:14px;padding-right:14px}.workshop-prototype .hero h1{font-size:clamp(3.7rem,18vw,5.3rem)}}
+</style>
+</head>`);
+
+        html = html
+          .replace('<body>','<body class="prototype-page workshop-prototype">')
+          .replace('>Try a worked example<','>See a Worked Example<')
+          .replace('<button class="button" id="blankBtn">Start from scratch</button>','<button class="button" id="blankBtn" style="display:none" aria-hidden="true" tabindex="-1">Start from scratch</button>')
+          .replace('<p class="eyebrow">Workshop Designer</p>','<p class="eyebrow">Prototype 02 · Workshop Designer</p>')
+          .replace('function start(which){',"function start(which){which='example';")
+          .replace("A('Commit the next moves','Owners + actions',25,","A('Commit the next moves','Owners + actions',10,");
+
+        const oldTop = '<div class="shell">\n<header class="topbar"><a class="brand" href="/prototypes.html"><span class="brand-mark">D</span><span>Design My Thinking<small>Prototype shelf</small></span></a><a class="back" href="/prototypes.html">← All prototypes</a></header>';
+        const newTop = '<header class="site-header"><div class="container nav-inner"><a class="brand" href="/index.html">Design My Thinking</a><button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span></button><nav id="site-nav" class="site-nav" aria-label="Primary navigation"><a href="/index.html#glimpses">Work</a><a href="/approach.html">Approach</a><a href="/musings/">Musings</a><a href="/prototypes/" aria-current="page">Prototypes</a><a href="/about.html">About</a><a href="/contact.html">Contact</a></nav></div></header><main class="prototype-main"><div class="shell">';
+        html = html.replace(oldTop,newTop);
+        html = html.replace('</div><div id="toast" class="toast"></div>','</div></main><div id="toast" class="toast"></div>');
+
+        const standardFooter = '<footer class="footer"><div class="container footer-grid"><div><a class="brand" href="/index.html">Design My Thinking</a><p class="muted">Better thinking, clearer decisions and workshops designed around real human beings.</p></div><div><h5>Explore</h5><ul><li><a href="/index.html#glimpses">Work</a></li><li><a href="/approach.html">Approach</a></li><li><a href="/musings/">Musings</a></li><li><a href="/prototypes/">Prototypes</a></li><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li></ul></div><div><h5>Contact</h5><ul><li><a href="mailto:hello@designmythinking.xyz">hello@designmythinking.xyz</a></li><li>Sydney, Australia</li></ul></div></div><div class="container footer-bottom"><small>© 2026 Design My Thinking.</small></div></footer>';
+        const finishingScript = `<script>
+const blankButton=document.getElementById('blankBtn');if(blankButton)blankButton.remove();
+(function(){const toggle=document.querySelector('.nav-toggle');const nav=document.querySelector('#site-nav');if(!toggle||!nav)return;function close(){nav.classList.remove('is-open');toggle.setAttribute('aria-expanded','false')}toggle.addEventListener('click',()=>{const open=nav.classList.toggle('is-open');toggle.setAttribute('aria-expanded',String(open))});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));document.addEventListener('keydown',e=>{if(e.key==='Escape')close()})})();
+<\/script>`;
+        html = html.replace('</body>', standardFooter + finishingScript + '</body>');
+
         document.open();
         document.write(html);
         document.close();
