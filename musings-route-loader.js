@@ -21,6 +21,18 @@
     document.head.appendChild(link);
   }
 
+  function restoreFooterEmail() {
+    const footer = document.querySelector('.footer');
+    if (!footer) return;
+    const emailLink = footer.querySelector('a.__cf_email__, a[href^="/cdn-cgi/l/email-protection"], a[href^="mailto:"]');
+    if (!emailLink) return;
+    const address = ['hello', 'designmythinking.xyz'].join('@');
+    emailLink.textContent = address;
+    emailLink.setAttribute('href', 'mailto:' + address);
+    emailLink.classList.remove('__cf_email__');
+    emailLink.removeAttribute('data-cfemail');
+  }
+
   try {
     const response = await fetch('/musings.html?v=20260916-musing10-fit', { cache: 'no-cache' });
     if (!response.ok) throw new Error('Unable to load Musings source: ' + response.status);
@@ -31,6 +43,7 @@
 
     document.body.className = source.body.className || 'musings-page';
     document.body.innerHTML = source.body.innerHTML;
+    restoreFooterEmail();
 
     loadStyle('/musing07.css?v=20260826a');
     loadStyle('/musing07-polish.css?v=20260826b');
