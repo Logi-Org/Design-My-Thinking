@@ -12,12 +12,13 @@
   <script>
     (async function(){
       try {
-        const response = await fetch('/prototype-workshop-designer.html?v=20260917-worked-example', { cache: 'no-cache' });
+        const response = await fetch('/prototype-workshop-designer.html?v=20260917-180min', { cache: 'no-cache' });
         if (!response.ok) throw new Error('Unable to load Workshop Designer: ' + response.status);
         let html = await response.text();
         html = html.replace('>Try a worked example<', '>See a Worked Example<');
         html = html.replace('<button class="button" id="blankBtn">Start from scratch</button>', '<button class="button" id="blankBtn" style="display:none" aria-hidden="true" tabindex="-1">Start from scratch</button>');
         html = html.replace('function start(which){', "function start(which){which='example';");
+        html = html.replace("A('Commit the next moves','Owners + actions',25,", "A('Commit the next moves','Owners + actions',10,");
         html = html.replace('</body>', '<script>const blankButton=document.getElementById("blankBtn");if(blankButton)blankButton.remove();<\/script></body>');
         document.open();
         document.write(html);
