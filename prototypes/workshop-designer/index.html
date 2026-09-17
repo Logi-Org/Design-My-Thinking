@@ -1,1 +1,32 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Workshop Designer — Design My Thinking</title><meta http-equiv="refresh" content="0; url=/prototype-workshop-designer.html"><link rel="canonical" href="https://designmythinking.xyz/prototypes/workshop-designer/"></head><body><p>Opening Workshop Designer… <a href="/prototype-workshop-designer.html">Continue</a></p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Workshop Designer — Design My Thinking</title>
+  <link rel="canonical" href="https://designmythinking.xyz/prototypes/workshop-designer/" />
+  <style>body{margin:0;font-family:Inter,system-ui,sans-serif;background:#f6f5f1;color:#171717}.loading{min-height:100vh;display:grid;place-items:center;font-weight:700}</style>
+</head>
+<body>
+  <div class="loading">Opening Workshop Designer…</div>
+  <script>
+    (async function(){
+      try {
+        const response = await fetch('/prototype-workshop-designer.html?v=20260917-worked-example', { cache: 'no-cache' });
+        if (!response.ok) throw new Error('Unable to load Workshop Designer: ' + response.status);
+        let html = await response.text();
+        html = html.replace('>Try a worked example<', '>See a Worked Example<');
+        html = html.replace('<button class="button" id="blankBtn">Start from scratch</button>', '<button class="button" id="blankBtn" style="display:none" aria-hidden="true" tabindex="-1">Start from scratch</button>');
+        html = html.replace('function start(which){', "function start(which){which='example';");
+        html = html.replace('</body>', '<script>const blankButton=document.getElementById("blankBtn");if(blankButton)blankButton.remove();<\/script></body>');
+        document.open();
+        document.write(html);
+        document.close();
+      } catch (error) {
+        console.error(error);
+        document.body.innerHTML = '<main style="max-width:720px;margin:80px auto;padding:24px"><h1>Workshop Designer</h1><p>The worked example did not load as expected.</p><p><a href="/prototypes/">Back to Prototypes →</a></p></main>';
+      }
+    })();
+  </script>
+</body>
+</html>
