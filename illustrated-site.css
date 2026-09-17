@@ -46,5 +46,7 @@ body{
 .carpark-sketch svg{display:none!important}
 
 .big-cta{background:transparent}.big-cta .container{background:var(--dmt-yellow);padding:42px 48px;clip-path:polygon(0 7%,12% 1%,27% 8%,43% 2%,58% 8%,74% 1%,89% 7%,100% 2%,100% 94%,87% 99%,69% 94%,52% 100%,31% 94%,13% 99%,0 92%)}
-.footer{background:rgba(255,248,233,.52)}
+.footer{background:rgba(255,248,233,.52);color:var(--dmt-ink)}
+.footer .muted,.footer-bottom{color:var(--dmt-ink)}
+.footer-bottom{border-top-color:rgba(40,34,29,.16)}
 @media(max-width:760px){.site-nav{gap:12px}.page-hero h1{font-size:clamp(3.6rem,16vw,5.4rem)}.musing-thumb{height:155px!important}.big-cta .container{padding:32px 24px}}
