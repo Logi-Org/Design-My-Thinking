@@ -1,1 +1,124 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LinkedIn Conversation Engine — Design My Thinking</title><meta http-equiv="refresh" content="0; url=/prototype-linkedin-posts.html"><link rel="canonical" href="https://designmythinking.xyz/prototypes/linkedin-conversation-engine/"></head><body><p>Opening LinkedIn Conversation Engine… <a href="/prototype-linkedin-posts.html">Continue</a></p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LinkedIn Conversation Engine — Design My Thinking</title>
+  <link rel="canonical" href="https://designmythinking.xyz/prototypes/linkedin-conversation-engine/" />
+  <style>body{margin:0;font-family:Inter,system-ui,sans-serif;background:#f6f5f1;color:#171717}.loading{min-height:100vh;display:grid;place-items:center;font-weight:700}</style>
+</head>
+<body>
+  <div class="loading">Opening LinkedIn Conversation Engine…</div>
+  <script>
+    (async function(){
+      try {
+        const response = await fetch('/prototype-linkedin-posts.html?v=20260917-expanded-demo', { cache: 'no-cache' });
+        if (!response.ok) throw new Error('Unable to load LinkedIn Conversation Engine: ' + response.status);
+        let html = await response.text();
+
+        html = html
+          .replace('href="favicon.png"','href="/favicon.png"')
+          .replace('href="style.css?v=20260813b"','href="/style.css?v=20260813b"')
+          .replace('href="illustrated-site.css?v=20260815a"','href="/illustrated-site.css?v=20260815a"')
+          .replace('href="prototypes.css?v=20260916a"','href="/prototypes.css?v=20260916a"')
+          .replaceAll('href="/prototypes.html"','href="/prototypes/"')
+          .replace('Prototype 01 · LinkedIn Conversation Engine','Prototype 03 · LinkedIn Conversation Engine');
+
+        html = html.replace(
+          '<div class="demo-nav"><button class="active" type="button">◉ Today</button><button type="button" disabled>↗ Analyse URL</button><button type="button" disabled>◎ LinkedIn Radar</button><button type="button" disabled>◇ People</button><button type="button" disabled>≈ Voice</button></div>',
+          '<div class="demo-nav"><button class="active" type="button" data-demo-tab="today">◉ Today</button><button type="button" data-demo-tab="analyse">↗ Analyse URL</button><button type="button" data-demo-tab="radar">◎ LinkedIn Radar</button><button type="button" data-demo-tab="people">◇ People</button><button type="button" data-demo-tab="voice">≈ Voice</button></div>'
+        );
+
+        html = html.replace(
+          '<div class="demo-workspace">\n        <div id="demoListView">',
+          '<div class="demo-workspace">\n        <div class="demo-tab-panel is-active" data-demo-panel="today">\n        <div id="demoListView">'
+        );
+
+        const extraPanels = `
+        </div>
+
+        <div class="demo-tab-panel" data-demo-panel="analyse">
+          <div class="demo-topline"><div><span class="demo-eyebrow">Analyse URL</span><h2>Start with one conversation.</h2><p>Drop in a post you are already looking at and use the engine to work out whether you have something useful to add.</p></div><span class="demo-status">Sample analysis</span></div>
+          <div class="demo-url-box"><span>linkedin.com/posts/sample-ai-operating-model</span><button type="button">Analyse sample</button></div>
+          <div class="demo-feature-grid">
+            <article class="demo-feature-card"><span class="demo-mini-label">What it is saying</span><h3>AI value depends on redesigning the work around it.</h3><p>The sample post argues that copilots alone do not change performance unless decisions, hand-offs and accountabilities also change.</p></article>
+            <article class="demo-feature-card"><span class="demo-mini-label">Your strongest angle</span><h3>Extend from tasks into decision design.</h3><p>Your themes suggest a useful contribution around where judgement should stay human and where AI can remove friction between steps.</p></article>
+            <article class="demo-feature-card"><span class="demo-mini-label">Suggested move</span><h3>Agree + extend</h3><p>Build on the post rather than repeating it: connect workflow redesign to explicit ownership, evidence and measures of value.</p></article>
+          </div>
+          <div class="demo-insight"><strong>Possible opening:</strong> “The useful extension for me is that redesigning the workflow also means redesigning where judgement sits.”</div>
+        </div>
+
+        <div class="demo-tab-panel" data-demo-panel="radar">
+          <div class="demo-topline"><div><span class="demo-eyebrow">LinkedIn Radar</span><h2>A smaller feed, shaped around relevance.</h2><p>Sample signals from people and topics you care about, ranked for whether there is a genuine contribution to make.</p></div><span class="demo-status">4 signals</span></div>
+          <div class="demo-radar-list">
+            <article><span class="demo-avatar">AM</span><div><strong>Alex Morgan · AI transformation</strong><h3>Why adoption stalls after the first wave of copilots</h3><p>Strong overlap with workflow redesign and operating-model change.</p><span class="theme-chip">AI implementation</span></div><b>91</b></article>
+            <article><span class="demo-avatar">SR</span><div><strong>Sam Rivera · Strategy</strong><h3>Strategy offsites need fewer slides and more choices</h3><p>Direct connection to workshop design and decision architecture.</p><span class="theme-chip">Strategy</span></div><b>86</b></article>
+            <article><span class="demo-avatar">JT</span><div><strong>Jordan Taylor · Innovation</strong><h3>Stop measuring innovation by the number of ideas generated</h3><p>Useful opening to discuss experiments, evidence and allocation.</p><span class="theme-chip">Innovation</span></div><b>79</b></article>
+            <article><span class="demo-avatar">KP</span><div><strong>Kai Patel · Collaboration</strong><h3>The hidden cost of unclear decision rights</h3><p>Relevant, but the existing discussion already covers much of your likely contribution.</p><span class="theme-chip">Collaboration</span></div><b>63</b></article>
+          </div>
+        </div>
+
+        <div class="demo-tab-panel" data-demo-panel="people">
+          <div class="demo-topline"><div><span class="demo-eyebrow">People</span><h2>Follow people for a reason.</h2><p>A lightweight watchlist keeps the radar focused on people whose work consistently intersects with your themes.</p></div><span class="demo-status">Sample watchlist</span></div>
+          <div class="demo-people-grid">
+            <article class="demo-person-card"><span class="demo-avatar large">AM</span><h3>Alex Morgan</h3><p>Writes about AI implementation, operating models and the gap between pilots and scaled value.</p><div><span class="theme-chip">AI</span><span class="theme-chip">Operating model</span></div><small>Why follow: often creates openings for practical implementation perspectives.</small></article>
+            <article class="demo-person-card"><span class="demo-avatar large">SR</span><h3>Sam Rivera</h3><p>Strategy practitioner focused on executive choices, planning rhythms and decision quality.</p><div><span class="theme-chip">Strategy</span><span class="theme-chip">Decisions</span></div><small>Why follow: strong overlap with facilitation and strategy workshop work.</small></article>
+            <article class="demo-person-card"><span class="demo-avatar large">JT</span><h3>Jordan Taylor</h3><p>Innovation lead writing about experimentation, portfolio choices and learning systems.</p><div><span class="theme-chip">Innovation</span><span class="theme-chip">Experiments</span></div><small>Why follow: useful bridge between workshop outputs and what happens afterwards.</small></article>
+          </div>
+        </div>
+
+        <div class="demo-tab-panel" data-demo-panel="voice">
+          <div class="demo-topline"><div><span class="demo-eyebrow">Voice</span><h2>Draft like you, not like “LinkedIn”.</h2><p>The live workspace can learn from source writing and edits. This sample shows the kind of guidance the drafting layer can use.</p></div><span class="demo-status">Voice profile</span></div>
+          <div class="demo-voice-grid">
+            <article class="demo-feature-card"><span class="demo-mini-label">Plain-spoken</span><h3>Prefer clear language over performance.</h3><p>Short explanations, ordinary words and no manufactured certainty.</p></article>
+            <article class="demo-feature-card"><span class="demo-mini-label">Practical</span><h3>Move from idea to application.</h3><p>Use an example, a question or a simple mental model people can actually pick up.</p></article>
+            <article class="demo-feature-card"><span class="demo-mini-label">Reflective</span><h3>Make room for nuance.</h3><p>It is fine to say where something is still unresolved rather than forcing a polished conclusion.</p></article>
+            <article class="demo-feature-card"><span class="demo-mini-label">Low-hype</span><h3>Avoid generic AI enthusiasm.</h3><p>Make the specific point. Skip phrases that could have been written under almost any post.</p></article>
+          </div>
+          <div class="demo-voice-example"><div><span>Generic draft</span><p>“Great insights. AI is transforming the way we work and organisations need to embrace the change.”</p></div><div><span>Closer to the target voice</span><p>“The part I keep coming back to is the hand-off between tasks. A better model does not help much if the surrounding decision still has no clear owner.”</p></div></div>
+        </div>`;
+
+        html = html.replace(
+          '        </div>\n      </div>\n    </div>\n\n    <div class="demo-locked">',
+          '        </div>\n' + extraPanels + '\n      </div>\n    </div>\n\n    <div class="demo-locked">'
+        );
+
+        const demoStyles = `
+<style>
+.demo-tab-panel{display:none}.demo-tab-panel.is-active{display:block}.demo-nav button{cursor:pointer}.demo-url-box{display:flex;gap:10px;align-items:center;padding:12px;background:#fff;border:1px solid #dbe2e6;border-radius:12px;margin-bottom:18px}.demo-url-box span{min-width:0;flex:1;color:#65747b;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.demo-url-box button{border:0;border-radius:9px;background:#17242b;color:#fff;font:inherit;font-size:.8rem;font-weight:800;padding:9px 12px}.demo-feature-grid,.demo-people-grid,.demo-voice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.demo-voice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.demo-feature-card,.demo-person-card{background:#fff;border:1px solid #dbe2e6;border-radius:13px;padding:17px}.demo-feature-card h3,.demo-person-card h3{font-family:Inter,sans-serif;font-size:1rem;line-height:1.35;margin:7px 0}.demo-feature-card p,.demo-person-card p{font-size:.86rem;line-height:1.5;color:#66757c}.demo-mini-label{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#5a7380}.demo-insight{margin-top:14px;padding:15px 17px;background:#fff8e9;border-left:4px solid #f5d748;color:#514a44;line-height:1.5}.demo-radar-list{display:grid;gap:10px}.demo-radar-list article{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:13px;align-items:start;background:#fff;border:1px solid #dbe2e6;border-radius:13px;padding:15px}.demo-radar-list h3{font-family:Inter,sans-serif;font-size:.95rem;margin:3px 0 5px}.demo-radar-list p{font-size:.82rem;color:#66757c;margin:0 0 8px}.demo-radar-list strong{font-size:.75rem;color:#51666f}.demo-radar-list b{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#e4f1f4;color:#274b57}.demo-avatar{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#263943;color:#fff;font-size:.72rem;font-weight:800}.demo-avatar.large{width:48px;height:48px;margin-bottom:10px}.demo-person-card small{display:block;border-top:1px solid #e5eaec;margin-top:14px;padding-top:12px;color:#7a898f;line-height:1.45}.demo-voice-example{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.demo-voice-example>div{background:#fff;border:1px solid #dbe2e6;border-radius:13px;padding:17px}.demo-voice-example span{font-size:.72rem;font-weight:800;text-transform:uppercase;color:#66757c}.demo-voice-example p{font-size:.9rem;line-height:1.55;color:#43545b;margin-bottom:0}
+@media(max-width:900px){.demo-sidebar{display:block;padding:12px 14px;overflow-x:auto}.demo-brand,.demo-sidebar-note{display:none}.demo-nav{display:flex;gap:5px;min-width:max-content}.demo-nav button{white-space:nowrap}.demo-feature-grid,.demo-people-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:660px){.demo-feature-grid,.demo-people-grid,.demo-voice-grid,.demo-voice-example{grid-template-columns:1fr}.demo-url-box{align-items:stretch;flex-direction:column}.demo-radar-list article{grid-template-columns:auto minmax(0,1fr)}.demo-radar-list article>b{grid-column:1/-1;width:auto;height:auto;border-radius:8px;padding:5px 8px;justify-self:start}}
+</style>`;
+        html = html.replace('</head>', demoStyles + '</head>');
+
+        const tabScript = `<script>
+(function(){
+  const tabs=[...document.querySelectorAll('[data-demo-tab]')];
+  const panels=[...document.querySelectorAll('[data-demo-panel]')];
+  function selectTab(name){
+    tabs.forEach(b=>b.classList.toggle('active',b.dataset.demoTab===name));
+    panels.forEach(p=>p.classList.toggle('is-active',p.dataset.demoPanel===name));
+    const detail=document.getElementById('demoDetailView');
+    const list=document.getElementById('demoListView');
+    if(name!=='today'&&detail&&list){detail.classList.remove('is-open');list.style.display='block';}
+  }
+  tabs.forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.demoTab)));
+  selectTab('today');
+})();
+<\/script>`;
+        html = html.replace('</body>', tabScript + '</body>');
+
+        const standardFooter = '<footer class="footer"><div class="container footer-grid"><div><a class="brand" href="/index.html">Design My Thinking</a><p class="muted">Better thinking, clearer decisions and workshops designed around real human beings.</p></div><div><h5>Explore</h5><ul><li><a href="/index.html#glimpses">Work</a></li><li><a href="/approach.html">Approach</a></li><li><a href="/musings/">Musings</a></li><li><a href="/prototypes/">Prototypes</a></li><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li></ul></div><div><h5>Contact</h5><ul><li><a href="mailto:hello@designmythinking.xyz">hello@designmythinking.xyz</a></li><li>Sydney, Australia</li></ul></div></div><div class="container footer-bottom"><small>© 2026 Design My Thinking.</small></div></footer>';
+        html = html.replace(/<footer class="footer">[\s\S]*?<\/footer>/, standardFooter);
+
+        document.open();
+        document.write(html);
+        document.close();
+      } catch (error) {
+        console.error(error);
+        document.body.innerHTML = '<main style="max-width:720px;margin:80px auto;padding:24px"><h1>LinkedIn Conversation Engine</h1><p>The public prototype did not load as expected.</p><p><a href="/prototypes/">Back to Prototypes →</a></p></main>';
+      }
+    })();
+  </script>
+</body>
+</html>
