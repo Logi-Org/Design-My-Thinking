@@ -2,8 +2,8 @@
 (function(){
   const SELECTOR='.m11-art';
   const BASE='/assets/dmt/m11-b64/';
-  const FILES=['00.txt','01.txt'];
-  const EXPECTED_LENGTH=95764;
+  const FILES=['00.txt','01.txt','02.txt','03.txt','04.txt','05.txt','06.txt','07.txt','08.txt'];
+  const EXPECTED_LENGTH=70096;
   let artSrc='';
 
   function apply(root=document){
