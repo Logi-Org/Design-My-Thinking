@@ -1,0 +1,80 @@
+/* Musing 11 — Don't close the workshop. Land it. */
+.musings-page .musing-thumb--land-workshop,
+.musings-page .field-note-sketch--land-workshop{
+  background:#fff8e9!important;
+  overflow:visible!important;
+  box-shadow:none!important;
+}
+
+.musings-page .musing-thumb--land-workshop{
+  height:auto!important;
+  min-height:0!important;
+  margin-top:12px;
+  padding:8px 2% 2px;
+  border-top:0;
+  border-bottom:0;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+}
+.musings-page .musing-thumb--land-workshop .m11-art{
+  width:100%;
+  max-width:100%;
+  height:auto!important;
+  display:block;
+  object-fit:contain!important;
+  object-position:center top;
+  margin:0 auto;
+  filter:brightness(1.04) contrast(1.06) saturate(.98);
+  mix-blend-mode:multiply;
+}
+
+.musings-page .field-note-sketch--land-workshop{
+  min-height:0!important;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:4px 0;
+}
+.musings-page .field-note-sketch--land-workshop .m11-art{
+  width:100%;
+  max-width:620px;
+  height:auto!important;
+  display:block;
+  object-fit:contain!important;
+  object-position:center top;
+  margin:0 auto;
+  filter:brightness(1.04) contrast(1.06) saturate(.98);
+  mix-blend-mode:multiply;
+}
+
+.field-note--m11 .field-note-hero{align-items:start}
+.field-note--m11 .field-note-body{max-width:980px}
+.field-note--m11 .field-note-section p{max-width:80ch}
+.field-note--m11 .m11-lesson{
+  margin:22px 0;
+  padding:18px 20px;
+  border-left:6px solid var(--pink);
+  background:rgba(255,76,154,.08);
+  font-size:1.05rem;
+  line-height:1.55;
+}
+.field-note--m11 .m11-question{
+  margin:22px 0;
+  padding:18px 22px;
+  border:2px solid rgba(39,35,31,.7);
+  border-radius:16px 12px 18px 10px;
+  font-family:"Caveat",cursive;
+  font-size:clamp(1.65rem,3.2vw,2.25rem);
+  line-height:1.05;
+  background:#fff8e9;
+  transform:rotate(-.25deg);
+}
+.musing-card--m11{box-shadow:none!important}
+.musing-card--m11:hover{box-shadow:none!important}
+
+@media (max-width:760px){
+  .musings-page .musing-thumb--land-workshop{padding:6px 0 0}
+  .musings-page .musing-thumb--land-workshop .m11-art{width:100%;max-width:100%}
+  .musings-page .field-note-sketch--land-workshop .m11-art{width:100%;max-width:100%}
+}
