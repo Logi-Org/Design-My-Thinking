@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" role="img" aria-labelledby="t d">
+<title id="t">Conversation to live sense-making</title>
+<desc id="d">Hand-drawn loop showing a senior meeting becoming a transcript, synthesis, printed artefact and a better next conversation.</desc>
+<rect width="1200" height="820" fill="#fff8e9"/>
+<g fill="none" stroke="#2f251d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M70 130 Q190 110 305 142"/>
+  <path d="M895 130 Q1018 110 1130 145"/>
+  <rect x="68" y="190" width="285" height="235" rx="28"/>
+  <rect x="458" y="170" width="286" height="250" rx="28"/>
+  <rect x="847" y="190" width="285" height="235" rx="28"/>
+  <path d="M350 306 C405 275 416 274 456 284"/>
+  <path d="M744 283 C790 270 810 274 846 300"/>
+  <path d="M1010 430 C1035 517 980 570 885 581"/>
+  <path d="M847 582 C780 602 739 613 669 620"/>
+  <path d="M530 620 C442 612 375 590 328 548"/>
+  <path d="M318 548 C290 520 275 480 281 436"/>
+</g>
+<g font-family="Caveat, cursive" fill="#2f251d">
+  <text x="600" y="86" text-anchor="middle" font-size="62" font-weight="700">To chair or not to chair?</text>
+  <text x="600" y="130" text-anchor="middle" font-size="31">Turning a senior meeting into live sense-making</text>
+  <text x="210" y="235" text-anchor="middle" font-size="34" font-weight="700">1. Conversation</text>
+  <text x="600" y="215" text-anchor="middle" font-size="34" font-weight="700">2. Transcript + synthesis</text>
+  <text x="990" y="235" text-anchor="middle" font-size="34" font-weight="700">3. Artefact</text>
+</g>
+<g stroke="#2f251d" stroke-width="6" fill="none" stroke-linecap="round">
+  <circle cx="145" cy="325" r="34"/><circle cx="220" cy="300" r="34"/><circle cx="286" cy="328" r="34"/>
+  <path d="M118 394 q27-48 54 0M193 370 q27-48 54 0M259 396 q27-48 54 0"/>
+  <path d="M118 335 q25 15 54 0M192 310 q27 15 55 0M258 337 q28 15 55 0"/>
+  <rect x="520" y="258" width="160" height="100" rx="8"/>
+  <path d="M535 280 h112M535 305 h91M535 330 h106"/>
+  <path d="M684 368 l25 18M515 368 l-25 18"/>
+  <path d="M914 278 h155 v110 h-155z"/>
+  <path d="M938 307 h96M938 334 h80M938 360 h102"/>
+  <path d="M935 405 q55 42 110 0"/>
+</g>
+<g fill="#ff4c9a" opacity=".18">
+  <path d="M103 155 Q225 125 340 155 L330 180 Q220 163 110 182Z"/>
+  <path d="M470 136 Q600 113 724 140 L715 160 Q595 149 476 163Z"/>
+  <path d="M862 155 Q995 128 1128 157 L1118 181 Q1000 165 870 183Z"/>
+</g>
+<g fill="#f6c548" opacity=".32">
+  <ellipse cx="600" cy="530" rx="315" ry="74"/>
+</g>
+<g font-family="Caveat, cursive" fill="#2f251d">
+  <text x="600" y="514" text-anchor="middle" font-size="31">Conversation → transcript → synthesis → artefact</text>
+  <text x="600" y="553" text-anchor="middle" font-size="37" font-weight="700">→ better conversation</text>
+  <text x="600" y="688" text-anchor="middle" font-size="35">AI did not facilitate the meeting.</text>
+  <text x="600" y="728" text-anchor="middle" font-size="42" font-weight="700">It gave the facilitator more leverage.</text>
+  <text x="600" y="780" text-anchor="middle" font-size="25">Listen deeply. Capture lightly. Feed the thinking back into the room.</text>
+</g>
+</svg>
