@@ -1,0 +1,38 @@
+/* Musing 12 — To chair or not to chair? */
+.musings-page .musing-thumb--chair-sensemaking,
+.musings-page .field-note-sketch--chair-sensemaking{
+  background:#fff8e9!important;
+  overflow:hidden!important;
+  box-shadow:none!important;
+}
+.musings-page .musing-thumb--chair-sensemaking{
+  height:auto!important;min-height:0!important;margin-top:10px;padding:6px 1% 0;
+  display:flex;align-items:flex-start;justify-content:center;
+}
+.musings-page .musing-thumb--chair-sensemaking .m12-art{
+  width:100%;height:auto!important;display:block;object-fit:contain!important;mix-blend-mode:multiply;
+}
+.musings-page .field-note-sketch--chair-sensemaking{
+  min-height:0!important;display:flex;align-items:flex-start;justify-content:center;padding:2px 0;
+}
+.musings-page .field-note-sketch--chair-sensemaking .m12-art{
+  width:100%;max-width:640px;height:auto!important;display:block;object-fit:contain!important;mix-blend-mode:multiply;
+}
+.field-note--m12 .field-note-hero{align-items:start}
+.field-note--m12 .field-note-body{max-width:980px}
+.field-note--m12 .field-note-section p{max-width:82ch}
+.field-note--m12 .m12-loop{
+  margin:24px 0;padding:18px 22px;background:rgba(246,197,72,.18);
+  border-left:6px solid #f6c548;font-family:"Caveat",cursive;
+  font-size:clamp(1.6rem,3vw,2.15rem);line-height:1.15;
+}
+.field-note--m12 .m12-lesson{
+  margin:22px 0;padding:18px 20px;border:2px solid rgba(47,37,29,.65);
+  border-radius:14px 18px 12px 20px;background:#fff8e9;
+}
+.musing-card--m12{box-shadow:none!important}
+.musing-card--m12:hover{box-shadow:none!important}
+@media(max-width:760px){
+  .musings-page .musing-thumb--chair-sensemaking{padding:4px 0 0}
+  .musings-page .field-note-sketch--chair-sensemaking .m12-art{max-width:100%}
+}
