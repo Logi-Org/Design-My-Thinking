@@ -19,7 +19,7 @@
 
   async function build(){
     const parts=await Promise.all(FILES.map(async(name)=>{
-      const response=await fetch(BASE+name+'?v=20261004a',{cache:'no-store'});
+      const response=await fetch(BASE+name+'?v=20261005c',{cache:'no-store'});
       if(!response.ok) throw new Error('Musing 12 artwork chunk failed: '+name+' '+response.status);
       return (await response.text()).replace(/\s+/g,'');
     }));
