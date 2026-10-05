@@ -3,7 +3,7 @@
   const SELECTOR='.m12-art';
   const BASE='/assets/dmt/m12-b64/';
   const FILES=['00.txt','01.txt','02.txt','03.txt','04.txt','05.txt'];
-  const EXPECTED_LENGTH=83200;
+  const EXPECTED_LENGTH=112804;
   let artSrc='';
 
   function apply(root=document){
@@ -19,7 +19,7 @@
 
   async function build(){
     const parts=await Promise.all(FILES.map(async(name)=>{
-      const response=await fetch(BASE+name+'?v=20261005c',{cache:'no-store'});
+      const response=await fetch(BASE+name+'?v=20261006a',{cache:'no-store'});
       if(!response.ok) throw new Error('Musing 12 artwork chunk failed: '+name+' '+response.status);
       return (await response.text()).replace(/\s+/g,'');
     }));
