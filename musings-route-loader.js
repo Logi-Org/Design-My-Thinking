@@ -34,7 +34,7 @@
   }
 
   try {
-    const response = await fetch('/musings.html?v=20261005-musing12-restored', { cache: 'no-cache' });
+    const response = await fetch('/musings.html?v=20261006-musing12-approved', { cache: 'no-cache' });
     if (!response.ok) throw new Error('Unable to load Musings source: ' + response.status);
 
     const html = await response.text();
@@ -72,7 +72,7 @@
     await loadScript('/musing11.js?v=20260921a');
     await loadScript('/musing11-image.js?v=20260921a');
     await loadScript('/musing12.js?v=20261003a');
-    await loadScript('/musing12-image.js?v=20261005c');
+    await loadScript('/musing12-image.js?v=20261006a');
   } catch (error) {
     console.error(error);
     if (loader) {
