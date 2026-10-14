@@ -75,12 +75,55 @@
   let lastFocusedEl = null;
 
   const musingRoutes = {
-    'musing-scenarios': { slug: 'scenarios-stretch-thinking', label: 'Scenarios stretch thinking' },
-    'musing-questions': { slug: 'seed-the-question-not-the-answer', label: 'Seed the question, not the answer' },
-    'musing-canvas': { slug: 'the-value-of-a-canvas', label: 'The value of a canvas' },
-    'musing-html': { slug: 'when-post-its-become-wallpaper', label: 'When Post-its become wallpaper' },
-    'musing-reverse-flow': { slug: 'sometimes-the-quiet-should-come-last', label: 'Sometimes the quiet should come last' }
-  };
+  "musing-scenarios": {
+    "slug": "scenarios-stretch-thinking",
+    "label": "Scenarios stretch thinking."
+  },
+  "musing-questions": {
+    "slug": "seed-the-question-not-the-answer",
+    "label": "Seed the question, not the answer."
+  },
+  "musing-canvas": {
+    "slug": "the-value-of-a-canvas",
+    "label": "The value of a canvas."
+  },
+  "musing-html": {
+    "slug": "when-post-its-become-wallpaper",
+    "label": "When Post-its become wallpaper."
+  },
+  "musing-reverse-flow": {
+    "slug": "sometimes-the-quiet-should-come-last",
+    "label": "Sometimes the quiet should come last."
+  },
+  "musing-workshop-memory": {
+    "slug": "let-the-workshop-remember",
+    "label": "Let the workshop remember."
+  },
+  "musing-knowledge-podcast": {
+    "slug": "read-less-hear-more",
+    "label": "Read less. Hear more."
+  },
+  "musing-digital-room": {
+    "slug": "all-in-one-room-all-on-one-board",
+    "label": "All in one room. All on one board."
+  },
+  "musing-output-pack": {
+    "slug": "dont-just-photograph-the-wall",
+    "label": "Don't just photograph the wall."
+  },
+  "musing-workshop-vs-presentation": {
+    "slug": "do-you-really-need-a-workshop",
+    "label": "If all you're doing is presenting, do you really need a workshop?"
+  },
+  "musing-land-the-workshop": {
+    "slug": "dont-close-the-workshop-land-it",
+    "label": "Don't close the workshop. Land it."
+  },
+  "musing-chair-sensemaking": {
+    "slug": "to-chair-or-not-to-chair",
+    "label": "To chair or not to chair?"
+  }
+};
 
   function isMusingsLocation() {
     const pathname = window.location.pathname.toLowerCase();
@@ -301,3 +344,9 @@
     });
   }
 })();
+
+
+/* Full-reading links navigate normally; the surrounding card still opens its field note. */
+document.addEventListener('click', function (event) {
+  if (event.target.closest && event.target.closest('a.musing-open[href]')) event.stopPropagation();
+}, true);

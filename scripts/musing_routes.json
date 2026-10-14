@@ -1,0 +1,134 @@
+[
+  {
+    "number": 1,
+    "id": "musing-scenarios",
+    "slug": "scenarios-stretch-thinking",
+    "title": "Scenarios stretch thinking.",
+    "related": [
+      2,
+      3,
+      10
+    ]
+  },
+  {
+    "number": 2,
+    "id": "musing-questions",
+    "slug": "seed-the-question-not-the-answer",
+    "title": "Seed the question, not the answer.",
+    "related": [
+      1,
+      3,
+      10
+    ]
+  },
+  {
+    "number": 3,
+    "id": "musing-canvas",
+    "slug": "the-value-of-a-canvas",
+    "title": "The value of a canvas.",
+    "related": [
+      2,
+      4,
+      9
+    ]
+  },
+  {
+    "number": 4,
+    "id": "musing-html",
+    "slug": "when-post-its-become-wallpaper",
+    "title": "When Post-its become wallpaper.",
+    "related": [
+      3,
+      8,
+      10
+    ]
+  },
+  {
+    "number": 5,
+    "id": "musing-reverse-flow",
+    "slug": "sometimes-the-quiet-should-come-last",
+    "title": "Sometimes the quiet should come last.",
+    "related": [
+      2,
+      3,
+      8
+    ]
+  },
+  {
+    "number": 6,
+    "id": "musing-workshop-memory",
+    "slug": "let-the-workshop-remember",
+    "title": "Let the workshop remember.",
+    "related": [
+      8,
+      9,
+      12
+    ]
+  },
+  {
+    "number": 7,
+    "id": "musing-knowledge-podcast",
+    "slug": "read-less-hear-more",
+    "title": "Read less. Hear more.",
+    "related": [
+      1,
+      10,
+      12
+    ]
+  },
+  {
+    "number": 8,
+    "id": "musing-digital-room",
+    "slug": "all-in-one-room-all-on-one-board",
+    "title": "All in one room. All on one board.",
+    "related": [
+      4,
+      6,
+      9
+    ]
+  },
+  {
+    "number": 9,
+    "id": "musing-output-pack",
+    "slug": "dont-just-photograph-the-wall",
+    "title": "Don't just photograph the wall.",
+    "related": [
+      6,
+      8,
+      11
+    ]
+  },
+  {
+    "number": 10,
+    "id": "musing-workshop-vs-presentation",
+    "slug": "do-you-really-need-a-workshop",
+    "title": "If all you're doing is presenting, do you really need a workshop?",
+    "related": [
+      2,
+      3,
+      11
+    ]
+  },
+  {
+    "number": 11,
+    "id": "musing-land-the-workshop",
+    "slug": "dont-close-the-workshop-land-it",
+    "title": "Don't close the workshop. Land it.",
+    "related": [
+      6,
+      9,
+      10
+    ]
+  },
+  {
+    "number": 12,
+    "id": "musing-chair-sensemaking",
+    "slug": "to-chair-or-not-to-chair",
+    "title": "To chair or not to chair?",
+    "related": [
+      6,
+      7,
+      8
+    ]
+  }
+]

@@ -62,3 +62,26 @@ For a future addition, Daniel can simply narrate the raw idea or case. The desir
 `Narration → clarify only if essential → synthesise → structure into the relevant schema → create a rough supporting visual → add listing card + template → review → publish.`
 
 The source narration should remain the authority. Editing should sharpen and structure Daniel's thinking, not replace it with generic consultancy language.
+
+## Discovery and full reading pages
+
+Musings remain the primary way to show experience; conventional case studies are not required.
+All 12 current field notes and listing cards now live directly in musings.html.
+The older numbered JavaScript files remain historical sources and are not loaded to create articles.
+
+When publishing or editing a musing:
+
+1. Keep its title, approved sketch and original point of view.
+2. Add a relatable opening question where useful; avoid repeating a title that is already a question.
+3. Include the author byline linked to about.html.
+4. Keep its card's real full-reading link alongside the existing pop-up behaviour.
+5. Update scripts/musing_routes.json for new URLs and related field notes.
+6. Run python scripts/build_musings.py from the repository root (requires lxml).
+7. Commit musings.html, generated musings/index.html, individual reading pages and sitemap.xml together.
+
+The generator serves the complete article text in ordinary HTML, with a visible author biography,
+related articles, canonical URL and matching Article/Breadcrumb structured data.
+It preserves the existing pop-ups on the listing. No publication dates, client outcomes,
+credentials or testimonials should be invented. Approved artwork source assets are copies of
+the same original bytes used by the existing image loaders.
+
