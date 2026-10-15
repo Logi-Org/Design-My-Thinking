@@ -130,5 +130,16 @@
       7,
       8
     ]
+  },
+  {
+    "number": 13,
+    "id": "musing-give-sponsor-reaction",
+    "slug": "give-the-sponsor-something-to-react-to",
+    "title": "Give the sponsor something to react to.",
+    "related": [
+      3,
+      10,
+      11
+    ]
   }
 ]

@@ -1,0 +1,13 @@
+/* Musing 13 — Give the sponsor something to react to. */
+.musings-page .musing-thumb--sponsor-reaction,.musings-page .field-note-sketch--sponsor-reaction{background:#fff8e9!important;box-shadow:none!important;overflow:hidden!important}
+.musings-page .musing-thumb--sponsor-reaction{height:auto!important;min-height:0!important;margin-top:10px;padding:8px 1% 0;display:flex;align-items:center;justify-content:center}
+.musings-page .musing-thumb--sponsor-reaction .m13-art{display:block;width:100%;height:auto!important;object-fit:contain!important;mix-blend-mode:multiply}
+.musings-page .field-note-sketch--sponsor-reaction{min-height:0!important;display:flex;align-items:center;justify-content:center;padding:3px 0}
+.musings-page .field-note-sketch--sponsor-reaction .m13-art{display:block;width:100%;max-width:690px;height:auto!important;object-fit:contain!important;mix-blend-mode:multiply}
+.field-note--m13 .field-note-body{max-width:980px}
+.field-note--m13 .field-note-section p{max-width:84ch}
+.field-note--m13 .m13-emphasis{margin:24px 0;padding:20px 24px;border-left:5px solid #ef2773;background:rgba(239,39,115,.07);font-family:"Caveat",cursive;font-size:clamp(1.5rem,2.8vw,2.15rem);line-height:1.15}
+.field-note--m13 .m13-process-figure{margin:30px 0;padding:12px 12px 8px;background:#fff;border:1px solid rgba(37,35,41,.12);border-radius:10px}
+.field-note--m13 .m13-process-figure img{display:block;width:100%;height:auto;object-fit:contain}
+.field-note--m13 .m13-process-figure figcaption{padding:12px 5px 6px;font-size:.88rem;color:#68666b;text-align:center}
+@media(max-width:760px){.musings-page .field-note-sketch--sponsor-reaction .m13-art{max-width:100%}.field-note--m13 .m13-process-figure{padding:5px}.field-note--m13 .m13-process-figure figcaption{text-align:left}}
