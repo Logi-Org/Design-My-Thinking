@@ -90,6 +90,8 @@ for route in routes:
     else:
         enhancements.append(f'musing{route["number"]:02d}-image.js')
     for path in enhancements:
+        if not (ROOT / path).is_file():
+            continue
         etree.SubElement(head, "script", src="/" + path + "?v=20261014a", defer="defer").text = ""
     body = etree.SubElement(doc, "body", {"class": "musings-page musing-reading-page"})
     header = copy.deepcopy(index.find("body").find("header"))
