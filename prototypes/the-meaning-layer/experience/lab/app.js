@@ -411,7 +411,7 @@
       '<p>Reproducible generated records, candidate discovery, provenance links, concept graph, lexical retrieval, a comparison workbench, browser-local stewardship and automatic tests.</p></div>'+
       '<div><h4>Not yet implemented</h4>'+
       '<p>Unsupervised ontology induction, actual LLM extraction running against enterprise data, authenticated source connectors, real user permissions, governed semantic publication, agentic reasoning, measured causal accuracy and scalable indexing.</p></div></div>'+
-      '<a href="https://github.com/daniellogangill/The-meaning-layer/actions" target="_blank" rel="noopener" class="btn small" style="display:inline-block;margin-top:10px;text-decoration:none">View test runs on GitHub ↗</a></div>';
+      '<a href="../" class="btn small" style="display:inline-block;margin-top:10px;text-decoration:none">Return to prototype →</a></div>';
   }
   function openDocument(id) {
     const r=recordById(id),restricted=data.restricted_metadata.find(x=>x.id===id);
@@ -505,7 +505,7 @@
       $('#content').innerHTML='<div class="panel"><span class="section-flag">DATASET NOT READY</span>'+
         '<h2 style="margin-top:20px">The lab interface is deployed, but its generated data is not available.</h2>'+
         '<p>'+esc(err.message)+'</p><p>This is a build/deployment issue rather than a problem with your browser.</p>'+
-        '<a href="https://github.com/daniellogangill/The-meaning-layer/actions" target="_blank" rel="noopener">Inspect the build run →</a></div>';
+        '<a href="../">Return to prototype →</a></div>';
       $('#datasetStatus').textContent='Dataset unavailable';
     }
   }
