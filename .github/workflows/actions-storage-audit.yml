@@ -1,28 +1,77 @@
-name: Actions storage audit
+name: Actions storage maintenance
 on:
   pull_request:
     paths: ['.github/workflows/actions-storage-audit.yml']
+  push:
+    branches: [main]
+    paths: ['.github/workflows/actions-storage-audit.yml']
+  schedule:
+    - cron: '43 17 * * *'
   workflow_dispatch:
 permissions:
   contents: read
-  actions: read
+concurrency:
+  group: actions-storage-maintenance-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'main' }}
+  cancel-in-progress: false
 jobs:
-  inventory:
+  maintenance:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      actions: write
     steps:
-      - uses: actions/github-script@v7
+      - name: Audit and prune bounded diagnostic artifacts
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b
         with:
           script: |
-            const artifacts = await github.paginate(github.rest.actions.listArtifactsForRepo, {...context.repo, per_page: 100});
-            const live = artifacts.filter(a => !a.expired);
-            const groups = {};
-            for (const a of live) {
-              const g = groups[a.name] ||= {count: 0, bytes: 0};
-              g.count++; g.bytes += a.size_in_bytes;
+            const DAY = 86400000;
+            const now = Date.now();
+            const cleanup = context.ref === 'refs/heads/main' && ['push', 'schedule', 'workflow_dispatch'].includes(context.eventName);
+            const liveArtifacts = async () => (await github.paginate(github.rest.actions.listArtifactsForRepo, {...context.repo, per_page: 100})).filter(a => !a.expired);
+            const artifacts = await liveArtifacts();
+            const sorted = [...artifacts].sort((a,b) => Date.parse(b.created_at)-Date.parse(a.created_at) || b.id-a.id);
+            function policy(name) {
+              if (/^(playwright-report|playwright-regression-evidence|browser-smoke-failure|browser-regression-evidence|unit-test-diagnostics|deterministic-functional-evidence|deployed-functional-evidence)(-\d+)?$/.test(name)) return {days: 2, keep: 1, group: name.replace(/-\d+$/, ''), diagnostic: true};
+              if (/^[a-z0-9-]+-live-verification$/.test(name)) return {days: 2, keep: 0, group: name, diagnostic: true};
+              if (/^(gold[12]-structured-(evaluation|replay)|integrated-release-evidence|staging-supabase-migration-evidence)(-\d+)?$/.test(name)) return {days: 14, keep: 1, group: name.replace(/-\d+$/, ''), diagnostic: false};
+              return null;
             }
-            console.log('STORAGE_TOTAL ' + JSON.stringify({repo: process.env.GITHUB_REPOSITORY, count: live.length, bytes: live.reduce((s,a)=>s+a.size_in_bytes,0)}));
-            for (const [name, g] of Object.entries(groups).sort((a,b)=>b[1].bytes-a[1].bytes)) console.log('STORAGE_GROUP ' + JSON.stringify({name,...g}));
-            for (const a of live.sort((a,b)=>b.size_in_bytes-a.size_in_bytes)) console.log('STORAGE_ARTIFACT ' + JSON.stringify({id:a.id,name:a.name,bytes:a.size_in_bytes,created_at:a.created_at,expires_at:a.expires_at,run_id:a.workflow_run?.id}));
-            const cache = await github.rest.actions.getActionsCacheUsage({...context.repo});
-            console.log('CACHE_USAGE ' + JSON.stringify(cache.data));
+            let diagnosticBytes = 0;
+            const seen = {};
+            const plan = [];
+            for (const a of sorted) {
+              const p = policy(a.name);
+              if (!p) continue; // Includes all market datasets, strategy parameters and deployment artifacts.
+              const rank = (seen[p.group] = (seen[p.group] || 0) + 1);
+              if (p.diagnostic) diagnosticBytes += a.size_in_bytes;
+              const tooOld = now-Date.parse(a.created_at) > p.days*DAY;
+              const overBudget = p.diagnostic && diagnosticBytes > 100*1024*1024;
+              if (rank > p.keep && (tooOld || overBudget)) plan.push(a);
+            }
+            console.log('STORAGE_BEFORE ' + JSON.stringify({count: artifacts.length, bytes: artifacts.reduce((s,a)=>s+a.size_in_bytes,0)}));
+            console.log('CLEANUP_MODE ' + (cleanup ? 'apply' : 'dry-run'));
+            let removedBytes = 0;
+            let removedCount = 0;
+            const runs = new Map();
+            for (const a of plan) {
+              console.log('CLEANUP_CANDIDATE ' + JSON.stringify({id:a.id,name:a.name,bytes:a.size_in_bytes}));
+              if (!cleanup) continue;
+              // Retention controls only completed runs, even when an old branch uploads evidence.
+              const runId = a.workflow_run?.id;
+              if (!runId) { core.warning('Preserved artifact without a workflow run: ' + a.id); continue; }
+              if (!runs.has(runId)) runs.set(runId, (await github.rest.actions.getWorkflowRun({...context.repo,run_id:runId})).data);
+              if (runs.get(runId).status !== 'completed') continue;
+              try {
+                await github.rest.actions.deleteArtifact({...context.repo,artifact_id:a.id});
+                removedBytes += a.size_in_bytes; removedCount++;
+                console.log('DELETED_ARTIFACT ' + a.id);
+              } catch (error) { if (error.status !== 404) throw error; }
+            }
+            const remaining = cleanup ? await liveArtifacts() : artifacts;
+            const bytes = remaining.reduce((s,a)=>s+a.size_in_bytes,0);
+            console.log('STORAGE_AFTER ' + JSON.stringify({count:remaining.length,bytes,removedCount,removedBytes}));
+            await core.summary.addHeading('Actions storage maintenance').addTable([
+              [{data:'Mode',header:true},{data:'Artifacts remaining',header:true},{data:'Bytes remaining',header:true},{data:'Deleted',header:true},{data:'Bytes freed',header:true}],
+              [cleanup?'Apply':'Dry-run',String(remaining.length),String(bytes),String(removedCount),String(removedBytes)]
+            ]).addRaw('\nOnly named diagnostic/evaluation bundles are eligible. Latest evaluation evidence, research datasets, strategy parameters, releases, deployment artifacts, caches and source code are preserved.\n').write();
+            if (bytes > 256*1024*1024) core.setFailed('Artifact storage exceeds the 256 MiB repository budget. Review the inventory; protected research/deployment artifacts were not deleted.');
