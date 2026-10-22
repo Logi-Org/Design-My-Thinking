@@ -164,10 +164,11 @@ for route in routes:
 
 urls = [ORIGIN + path for path in ["/", "/about.html", "/approach.html", "/contact.html", "/musings/",
         "/prototypes/", "/prototypes/linkedin-conversation-engine/", "/prototypes/podcast/",
-        "/prototypes/workshop-designer/", "/principles-lab.html"]]
+        "/prototypes/workshop-designer/", "/prototypes/the-meaning-layer/", "/principles-lab.html"]]
 urls += [ORIGIN + "/musings/" + route["slug"] + "/" for route in routes]
 sitemap = etree.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
 for url in urls:
     etree.SubElement(etree.SubElement(sitemap, "url"), "loc").text = url
 (ROOT / "sitemap.xml").write_bytes(etree.tostring(sitemap, encoding="UTF-8", xml_declaration=True, pretty_print=True))
 print(f"Built {len(routes)} complete article pages, the Musings listing and {len(urls)} sitemap URLs.")
+
