@@ -122,6 +122,10 @@
   "musing-chair-sensemaking": {
     "slug": "to-chair-or-not-to-chair",
     "label": "To chair or not to chair?"
+  },
+  "musing-give-sponsor-reaction": {
+    "slug": "give-the-sponsor-something-to-react-to",
+    "label": "Give the sponsor something to react to."
   }
 };
 
