@@ -11,3 +11,9 @@
 .field-note--m13 .m13-process-figure img{display:block;width:100%;height:auto;object-fit:contain}
 .field-note--m13 .m13-process-figure figcaption{padding:12px 5px 6px;font-size:.88rem;color:#68666b;text-align:center}
 @media(max-width:760px){.musings-page .field-note-sketch--sponsor-reaction .m13-art{max-width:100%}.field-note--m13 .m13-process-figure{padding:5px}.field-note--m13 .m13-process-figure figcaption{text-align:left}}
+
+/* Musing 13 — selected sketch (Option 1): show the complete artwork without cropping. */
+.musings-page .musing-thumb--sponsor-reaction { max-width:100%; background:transparent !important; overflow:visible !important; padding:8px 0 !important; }
+.musings-page .musing-thumb--sponsor-reaction .m13-art { width:auto !important; max-width:100% !important; max-height:205px !important; height:auto !important; object-fit:contain !important; object-position:center !important; border:0 !important; }
+.musings-page .field-note-sketch--sponsor-reaction { background:transparent !important; overflow:visible !important; }
+.musings-page .field-note-sketch--sponsor-reaction .m13-art { width:100% !important; max-width:690px !important; height:auto !important; object-fit:contain !important; }
