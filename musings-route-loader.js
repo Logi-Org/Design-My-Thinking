@@ -73,7 +73,7 @@
     await loadScript('/musing11-image.js?v=20260921a');
     await loadScript('/musing12.js?v=20261003a');
     await loadScript('/musing12-image.js?v=20261006a');
-    loadStyle('/musings-polish.css?v=20261027e');
+    loadStyle('/musings-polish.css?v=20261027g');
     await loadScript('/musings-polish.js?v=20261027f');
   } catch (error) {
     console.error(error);
