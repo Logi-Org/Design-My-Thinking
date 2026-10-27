@@ -126,7 +126,13 @@
   "musing-give-sponsor-reaction": {
     "slug": "give-the-sponsor-something-to-react-to",
     "label": "Give the sponsor something to react to."
-  }
+  },
+  "musing-ai-14": {"slug": "ai-strategy-changing-how-work-gets-done", "label": "Everyone Has an AI Strategy. Who’s Actually Changing How Work Gets Done?"},
+  "musing-ai-15": {"slug": "which-ai-experiments-deserve-to-survive", "label": "Your Organisation Has 47 AI Experiments. Which Three Deserve to Survive?"},
+  "musing-ai-16": {"slug": "ai-saved-hours-where-did-value-go", "label": "AI Saved Us 10,000 Hours. So Where Did the Value Go?"},
+  "musing-ai-17": {"slug": "ai-pilot-worked-organisation-didnt", "label": "The AI Pilot Worked. The Organisation Didn’t."},
+  "musing-ai-18": {"slug": "when-ai-makes-decisions-we-used-to-make", "label": "What Happens When AI Starts Making the Decisions We Used to Make?"},
+  "musing-ai-19": {"slug": "before-you-automate-workflow", "label": "Before You Automate the Workflow, Decide What Work Is Worth Keeping"}
 };
 
   function isMusingsLocation() {

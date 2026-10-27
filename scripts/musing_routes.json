@@ -141,5 +141,71 @@
       10,
       11
     ]
+  },
+  {
+    "number": 14,
+    "id": "musing-ai-14",
+    "slug": "ai-strategy-changing-how-work-gets-done",
+    "title": "Everyone Has an AI Strategy. Who’s Actually Changing How Work Gets Done?",
+    "related": [
+      19,
+      18,
+      15
+    ]
+  },
+  {
+    "number": 15,
+    "id": "musing-ai-15",
+    "slug": "which-ai-experiments-deserve-to-survive",
+    "title": "Your Organisation Has 47 AI Experiments. Which Three Deserve to Survive?",
+    "related": [
+      14,
+      16,
+      13
+    ]
+  },
+  {
+    "number": 16,
+    "id": "musing-ai-16",
+    "slug": "ai-saved-hours-where-did-value-go",
+    "title": "AI Saved Us 10,000 Hours. So Where Did the Value Go?",
+    "related": [
+      15,
+      14,
+      17
+    ]
+  },
+  {
+    "number": 17,
+    "id": "musing-ai-17",
+    "slug": "ai-pilot-worked-organisation-didnt",
+    "title": "The AI Pilot Worked. The Organisation Didn’t.",
+    "related": [
+      11,
+      16,
+      13
+    ]
+  },
+  {
+    "number": 18,
+    "id": "musing-ai-18",
+    "slug": "when-ai-makes-decisions-we-used-to-make",
+    "title": "What Happens When AI Starts Making the Decisions We Used to Make?",
+    "related": [
+      14,
+      19,
+      17
+    ]
+  },
+  {
+    "number": 19,
+    "id": "musing-ai-19",
+    "slug": "before-you-automate-workflow",
+    "title": "Before You Automate the Workflow, Decide What Work Is Worth Keeping",
+    "related": [
+      14,
+      18,
+      15
+    ]
   }
 ]

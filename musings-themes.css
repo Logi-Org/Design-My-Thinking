@@ -1,0 +1,15 @@
+/* Themed Musings index · 2026-10-27 */
+.musing-theme-filters{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:26px;max-width:920px}
+.musing-theme-filter{appearance:none;border:1.5px solid #625a4e;border-radius:999px;background:rgba(255,255,255,.42);color:#28221d;padding:9px 17px;font:600 1.04rem "Caveat",cursive;cursor:pointer;transition:transform .15s,background .15s,border-color .15s}
+.musing-theme-filter:hover{transform:translateY(-2px);background:#fff}
+.musing-theme-filter[aria-pressed="true"]{background:#28221d;color:#fff;border-color:#28221d;box-shadow:inset 0 -3px rgba(239,164,187,.8)}
+.musing-theme-filter:focus-visible{outline:3px solid #e77da3;outline-offset:3px}
+.musing-theme-filter-count{font:500 .9rem Inter,sans-serif;color:#675b50;margin-left:4px}
+.musing-grid>.musing-card[hidden]{display:none!important}
+.musing-card--ai .musing-thumb{background:transparent!important;box-shadow:none!important;overflow:hidden}
+.musing-card--ai .musing-thumb img{display:block;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.field-note--ai .field-note-sketch{display:flex;align-items:center;justify-content:center;min-height:260px;background:transparent!important;box-shadow:none}
+.field-note--ai .field-note-sketch img{display:block;width:100%;height:auto;object-fit:contain;max-height:440px;mix-blend-mode:multiply}
+.field-note--ai .field-note-body p{line-height:1.8}
+.musing-reading-page .field-note--ai .field-note-sketch{min-height:0}
+@media(max-width:640px){.musing-theme-filters{gap:7px;margin-top:20px}.musing-theme-filter{font-size:1rem;padding:8px 13px}.field-note--ai .field-note-sketch{min-height:180px}}
