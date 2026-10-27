@@ -55,7 +55,7 @@
     loadStyle('/musing10.css?v=20260916c');
     loadStyle('/musing11.css?v=20260921a');
     loadStyle('/musing12.css?v=20261003a');
-    await loadScript('/script.js?v=20260825a');
+    await loadScript('/script.js?v=20261027e');
     await loadScript('/musings-transparent-art.js?v=20260826e');
     await loadScript('/musing06-card-paper-match.js?v=20260826a');
     await loadScript('/musing07.js?v=20260826a');
@@ -73,6 +73,8 @@
     await loadScript('/musing11-image.js?v=20260921a');
     await loadScript('/musing12.js?v=20261003a');
     await loadScript('/musing12-image.js?v=20261006a');
+    loadStyle('/musings-polish.css?v=20261027e');
+    await loadScript('/musings-polish.js?v=20261027e');
   } catch (error) {
     console.error(error);
     if (loader) {

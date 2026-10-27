@@ -1,0 +1,20 @@
+/* Shared Musings polish: handwritten colour marks, stable thumbnails, larger reading illustrations. */
+.musings-page .musing-grid > .musing-card h3{display:block!important;background:none!important;align-self:stretch;margin:12px 0 12px!important;position:relative;z-index:1}
+.musing-grid .musing-title-mark{padding:0 .025em .015em;background:linear-gradient(transparent 63%,var(--musing-mark,rgba(245,215,72,.8)) 63% 88%,transparent 88%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.musing-grid > .musing-card:nth-child(4n+1){--musing-mark:rgba(245,215,72,.8)}
+.musing-grid > .musing-card:nth-child(4n+2){--musing-mark:rgba(239,164,187,.72)}
+.musing-grid > .musing-card:nth-child(4n+3){--musing-mark:rgba(159,210,222,.77)}
+.musing-grid > .musing-card:nth-child(4n){--musing-mark:rgba(214,192,238,.76)}
+.musings-page .musing-grid > .musing-card--ai{min-height:625px!important;height:auto!important}
+.musings-page .musing-grid > .musing-card--ai .musing-thumb{position:relative!important;display:block!important;flex:0 0 265px!important;height:265px!important;min-height:265px!important;max-height:265px!important;width:100%!important;margin:8px 0 14px!important;padding:0!important;overflow:hidden!important;background:transparent!important;isolation:isolate;mix-blend-mode:normal!important}
+.musings-page .musing-grid > .musing-card--ai .musing-thumb img{display:block!important;position:absolute!important;inset:0;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center!important;background:transparent!important;mix-blend-mode:multiply!important}
+.musings-page .musing-grid > .musing-card--ai p{position:relative;z-index:1;flex:0 0 auto}
+.musings-page .musing-grid > .musing-card--ai .musing-open{align-self:flex-start}
+.musings-page .field-note--ai .field-note-hero{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:24px!important;align-items:start!important;padding-bottom:36px!important}
+.musings-page .field-note--ai .field-note-hero>div:first-child{max-width:850px}
+.musings-page .field-note--ai .field-note-sketch{box-sizing:border-box;min-height:0!important;width:100%!important;max-width:970px!important;justify-self:center!important;padding:0!important;margin:4px 0 2px!important;overflow:visible!important;transform:none!important;background:transparent!important;box-shadow:none!important;mix-blend-mode:normal!important}
+.musings-page .field-note--ai .field-note-sketch img{display:block!important;width:100%!important;height:auto!important;max-width:100%!important;max-height:none!important;object-fit:contain!important;object-position:center!important;background:transparent!important;filter:none!important;mix-blend-mode:multiply!important}
+/* M09–M11: original cream/white rectangles must not cover the paper. */
+.musings-page :is(.musing-thumb--output-pack,.field-note-sketch--output-pack,.musing-thumb--workshop-vs-presentation,.field-note-sketch--workshop-vs-presentation,.musing-thumb--land-workshop,.field-note-sketch--land-workshop){background:transparent!important;background-color:transparent!important;box-shadow:none!important}
+.musings-page :is(.musing-thumb--output-pack,.field-note-sketch--output-pack,.musing-thumb--workshop-vs-presentation,.field-note-sketch--workshop-vs-presentation,.musing-thumb--land-workshop,.field-note-sketch--land-workshop) img{background:transparent!important;background-color:transparent!important;filter:none!important;mix-blend-mode:multiply!important}
+@media(max-width:760px){.musings-page .musing-grid > .musing-card--ai{min-height:570px!important}.musings-page .musing-grid > .musing-card--ai .musing-thumb{flex-basis:230px!important;height:230px!important;min-height:230px!important;max-height:230px!important}.musings-page .field-note--ai .field-note-hero{gap:16px!important}}
