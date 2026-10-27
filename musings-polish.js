@@ -25,7 +25,7 @@ const selectors=[
  '.musing-thumb--workshop-vs-presentation img','.field-note-sketch--workshop-vs-presentation img',
  '.musing-thumb--land-workshop img','.field-note-sketch--land-workshop img'
 ].join(',');
-const cache=new Map(),seen=new WeakMap();
+const cache=new Map(),seen=new WeakMap(),processedOutputs=new Set();
 const accents={
 14:[[.24,.29,.14,.09,'rgba(245,215,72,.19)'],[.47,.75,.19,.09,'rgba(159,210,222,.14)']],
 15:[[.77,.51,.23,.22,'rgba(239,164,187,.19)'],[.45,.47,.15,.13,'rgba(159,210,222,.13)']],
@@ -69,11 +69,11 @@ async function renderImage(src){
 function polish(img){
  if(!img.matches?.(selectors))return;
  const raw=img.getAttribute('src');
- if(!raw||raw.startsWith('data:')||raw.startsWith('blob:')||seen.get(img)===raw)return;
+ if(!raw||raw.startsWith('blob:')||processedOutputs.has(raw)||seen.get(img)===raw)return;
  seen.set(img,raw);
- const url=new URL(raw,document.baseURI).href;
+ const url=raw.startsWith('data:')?raw:new URL(raw,document.baseURI).href;
  if(!cache.has(url))cache.set(url,renderImage(url).catch(error=>{console.warn('Sketch fallback:',error);return null;}));
- cache.get(url).then(data=>{if(data&&img.getAttribute('src')===raw){img.src=data;img.dataset.paperTransparent='true';}});
+ cache.get(url).then(data=>{if(data&&img.getAttribute('src')===raw){processedOutputs.add(data);img.src=data;img.dataset.paperTransparent='true';}});
 }
 function scan(node){
  if(node.nodeType!==1&&node.nodeType!==9&&node.nodeType!==11)return;

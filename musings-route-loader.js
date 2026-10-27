@@ -74,7 +74,7 @@
     await loadScript('/musing12.js?v=20261003a');
     await loadScript('/musing12-image.js?v=20261006a');
     loadStyle('/musings-polish.css?v=20261027e');
-    await loadScript('/musings-polish.js?v=20261027e');
+    await loadScript('/musings-polish.js?v=20261027f');
   } catch (error) {
     console.error(error);
     if (loader) {
