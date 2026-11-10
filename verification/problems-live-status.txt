@@ -1,2 +1,2 @@
-verified_sha=c5f3a7630168c5f60474193d0be100e15c4b775a
+verified_sha=0d06e6070edefc924ade2ad743bd402515bac5c1
 version=20260821problems4
