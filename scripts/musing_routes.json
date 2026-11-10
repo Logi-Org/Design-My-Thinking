@@ -173,7 +173,8 @@
       15,
       14,
       17
-    ]
+    ],
+    "description": "AI efficiency gains release time, but who decides how it is used? Explore how leaders can turn recovered capacity into deliberate choices and business value."
   },
   {
     "number": 17,
@@ -195,7 +196,8 @@
       14,
       19,
       17
-    ]
+    ],
+    "description": "Before delegating decisions to AI agents, explore how people make them, where policies differ from practice and who owns authority, review and escalation."
   },
   {
     "number": 19,
@@ -206,6 +208,7 @@
       14,
       18,
       15
-    ]
+    ],
+    "description": "Before automating a workflow with AI, question which steps deserve to exist. Explore how teams can stop, combine and redesign work around outcomes that matter."
   }
 ]

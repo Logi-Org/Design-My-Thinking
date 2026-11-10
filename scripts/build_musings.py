@@ -131,6 +131,8 @@ for route in routes:
     question = article.xpath('.//p[@class="field-note-question"]')
     lede = "".join(article.xpath('.//p[@class="field-note-lede"]')[0].itertext())
     description = ("".join(question[0].itertext()) + " " + lede) if question else lede
+    # Keep curated search summaries when regenerating the article pages.
+    description = route.get("description", description)
     image = article.xpath('.//div[contains(@class,"field-note-sketch")]//img/@src')
     if route["number"] <= 5:
         image = ["/assets/dmt/" + {
