@@ -1,6 +1,6 @@
 status=success
-verified_at=2026-11-10T22:16:51Z
-source_sha=f5d1872a12b441dabcf065e546d8fd06c21e4e56
+verified_at=2026-11-10T22:18:00Z
+source_sha=aade4e05792a6056d8eb6d788292359b2cc8a292
 hero_tiered_mockup=present
 after_work_tiered_mockup=present
 after_work_small_text=removed
