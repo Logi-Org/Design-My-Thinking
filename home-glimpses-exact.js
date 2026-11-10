@@ -43,6 +43,7 @@
     img.style.maxHeight='100%';
     img.style.objectFit='contain';
     img.style.display='block';
+    img.style.filter='saturate(0.4) brightness(1.08)';
     host.appendChild(img);
   }
 
