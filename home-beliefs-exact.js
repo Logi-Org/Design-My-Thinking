@@ -19,7 +19,7 @@
     style.id='belief-exact-styles';
     style.textContent=`
       .belief-icon{flex:0 0 126px!important;height:126px!important;background:none!important;mix-blend-mode:normal!important;overflow:visible!important}
-      .belief-exact-image{width:100%;height:100%;object-fit:contain;display:block;mix-blend-mode:normal;transform:scale(2)}
+      .belief-exact-image{width:100%;height:100%;object-fit:contain;display:block;mix-blend-mode:normal;transform:scale(1.6)}
       @media(max-width:700px){.belief-icon{flex-basis:112px!important;height:112px!important}}
     `;
     document.head.appendChild(style);
