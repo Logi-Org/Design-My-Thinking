@@ -81,6 +81,9 @@ for route in routes:
     # A reading page needs only its own image/demo enhancement scripts.
     head = doc.find("head")
     for script in head.xpath('./script[@src]'):
+        # Keep the sitewide Google tag when generating standalone articles.
+        if script.get("src", "").startswith("https://www.googletagmanager.com/gtag/js?"):
+            continue
         head.remove(script)
     enhancements = ["script.js"]
     if route["number"] <= 6:
