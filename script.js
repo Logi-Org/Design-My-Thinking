@@ -326,7 +326,7 @@
       '<a href="/index.html#glimpses">Work</a>',
       '<a href="/approach.html"' + (current === 'approach' ? ' aria-current="page"' : '') + '>Approach</a>',
       '<a href="/musings/"' + (current === 'musings' ? ' aria-current="page"' : '') + '>Musings</a>',
-      '<a href="/prototypes.html"' + (current === 'prototypes' ? ' aria-current="page"' : '') + '>Prototypes</a>',
+      '<a href="/prototypes/"' + (current === 'prototypes' ? ' aria-current="page"' : '') + '>Prototypes</a>',
       '<a href="/about.html"' + (current === 'about' ? ' aria-current="page"' : '') + '>About</a>',
       '<a href="/contact.html"' + (current === 'contact' ? ' aria-current="page"' : '') + '>Contact</a>'
     ].join('');
@@ -342,7 +342,7 @@
   document.querySelectorAll('.footer h5').forEach((h) => {
     if (h.textContent.trim().toLowerCase() !== 'explore') return;
     const ul = h.parentElement && h.parentElement.querySelector('ul');
-    if (ul) ul.innerHTML = '<li><a href="/index.html#glimpses">Work</a></li><li><a href="/approach.html">Approach</a></li><li><a href="/musings/">Musings</a></li><li><a href="/prototypes.html">Prototypes</a></li><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li>';
+    if (ul) ul.innerHTML = '<li><a href="/index.html#glimpses">Work</a></li><li><a href="/approach.html">Approach</a></li><li><a href="/musings/">Musings</a></li><li><a href="/prototypes/">Prototypes</a></li><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li>';
   });
 
   if (isMusings) {

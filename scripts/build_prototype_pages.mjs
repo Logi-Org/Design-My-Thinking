@@ -38,6 +38,7 @@ for (const page of pages) {
   const canonical = origin + '/prototypes/' + page.slug + '/';
   rendered = rendered.replace(/<link\b(?=[^>]*\brel=["']canonical["'])[^>]*>\s*/gi, '');
   rendered = rendered.replace('</head>', '  <link rel="canonical" href="' + canonical + '" />\n</head>');
+  rendered = rendered.replace(/\n?$/, '\n');
   const target = resolve(root, 'prototypes', page.slug, 'index.html');
   if (check) {
     if (await readFile(target, 'utf8') !== rendered) throw new Error('Rebuild required: ' + target);
@@ -47,3 +48,17 @@ for (const page of pages) {
   }
   console.log((check ? 'Checked ' : 'Built ') + '/prototypes/' + page.slug + '/');
 }
+
+// Keep the historical listing URL usable without a thin meta-refresh page.
+// Its existing canonical points to /prototypes/, so both URLs serve the same
+// approved content while search engines consolidate on the directory URL.
+const listing = await readFile(resolve(root, 'prototypes/index.html'), 'utf8');
+const legacyListing = resolve(root, 'prototypes.html');
+if (check) {
+  if (await readFile(legacyListing, 'utf8') !== listing) {
+    throw new Error('Rebuild required: ' + legacyListing);
+  }
+} else {
+  await writeFile(legacyListing, listing);
+}
+console.log((check ? 'Checked ' : 'Built ') + '/prototypes.html');

@@ -35,7 +35,7 @@
           .replace('function start(which){',"function start(which){which='example';")
           .replace("A('Commit the next moves','Owners + actions',25,","A('Commit the next moves','Owners + actions',10,");
 
-        const oldTop = '<div class="shell">\n<header class="topbar"><a class="brand" href="/prototypes.html"><span class="brand-mark">D</span><span>Design My Thinking<small>Prototype shelf</small></span></a><a class="back" href="/prototypes.html">← All prototypes</a></header>';
+        const oldTop = '<div class="shell">\n<header class="topbar"><a class="brand" href="/prototypes/"><span class="brand-mark">D</span><span>Design My Thinking<small>Prototype shelf</small></span></a><a class="back" href="/prototypes/">← All prototypes</a></header>';
         const newTop = '<header class="site-header"><div class="container nav-inner"><a class="brand" href="/index.html">Design My Thinking</a><button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span></button><nav id="site-nav" class="site-nav" aria-label="Primary navigation"><a href="/index.html#glimpses">Work</a><a href="/approach.html">Approach</a><a href="/musings/">Musings</a><a href="/prototypes/" aria-current="page">Prototypes</a><a href="/about.html">About</a><a href="/contact.html">Contact</a></nav></div></header><main class="prototype-main"><div class="shell">';
         html = html.replace(oldTop,newTop);
         html = html.replace('</div><div id="toast" class="toast"></div>','</div></main><div id="toast" class="toast"></div>');
